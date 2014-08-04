@@ -1,0 +1,8 @@
+{
+  "name": "ape-maze",
+  "version": "0.0.1",
+  "description": "Ape Maze",
+  "dependencies": {
+    "socket.io": "~1.0.6"
+  }
+}
