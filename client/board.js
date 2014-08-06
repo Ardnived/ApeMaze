@@ -7,3 +7,13 @@ var direction = {
 	none: { x: 0, y: 0 }
 };
 
+var board = {
+	display: null,
+	init: function() {
+		this.display = canvas.display.line({
+			x: canvas.width / 2,
+			y: canvas.height / 2
+		});
+		this.display.add();
+	}
+};
