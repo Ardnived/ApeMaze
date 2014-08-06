@@ -1,8 +1,13 @@
 
-function avatar() {
+function avatar(parent) {
 	this.speed = 7;
 	this.direction = direction.none;
-	this.parent = board.display;
+	
+	if (typeof parent == 'undefined') {
+		this.parent = board.display;
+	} else {
+		this.parent = parent;
+	}
 	
 	var sprite_data = {
 		origin: { x: "center", y: "center" },
@@ -25,30 +30,40 @@ function avatar() {
 	sprite_data.image = "../resources/img/west.png";
 	this.sprite.west = canvas.display.sprite(sprite_data);
 	
-	this.sprite.south.x = canvas.width / 2;
-	this.sprite.south.y = canvas.height / 2;
 	this.sprite.current = this.sprite.south;
 	this.sprite.current.active = false;
-	this.sprite.current.add();
+	this.parent.addChild(this.sprite.current);
 }
 
 avatar.prototype.move = function(dir) {
-	this.direction = direction[dir];
-	
-	if (this.sprite.current != this.sprite[dir]) {
-		this.parent.removeChild(this.sprite.current, false);
-		this.sprite[dir].x = this.sprite.current.x;
-		this.sprite[dir].y = this.sprite.current.y;
-		this.sprite.current = this.sprite[dir];
-		this.parent.addChild(this.sprite.current);
+	if (this.direction != direction[dir]) {
+		this.direction = direction[dir];
+		
+		if (this.sprite.current != this.sprite[dir]) {
+			this.parent.removeChild(this.sprite.current, false);
+			this.sprite[dir].x = this.sprite.current.x;
+			this.sprite[dir].y = this.sprite.current.y;
+			this.sprite.current = this.sprite[dir];
+			this.parent.addChild(this.sprite.current);
+		}
+		
+		this.sprite.current.active = true;
+		this.on_move(dir);
 	}
-	
-	this.sprite.current.active = true;
+};
+
+avatar.prototype.on_move = function(dir) {
+	// Do Nothing
 };
 
 avatar.prototype.stop = function() {
 	this.direction = direction.none;
 	this.sprite.current.active = false;
+	this.on_stop();
+};
+
+avatar.prototype.on_stop = function() {
+	// Do Nothing
 };
 
 avatar.prototype.update = function() {

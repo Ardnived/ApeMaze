@@ -8,18 +8,29 @@ dispatch.start(8081, 8082);
 /**
  * When a new user connects, handle it.
  */
+var clients = {};
+var autoinc = 0;
+
 var game = dispatch.io.of('/game').on('connection', function(socket) {
-	debug.dispatch("Received Game Connection.");
+	clients[socket] = {
+		name: "",
+		player_id: autoinc
+	};
+	autoinc++;
 	
-	game.emit('message', { hello: 'world' });
-	var name = "";
+	debug.dispatch("Received Game Connection. Player ID:", clients[socket].player_id);
 	
+	socket.emit('meta', { player_id: clients[socket].player_id });
 	socket.on('meta', function(data) {
-		name = data.name;
+		clients[socket].name = data.name;
 	});
 	
-	socket.on('message', function(data) {
-		
+	socket.on('move', function(data) {
+		game.emit('move', data);
+	});
+	
+	socket.on('stop', function(data) {
+		game.emit('stop', data);
 	});
 	
 	socket.on('disconnect', function () {
@@ -32,8 +43,6 @@ var game = dispatch.io.of('/game').on('connection', function(socket) {
  */
 var chat = dispatch.io.of('/chat').on('connection', function(socket) {
 	debug.dispatch("Received Chat Connection.");
-	
-	chat.emit('message', { hello: 'world' });
 	var name = "";
 	
 	socket.on('meta', function(data) {

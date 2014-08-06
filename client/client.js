@@ -29,11 +29,27 @@ oCanvas.domReady(function() {
 	});
 	board.display.addChild(doodad);
 	
-	player = new avatar();
-	player.parent = canvas;
+	player = new avatar(canvas);
+	player.sprite.current.x = canvas.width / 2;
+	player.sprite.current.y = canvas.height / 2;
 	player.update = function() {
 		board.display.x -= this.direction.x * this.speed;
 		board.display.y -= this.direction.y * this.speed;
+	};
+	player.on_move = function(dir) {
+		dispatch.game.emit('move', {
+			x: this.sprite.current.x - board.display.x,
+			y: this.sprite.current.y - board.display.y,
+			direction: dir,
+			player_id: my_player_id
+		});
+	};
+	player.on_stop = function() {
+		dispatch.game.emit('stop', {
+			x: this.sprite.current.x - board.display.x,
+			y: this.sprite.current.y - board.display.y,
+			player_id: my_player_id
+		});
 	};
 	updatelist.push(player);
 	
@@ -43,6 +59,52 @@ oCanvas.domReady(function() {
 		});
 	}).start();
 });
+
+// ===== REMOTE AVATAR MANAGEMENT ===== //
+// TODO: Move this code to somewhere else.
+var avatars = {};
+var my_player_id;
+
+dispatch.game.on('meta', function(data) {
+	my_player_id = data.player_id;
+});
+
+dispatch.game.on('move', function(data) {
+	debug.dispatch('Received Move', data);
+	
+	if (my_player_id == data.player_id) {
+		return;
+	}
+	
+	if (avatars[data.player_id] == null) {
+		avatars[data.player_id] = new avatar();
+		avatars[data.player_id].parent = board.display;
+		updatelist.push(avatars[data.player_id]);
+	}
+	
+	avatars[data.player_id].sprite.current.x = data.x;
+	avatars[data.player_id].sprite.current.y = data.y;
+	avatars[data.player_id].move(data.direction);
+});
+
+dispatch.game.on('stop', function(data) {
+	debug.dispatch('Received Stop', data);
+	
+	if (my_player_id == data.player_id) {
+		return;
+	}
+	
+	if (avatars[data.player_id] == null) {
+		avatars[data.player_id] = new avatar();
+		avatars[data.player_id].parent = board.display;
+		updatelist.push(avatars[data.player_id]);
+	}
+	
+	avatars[data.player_id].sprite.current.x = data.x;
+	avatars[data.player_id].sprite.current.y = data.y;
+	avatars[data.player_id].stop();
+});
+	
 
 // ===== INPUT SETUP ===== //
 document.onkeydown = function (event) {
@@ -76,15 +138,4 @@ document.onkeyup = function (event) {
 			break;
 	}
 };
-
-// ===== SOCKET SETUP =====//
-dispatch.chat.on_message = function(data) {
-	debug.chat("Received", data);
-};
-
-dispatch.game.on_message = function(data) {
-	debug.game("Received", data);
-};
-
-dispatch.init();
 
