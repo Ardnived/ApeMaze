@@ -19,7 +19,7 @@ var dispatch = {
 		dispatch.chat.io.on('message', dispatch.chat.on_message);
 		dispatch.game.io.on('message', dispatch.game.on_message);
 		
-		dispatch.chat.io.emit('meta',{
+		dispatch.chat.io.emit('meta', {
 			name: "testusr"
 		});
 		
