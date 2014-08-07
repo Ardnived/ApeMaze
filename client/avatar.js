@@ -25,7 +25,7 @@ var avatar = {
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
-			.attr({x: 0, y: 0, w: 50, h: 50})
+			.attr({x: 0, y: 0, w: 25, h: 25})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
@@ -198,11 +198,33 @@ var avatar = {
 			avatar.entity.animate(avatar.direction, -1);
 		}
 	},
-	on_moved: function(event) {
+	on_moved: function(old) {
 		// Get all intersections with objects marked as "deathzones"
 		var killed = false;
 		killed != avatar.check_deathzones();
 		killed != avatar.check_mapborders();
+
+		var hitInfo = this.hit("Platform");
+        if(hitInfo) {
+        	for(var i = 0; i < hitInfo.length; ++i) {
+        		var hitObj = hitInfo[i].obj;
+        		if(hitObj.x < avatar.entity.x + avatar.entity.w) {
+        			// Left side
+        			avatar.entity.x = old.x;
+        		} else if(hitObj.x + hitObj.w > avatar.entity.x) {
+        			// Right side
+					avatar.entity.x = old.x;
+        		} else if(hitObj.y + hitObj.h < avatar.entity.y) {
+        			// Bottom
+        			console.log("collide");
+        			avatar.entity.y = old.y;
+        		}
+        	}
+
+            // when hit from left, bottom or right side
+            avatar.entity.x -= avatar.entity._movement.x;
+            avatar.entity._up = false;
+        }
 
 		if (!killed) {
 			dispatch.emit('move', {

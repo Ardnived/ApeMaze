@@ -19,7 +19,7 @@ Crafty.c("Barrier", {
             this.east = Crafty.e("2D, Solid").attr({x: x + w - 1, y: y, w: 1, h:h});
             
             this.north = Crafty.e("2D, Solid").attr({x: x, y: y, w: w, h:1});
-
+                
             this.south = Crafty.e("2D, Solid").attr({x: x, y: y + h - 1, w: w, h: 1});
 
             return this;
