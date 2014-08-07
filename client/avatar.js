@@ -10,6 +10,8 @@ var avatar = {
 		} else {
 			this.init_observer();
 		}
+
+		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
@@ -24,7 +26,8 @@ var avatar = {
 			.bind('NewDirection', this.on_change_direction)
 			.bind('Moved', this.on_moved)
 			.bind('EnterFrame', this.on_enter_frame)
-			.bind('KeyDown', this.on_key_down);
+			.bind('KeyDown', this.on_key_down)
+			.bind('KeyUp', this.on_key_up);
 
 		this.direction = 'East';
 		this.shieldUp = false;
@@ -61,11 +64,20 @@ var avatar = {
 		dispatch.on('move', function(data) {
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
-			avatar.direction = data.direction;
-			avatar.on_receive_direction()
+			avatar.on_receive_direction(data.direction)
 		});
+
+		dispatch.on('stop', function(data){
+			avatar.entity.pauseAnimation();
+			console.log('stop')
+		})
 	},
 	check_deathzones: function() {
+		if (avatar.shieldUp) {
+			// We are shielded and can't be hurt.
+			return false;
+		}
+
 		// Get all intersections with objects marked as "deathzones"
 		var hits = avatar.entity.hit('Deathzone');
 
@@ -136,8 +148,11 @@ var avatar = {
 		}
 		this.animate(avatar.direction, -1);
 	},
-	on_receive_direction: function(){
-		avatar.entity.animate(avatar.direction, -1);
+	on_receive_direction: function(direction){
+		if(direction != avatar.direction){
+			avatar.direction = direction;
+			avatar.entity.animate(avatar.direction, -1);
+		}
 	},
 	on_moved: function(event) {
 		// Get all intersections with objects marked as "deathzones"
@@ -170,6 +185,12 @@ var avatar = {
 			avatar.lastShield = new Date();
 			avatar.shieldCountdown = true;
 			avatar.shield.visible = true;
+		}
+	},
+	on_key_up: function(e){
+		if(e.key == Crafty.keys.LEFT_ARROW || e.key == Crafty.keys.RIGHT_ARROW || e.key == Crafty.keys.UP_ARROW){
+			dispatch.emit('stop', {});
+			avatar.entity.pauseAnimation();
 		}
 	},
 	on_death: function() {
