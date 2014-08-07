@@ -34,6 +34,5 @@ dispatch.on('reset', function(data){
 	avatar.entity.destroy();
 	player.is_controller = data
 	avatar.init();
-	document.getElementById("victory").style.display = "none";
-	document.getElementById("defeat").style.display = "none";
+	document.getElementById("gameover").style.display = "none";
 });
