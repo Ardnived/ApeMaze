@@ -1,7 +1,28 @@
 
-DASH_COOLDOWN = 2000
-SHIELD_DURATION = 2000
-SHIELD_COOLDOWN = 2000
+var DASH_COOLDOWN = 2000;
+var SHIELD_DURATION = 2000;
+var SHIELD_COOLDOWN = 2000;
+
+var AVATAR = {
+	gravity: 0.4,
+	speed: 4,
+	jump: 8.5,
+	color: "#FFFFFF",
+	intensity: 0.0
+};
+
+var FROZEN = {
+	duration: 5000,
+	color: "#00FFFF",
+	intensity: 0.5,
+	gravity: 1.0
+};
+
+var BURNING = {
+	duration: 5000,
+	color: "#CF5300",
+	intensity: 0.5
+};
 
 var avatar = {
 	init: function() {
@@ -22,21 +43,26 @@ var avatar = {
 
 		this.shield.visible = false;
 		this.entity.attach(this.shield);
+
+		this.frozen = false;
+		this.burning = false;
 	},
 	init_controller: function() {
-		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
 			.reel('North', 700, 0, 3, 3)
-			.twoway(4, 8.5)
+			.twoway(AVATAR.speed, AVATAR.jump)
 			.gravity('Floor')
-			.gravityConst(0.4)
+			.gravityConst(AVATAR.gravity)
 			.bind('NewDirection', this.on_change_direction)
 			.bind('Moved', this.on_moved)
 			.bind('EnterFrame', this.update_dash)
 			.bind('EnterFrame', this.update_shield)
+			.bind('EnterFrame', this.update_frozen)
+			.bind('EnterFrame', this.update_burning)
 			.bind('KeyDown', this.on_key_down)
 			.bind('KeyUp', this.on_key_up);
 
@@ -48,7 +74,7 @@ var avatar = {
 		Crafty.viewport.follow(this.entity, 0, 0);
 	}, 
 	init_observer: function() {
-		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
@@ -145,6 +171,69 @@ var avatar = {
 					document.getElementById('shieldText').innerHTML = ("SHIELD READY");
 				} else {
 					document.getElementById('shieldText').innerHTML = ("NEXT SHIELD: " + countdown/1000);
+				}
+			}
+		}
+	},
+	set_frozen: function(active) {
+		if (active == avatar.frozen) {
+			return;
+		}
+		
+		debug.game("Frozen", active);
+		avatar.frozen = active;
+
+		if (avatar.frozen) {
+			avatar.set_burning(false);
+			avatar.frozenStart = new Date();
+			avatar.entity.tint(FROZEN.color, FROZEN.intensity);
+			avatar.entity.gravityConst(FROZEN.gravity);
+		} else {
+			avatar.entity.tint(AVATAR.color, AVATAR.intensity);
+			avatar.entity.gravityConst(AVATAR.gravity);
+		}
+	},
+	update_frozen: function() {
+		if (avatar.frozen) {
+			debug.game("Update Frozen");
+			var countdown = (FROZEN.duration - (new Date() - avatar.frozenStart));
+
+			if (countdown <= 0) {
+				avatar.set_frozen(false);
+			} else {
+				avatar.entity.x += 2;
+				avatar.on_moved();
+			}
+		}
+	},
+	set_burning: function(active) {
+		if (active == avatar.burning) {
+			return;
+		}
+		
+		debug.game("Burning", active);
+		avatar.burning = active;
+
+		if (avatar.burning) {
+			avatar.set_frozen(false);
+			avatar.burningStart = new Date();
+			avatar.entity.tint(BURNING.color, BURNING.intensity);
+		} else {
+			avatar.entity.tint(AVATAR.color, AVATAR.intensity);
+		}
+	},
+	update_burning: function() {
+		if (avatar.burning) {
+			debug.game("Update Burning");
+			var countdown = (BURNING.duration - (new Date() - avatar.burningStart));
+
+			if (countdown <= 0) {
+				avatar.set_burning(false);
+			} else {
+				if (countdown % 1000) {
+					Crafty.trigger('KeyDown', {
+						key: Crafty.keys.W
+					});
 				}
 			}
 		}
