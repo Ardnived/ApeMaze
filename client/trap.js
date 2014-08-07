@@ -36,6 +36,8 @@ var trap = {
 
 dispatch.on('trap', function(data) {
 	trap.list[data.trap_id].activate();
-	avatar.check_deathzones();
+	if(player.is_controller){
+		avatar.check_deathzones();
+	}
 });
 

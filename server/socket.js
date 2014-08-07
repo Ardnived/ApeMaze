@@ -21,9 +21,9 @@ dispatch.io.on('connection', function(socket) {
 	first = false;
 	autoinc++;
 	
-	clients[socket] = client;
+	clients[socket.id] = client;
 
-	debug.dispatch("Received Game Connection. Player ID:", clients[socket].player_id);
+	debug.dispatch("Received Game Connection. Player ID:", clients[socket.id].player_id);
 	
 	// ------------------
 	socket.join(client.room);
@@ -54,9 +54,10 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('gameover', function(data) {
 		dispatch.io.to(client.room).emit('gameover', data);
-		for(var i=0; i<clients.length; i++){
-			clients[i].ready = false
+		for(var key in clients){
+			clients[key].ready = false;
 		}
+		console.log(clients);
 	})
 
 	socket.on('enter', function(data) {
@@ -77,12 +78,16 @@ dispatch.io.on('connection', function(socket) {
 	socket.emit('chats', chat_messages);
 	
 	socket.on('disconnect', function () {
-		delete clients[socket]
+		delete clients[socket.id]
 
 		var allReady = true;
 		for(var key in clients){
 			if(!clients[key].ready)
 				allReady = false;
+		}
+		
+		if(allReady){
+			dispatch.io.to(client.room).emit('reset')
 		}
 	});
 
@@ -98,5 +103,6 @@ dispatch.io.on('connection', function(socket) {
 		if(allReady){
 			dispatch.io.to(client.room).emit('reset')
 		}
+		console.log(clients);
 	})
 });
