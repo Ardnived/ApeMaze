@@ -47,11 +47,7 @@ var board = {
 					trapId += 1;
 				}
 
-				// Falling platforms
-				for(var falling = 0; falling < map.getEntitiesInLayer("falling_platforms").length; ++falling) {
-					var platform = map.getEntitiesInLayer("falling_platforms")[falling];
-					platform.addComponent("FallingPlatform");
-				}
+
 			});
 
 		Crafty.e("2D, Canvas, Color, Movable, Gravity")
