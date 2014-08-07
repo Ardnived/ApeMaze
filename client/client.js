@@ -37,7 +37,7 @@ oCanvas.domReady(function() {
 		board.display.y -= this.direction.y * this.speed;
 	};
 	player.on_move = function(dir) {
-		dispatch.game.emit('move', {
+		dispatch.emit('move', {
 			x: this.sprite.current.x - board.display.x,
 			y: this.sprite.current.y - board.display.y,
 			direction: dir,
@@ -45,7 +45,7 @@ oCanvas.domReady(function() {
 		});
 	};
 	player.on_stop = function() {
-		dispatch.game.emit('stop', {
+		dispatch.emit('stop', {
 			x: this.sprite.current.x - board.display.x,
 			y: this.sprite.current.y - board.display.y,
 			player_id: my_player_id
@@ -65,11 +65,11 @@ oCanvas.domReady(function() {
 var avatars = {};
 var my_player_id;
 
-dispatch.game.on('meta', function(data) {
+dispatch.on('meta', function(data) {
 	my_player_id = data.player_id;
 });
 
-dispatch.game.on('move', function(data) {
+dispatch.on('move', function(data) {
 	debug.dispatch('Received Move', data);
 	
 	if (my_player_id == data.player_id) {
@@ -87,7 +87,7 @@ dispatch.game.on('move', function(data) {
 	avatars[data.player_id].move(data.direction);
 });
 
-dispatch.game.on('stop', function(data) {
+dispatch.on('stop', function(data) {
 	debug.dispatch('Received Stop', data);
 	
 	if (my_player_id == data.player_id) {

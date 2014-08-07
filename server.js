@@ -3,15 +3,15 @@ var dispatch = require("./server/dispatch");
 var debug = require("./shared/debug");
 
 // Initialize the server.
-dispatch.start(8081, 8082);
-//Alvin
+dispatch.start(8081);
+
 /**
  * When a new user connects, handle it.
  */
 var clients = {};
 var autoinc = 0;
 
-var game = dispatch.io.of('/game').on('connection', function(socket) {
+dispatch.io.on('connection', function(socket) {
 	clients[socket] = {
 		name: "",
 		player_id: autoinc
@@ -26,42 +26,14 @@ var game = dispatch.io.of('/game').on('connection', function(socket) {
 	});
 	
 	socket.on('move', function(data) {
-		game.emit('move', data);
+		socket.broadcast.emit('move', data);
 	});
 	
 	socket.on('stop', function(data) {
-		game.emit('stop', data);
+		socket.broadcast.emit('stop', data);
 	});
 	
 	socket.on('disconnect', function () {
 	    // Do Nothing?
-	});
-});
-
-/**
- * When a new user connects, handle it.
- */
-var chat = dispatch.io.of('/chat').on('connection', function(socket) {
-	debug.dispatch("Received Chat Connection.");
-	var name = "";
-	
-	socket.on('meta', function(data) {
-		name = data.name;
-	});
-	
-	socket.on('message', function(data) {
-		chat.emit('message', {
-			from: name,
-			message: data
-		});
-	});
-	
-	socket.on('disconnect', function () {
-		chat.emit('message', {
-			from: "server",
-			message: "A user disconnected."
-		});
-	    
-	    debug.chat("A user disconnected.");
 	});
 });

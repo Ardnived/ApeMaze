@@ -12,7 +12,7 @@ var server;
 /**
  * Initialize an http and socket server.
  */
-exports.start = function(http_port, socket_port) {
+exports.start = function(http_port) {
 	var app = http.createServer(on_http_request);
 	exports.io = socket(app);
 	app.listen(http_port);
@@ -20,9 +20,7 @@ exports.start = function(http_port, socket_port) {
 	debug.dispatch("Waiting for incoming connections...");
 };
 
-
-
-// ==================== PRIVATE ==================== //
+// ==================== HTTP SERVER ==================== //
 /**
  * Handle an incoming request from the client.
  * This does not handle socket request, purely http requests.
