@@ -1,0 +1,17 @@
+
+#chat {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	border: 1px solid gray;
+	padding: 5px;
+
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;
+}
+
+#chat textarea {
+	resize: none;
+	width: 98%;
+}
