@@ -20,13 +20,15 @@ function Trap(id, trigger, threshold) {
 	this.clicked = false;
 	this.threshold = threshold;
 
-	if (player.is_controller) {
-		this.trigger.visible = false;
-	} else {
-		trigger.addComponent("Mouse");
-		trigger.bind("Click", function() {
-			trap.click();
-		});
+	if(trigger != null){
+		if (player.is_controller) {
+			this.trigger.visible = false;
+		} else {
+			trigger.addComponent("Mouse");
+			trigger.bind("Click", function() {
+				trap.click();
+			});
+		}
 	}
 }
 

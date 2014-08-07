@@ -30,7 +30,7 @@ var board = {
 					trapId++;
 				}
 
-
+				PlatformTrap(trapId, 300,0,100,20, 100, 100)
 			});
 
 		/*
