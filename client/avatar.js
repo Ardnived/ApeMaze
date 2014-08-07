@@ -29,10 +29,24 @@ function init_avatar() {
 			})
 			.bind('Moved', function(event) {
 				if (player.is_controller) {
-					dispatch.emit('move', {
-						x: this.x,
-						y: this.y
-					});
+					// Get all intersections with objects marked as "deathzones"
+					var hits = this.hit('Deathzone');
+
+					if (hits) {
+						// If we had any hits, loop through them, and make sure they are visible.
+						for (var i = 0; i < hits.length; i++) {
+							console.log("Hit", hits[i]);
+							if (hits[i].obj.visible) {
+								avatar.on_death();
+								break;
+							}
+						}
+					} else {
+						dispatch.emit('move', {
+							x: this.x,
+							y: this.y
+						});
+					}
 				}
 			})
 			.bind('EnterFrame', function(){
@@ -109,6 +123,22 @@ function init_avatar() {
 			shield.x = avatar.x - 15;
 			shield.y = avatar.y - 15;
 			avatar.attach(shield);
+
+			avatar.on_death = function() {
+				console.log("Player died");
+
+				if (player.is_controller) {
+					/*
+					this.x = 0;
+					this.y = 200;
+					dispatch.emit('move', {
+						x: 0,
+						y: 200,
+					});
+					*/
+					dispatch.emit('gameover', { controller_won: false });
+				}
+			};
 	} else {
 		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
 			.attr({x: 0, y: 0, w: 50, h: 50})

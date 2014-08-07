@@ -42,14 +42,12 @@ dispatch.io.on('connection', function(socket) {
 	});
 	
 	socket.on('trap', function(data) {
-		// TODO: This is hard coded.
-		if (avatar.x > 220 && avatar.x < 285 && avatar.y > 150 && avatar.y < 250) {
-			socket.broadcast.to(client.room).emit('death', {});
-		}
-		// ------
-
 		dispatch.io.to(client.room).emit('trap', data);
 	});
+
+	socket.on('gameover', function(data) {
+		dispatch.io.to(client.room).emit('gameover', data);
+	})
 
 	socket.on('enter', function(data) {
 		socket.leave(room);

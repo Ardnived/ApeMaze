@@ -12,7 +12,7 @@ traps[0] = Crafty.e('Floor, 2D, Canvas, Color, Mouse')
 		}
 	});
 
-var flame = Crafty.e("2D, DOM, SpriteAnimation, FireSprite")
+var flame = Crafty.e("2D, DOM, SpriteAnimation, FireSprite, Deathzone")
 	.attr({x: traps[0].x - 5, y: traps[0].y - 30, w: 35, h: 35})
 	.reel('Burning', 600, 0, 0, 6)
 	.animate('Burning', -1);
@@ -23,7 +23,7 @@ traps[0].activate = function() {
 	flame.visible = true;
 	this.timeout(function() {
 		flame.visible = false;
-	}, 1000);
+	}, 3000);
 }
 
 dispatch.on('trap', function(data) {

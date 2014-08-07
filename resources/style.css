@@ -1,4 +1,8 @@
 
+body {
+	font-family: 'Roboto Slab', serif;
+}
+
 #chat {
 	position: absolute;
 	bottom: 0;
@@ -14,4 +18,32 @@
 #chat textarea {
 	resize: none;
 	width: 98%;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	background: white;
+	opacity: 0.5;
+
+	text-align: center;
+	font-size: 24px;
+
+	display: none;
+}
+
+.overlay .title {
+	font-size: 80px;
+}
+
+#victory strong {
+	color: green;
+}
+
+#defeat strong {
+	color: darkred;
 }
