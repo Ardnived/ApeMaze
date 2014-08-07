@@ -10,6 +10,18 @@ var avatar = {
 		} else {
 			this.init_observer();
 		}
+
+		this.shieldUp = false;
+		this.dashCountdown = false;
+		this.lastDash = 0;
+		this.shieldCountdown = false;
+		this.lastShield = 0;
+
+		this.shield = Crafty.e("2D, Canvas, CircleSprite")
+			.attr({x: this.entity.x - 15, y: this.entity.y - 15, w: 80, h: 80});
+
+		this.shield.visible = false;
+		this.entity.attach(this.shield);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
@@ -23,29 +35,15 @@ var avatar = {
 			.gravityConst(0.4)
 			.bind('NewDirection', this.on_change_direction)
 			.bind('Moved', this.on_moved)
-			.bind('EnterFrame', this.update)
+			.bind('EnterFrame', this.update_dash)
+			.bind('EnterFrame', this.update_shield)
 			.bind('KeyDown', this.on_key_down)
 			.bind('KeyUp', this.on_key_up);
 
 		this.direction = 'East';
-		this.shieldUp = false;
-		this.dashCountdown = false;
-		this.lastDash = 0;
-		this.shieldCountdown = false;
-		this.lastShield = 0;
-
-		this.shield = Crafty.e("2D, Canvas, CircleSprite")
-			.attr({x: 0, y: 0, w: 80, h: 80});
-
-		this.shield.visible = false;
-		
 		document.getElementById('dashText').style.display = ''
 		document.getElementById('shieldText').style.display = ''
 		document.getElementById('observerHint').style.display = 'none'
-
-		this.shield.x = this.entity.x - 15;
-		this.shield.y = this.entity.y - 15;
-		this.entity.attach(this.shield);
 
 		Crafty.viewport.follow(this.entity, 0, 0);
 	}, 
@@ -56,8 +54,9 @@ var avatar = {
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
 			.reel('North', 700, 0, 3, 3)
-			.bind('KeyDown', function(e){
-				if(e.key == Crafty.keys.SPACE){
+			.bind('EnterFrame', this.update_shield)
+			.bind('KeyDown', function(e) {
+				if (e.key == Crafty.keys.SPACE) {
 					Crafty.viewport.follow(avatar.entity, 0, 0);
 				}
 			});
@@ -67,6 +66,8 @@ var avatar = {
 			avatar.entity.y = data.y;
 			avatar.on_receive_direction(data.direction)
 		});
+
+		dispatch.on('shield', avatar.use_shield);
 
 		dispatch.on('stop', function(data){
 			avatar.entity.pauseAnimation();
@@ -78,19 +79,17 @@ var avatar = {
 		document.getElementById('observerHint').style.display = ''
 		Crafty.viewport.mouselook(true);
 	},
+	/*
 	update: function() {
 		//move colliding movable objects
-		/*var hitDetection = this.hit('Movable');
+		var hitDetection = this.hit('Movable');
 		if (hitDetection){
 			if (this.isDown('RIGHT_ARROW'))
 				hitDetection[0].obj.x += 4;
 			else if (this.isDown('LEFT_ARROW'))
 				hitDetection[0].obj.x -= 4;
-		}*/
-
-		avatar.update_dash();
-		avatar.update_shield();
 	},
+	*/
 	use_dash: function() {
 		debug.game("Activate Dash");
 		if (avatar.direction == 'East') {
@@ -104,6 +103,8 @@ var avatar = {
 
 		avatar.lastDash = new Date();
 		avatar.dashCountdown = true;
+
+		avatar.on_moved();
 	},
 	update_dash: function() {
 		if (avatar.dashCountdown) {
@@ -122,6 +123,8 @@ var avatar = {
 		avatar.lastShield = new Date();
 		avatar.shieldCountdown = true;
 		avatar.shield.visible = true;
+
+		dispatch.emit('shield');
 	},
 	update_shield: function() {
 		if (avatar.shieldCountdown) {
@@ -203,8 +206,8 @@ var avatar = {
 
 		if (!killed) {
 			dispatch.emit('move', {
-				x: this.x,
-				y: this.y,
+				x: avatar.entity.x,
+				y: avatar.entity.y,
 				direction: avatar.direction,
 			});
 		}
