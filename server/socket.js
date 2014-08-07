@@ -1,6 +1,7 @@
 var dispatch = require("../server/dispatch");
 var avatar = require("../server/avatar");
 var debug = require("../shared/debug");
+var trap = require("../server/trap");
 
 /**
  * When a new user connects, handle it.
@@ -52,6 +53,22 @@ dispatch.io.on('connection', function(socket) {
 	});
 	
 	socket.on('trap', function(data) {
+		data.activate = false;
+
+		if(data.trap_id in trap.traps) {
+			trap.traps[data.trap_id].clicks += 1;
+		} else {
+			trap.traps[data.trap_id] = {
+				clicks: 1,
+				threshold: data.threshold
+			};
+		}
+
+		// Activate the trap
+		if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold) {
+			data.activate = true;
+		}
+
 		dispatch.io.to(client.room).emit('trap', data);
 	});
 
@@ -60,6 +77,7 @@ dispatch.io.on('connection', function(socket) {
 		for(var key in clients){
 			clients[key].ready = false;
 		}
+		gameStarted = false;
 	})
 
 	socket.on('enter', function(data) {
@@ -91,6 +109,9 @@ dispatch.io.on('connection', function(socket) {
 
 	
 	function checkReadyAndAssignPlayers(){
+		if(gameStarted){
+			return;
+		}
 		var allReady = true;
 		var controllers = []
 		var observers = []
@@ -124,6 +145,7 @@ dispatch.io.on('connection', function(socket) {
 			for(var socketID in clients){
 				sockets[socketID].emit('reset', clients[socketID].is_controller)
 			}
+			gameStarted = true;
 		}
 	}
 
