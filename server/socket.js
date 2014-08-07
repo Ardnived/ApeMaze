@@ -1,5 +1,6 @@
 var dispatch = require("../server/dispatch");
 var avatar = require("../server/avatar");
+var game = require("../server/game");
 var debug = require("../shared/debug");
 var trap = require("../server/trap");
 
@@ -73,6 +74,8 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	socket.on('gameover', function(data) {
+		game.gameover = true;
+		game.controller_won = data.controller_won;
 		dispatch.io.to(client.room).emit('gameover', data);
 		for(var key in clients){
 			clients[key].ready = false;
@@ -144,6 +147,14 @@ dispatch.io.on('connection', function(socket) {
 
 		checkReadyAndAssignPlayers();
 	});
+
+	if (game.gameover) {
+		debug.game("Game is already over");
+		socket.emit('gameover', {
+			controller_won: game.controller_won,
+			latecomer: true
+		});
+	}
 
 	socket.on('ready', function(data){
 		client.ready = true;

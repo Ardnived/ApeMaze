@@ -23,7 +23,7 @@ body {
 	width: 98%;
 }
 
-.overlay {
+#gameover {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -39,14 +39,14 @@ body {
 	display: none;
 }
 
-.overlay .title {
+#gameover .title {
 	font-size: 80px;
 }
 
-#victory strong {
+.victory strong {
 	color: green;
 }
 
-#defeat strong {
+.defeat strong {
 	color: darkred;
 }

@@ -9,21 +9,13 @@
 </head>
 <body>
 	<div id="canvas"></div>
-	<div id="dashText">DASH READY</div>
-	<div id="shieldText">SHIELD READY</div>
+	<div id="dashText" style="display:none">DASH READY</div>
+	<div id="shieldText" style="display:none">SHIELD READY</div>
 
-	<div id="victory" class="overlay">
-		<strong class="title">VICTORY</strong>
+	<div id="gameover">
+		<strong class="title">GAME OVER</strong>
 		<br />
-		<small></small>
-		<button onclick="dispatch.emit('ready', true);">READY (play as runner)</button>
-		<button onclick="dispatch.emit('ready', false);">READY (play as observer)</button>
-	</div>
-
-	<div id="defeat" class="overlay">
-		<strong class="title">DEFEAT</strong>
-		<br />
-		<small></small>
+		<small class="result">The Game Has Ended</small><br>
 		<button onclick="dispatch.emit('ready', true);">READY (play as runner)</button>
 		<button onclick="dispatch.emit('ready', false);">READY (play as observer)</button>
 	</div>
