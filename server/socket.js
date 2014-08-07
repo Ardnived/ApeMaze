@@ -35,7 +35,11 @@ dispatch.io.on('connection', function(socket) {
 	});
 	
 	socket.on('move', function(data) {
-		socket.broadcast.to(room).emit('move', data);
+		socket.broadcast.to(client.room).emit('move', data);
+	});
+	
+	socket.on('trap', function(data) {
+		dispatch.io.emit('trap', data);
 	});
 
 	socket.on('enter', function(data) {
@@ -46,7 +50,7 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('chat', function(data) {
 		data.sender_id = client.player_id;
-		socket.broadcast.to(room).emit('chat', data);
+		socket.broadcast.to(client.room).emit('chat', data);
 	})
 	
 	socket.on('disconnect', function () {
