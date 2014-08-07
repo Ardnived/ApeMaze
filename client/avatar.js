@@ -62,8 +62,7 @@ var avatar = {
 		dispatch.on('move', function(data) {
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
-			avatar.direction = data.direction;
-			avatar.on_receive_direction()
+			avatar.on_receive_direction(data.direction)
 		});
 
 		dispatch.on('stop', function(data){
@@ -142,8 +141,11 @@ var avatar = {
 		}
 		this.animate(avatar.direction, -1);
 	},
-	on_receive_direction: function(){
-		avatar.entity.animate(avatar.direction, -1);
+	on_receive_direction: function(direction){
+		if(direction != avatar.direction){
+			avatar.direction = direction;
+			avatar.entity.animate(avatar.direction, -1);
+		}
 	},
 	on_moved: function(event) {
 		// Get all intersections with objects marked as "deathzones"
