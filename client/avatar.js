@@ -13,10 +13,13 @@ function init_avatar() {
 			.bind('NewDirection', function(event) {
 				if (this.isDown('LEFT_ARROW')) {
 					this.animate('West', -1);
+					this.direction = 'West'
 			    } else if (this.isDown('RIGHT_ARROW')) {
 					this.animate('East', -1);
+					this.direction = 'East'
 			    } else if (this.isDown('UP_ARROW')) {
 					this.animate('South', -1);
+					this.direction = 'South'
 				}
 			})
 			.bind('Moved', function(event) {
@@ -35,7 +38,17 @@ function init_avatar() {
 					else if(this.isDown('LEFT_ARROW'))
 						hitDetection[0].obj.x -= 4;
 				}
+			})
+			.bind('KeyDown', function(e){
+				if(e.key == Crafty.keys.DOWN_ARROW){
+					if(this.direction == 'East'){
+						this.x += 50
+					}else if(this.direction == 'West'){
+						this.x -= 50
+					}
+				}
 			});
+			avatar.direction = 'East'
 	} else {
 		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
 			.attr({x: 0, y: 0, w: 50, h: 50})
