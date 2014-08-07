@@ -40,6 +40,7 @@ dispatch.io.on('connection', function(socket) {
 	})
 
 	socket.on('chat', function(data) {
+		data.sender_id = clients[socket].player_id
 		socket.broadcast.to(room).emit('chat', data);
 	})
 	
