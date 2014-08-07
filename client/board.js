@@ -38,7 +38,9 @@ var board = {
 					// Observer 
 					else {
 						fireSwitch.addComponent("Mouse");
-						fireSwitch.bind("Click", fireTrap.click);
+						fireSwitch.bind("Click", function() {
+							fireTrap.click();
+						});
 					}
 
 					traps[trapId] = fireTrap;
