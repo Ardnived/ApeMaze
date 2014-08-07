@@ -39,9 +39,9 @@ dispatch.on('reset', function(data){
 	for(var trapID in traps){
 		traps[trapID].clicked = false;
 		if(player.is_controller){
-			trapSwitches[trapID].visible = false;
+			traps[trapID].tirgger.visible = false;
 		}else{
-			trapSwitches[trapID].visible = true;
+			traps[trapID].trigger.visible = true;
 		}
 	}
 	document.getElementById("gameover").style.display = "none";

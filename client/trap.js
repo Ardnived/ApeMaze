@@ -1,5 +1,4 @@
 var traps = {};
-var trapSwitches = {}
 
 dispatch.on('trap', function(data) {
 	if(data.activate) {
