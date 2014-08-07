@@ -1,72 +1,31 @@
 
-function avatar(parent) {
-	this.speed = 7;
-	this.direction = direction.none;
-	
-	if (typeof parent == 'undefined') {
-		this.parent = board.display;
-	} else {
-		this.parent = parent;
-	}
-	
-	var sprite_data = {
-		origin: { x: "center", y: "center" },
-		generate: true,
-		width: 32,
-		height: 32,
-		direction: "x",
-		duration: canvas.framelength,
-		autostart: true
-	};
-	
-	this.sprite = {};
-	
-	sprite_data.image = "../resources/img/north.png";
-	this.sprite.north = canvas.display.sprite(sprite_data);
-	sprite_data.image = "../resources/img/south.png";
-	this.sprite.south = canvas.display.sprite(sprite_data);
-	sprite_data.image = "../resources/img/east.png";
-	this.sprite.east = canvas.display.sprite(sprite_data);
-	sprite_data.image = "../resources/img/west.png";
-	this.sprite.west = canvas.display.sprite(sprite_data);
-	
-	this.sprite.current = this.sprite.south;
-	this.sprite.current.active = false;
-	this.parent.addChild(this.sprite.current);
-}
-
-avatar.prototype.move = function(dir) {
-	if (this.direction != direction[dir]) {
-		this.direction = direction[dir];
-		
-		if (this.sprite.current != this.sprite[dir]) {
-			this.parent.removeChild(this.sprite.current, false);
-			this.sprite[dir].x = this.sprite.current.x;
-			this.sprite[dir].y = this.sprite.current.y;
-			this.sprite.current = this.sprite[dir];
-			this.parent.addChild(this.sprite.current);
+var player = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity')
+	.attr({x: 0, y: 0, w: 50, h: 50})
+	.reel('South', 700, 0, 0, 3)
+	.reel('West', 700, 0, 1, 3)
+	.reel('East', 700, 0, 2, 3)
+	.reel('North', 700, 0, 3, 3)
+	.twoway(4, 10)
+	.gravity('Floor')
+	.gravityConst(0.4)
+	.bind('NewDirection', function(event) {
+		console.log(this);
+		if (this.isDown('LEFT_ARROW')) {
+			this.animate('West', -1);
+	    } else if (this.isDown('RIGHT_ARROW')) {
+			this.animate('East', -1);
+	    } else if (this.isDown('UP_ARROW')) {
+			this.animate('South', -1);
 		}
-		
-		this.sprite.current.active = true;
-		this.on_move(dir);
-	}
-};
+	})
+	.bind('Moved', function(event) {
+		dispatch.emit('move', {
+			x: this.x,
+			y: this.y
+		})
+	});
 
-avatar.prototype.on_move = function(dir) {
-	// Do Nothing
-};
-
-avatar.prototype.stop = function() {
-	this.direction = direction.none;
-	this.sprite.current.active = false;
-	this.on_stop();
-};
-
-avatar.prototype.on_stop = function() {
-	// Do Nothing
-};
-
-avatar.prototype.update = function() {
-	this.sprite.current.x += this.direction.x * this.speed;
-	this.sprite.current.y += this.direction.y * this.speed;
-};
+dispatch.on('move', function(data) {
+	player.x = data.x;
+	player.y = data.y;
+})
