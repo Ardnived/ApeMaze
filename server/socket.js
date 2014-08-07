@@ -8,6 +8,7 @@ var debug = require("../shared/debug");
 var clients = {};
 var autoinc = 0;
 var first = true;
+var chat_messages = [];
 
 dispatch.io.on('connection', function(socket) {
 	var client = {
@@ -62,8 +63,14 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('chat', function(data) {
 		data.sender_id = client.player_id;
+		data.send_date = (new Date()).toString();
+		chat_messages.push(data);
+		while(chat_messages.length>20)
+			chat_messages.shift();
 		socket.broadcast.to(client.room).emit('chat', data);
 	})
+	// Send the most recent messages to the player on login
+	socket.emit('chats', chat_messages);
 	
 	socket.on('disconnect', function () {
 	    // Do nothing.
