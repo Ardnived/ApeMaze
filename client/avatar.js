@@ -10,8 +10,6 @@ var avatar = {
 		} else {
 			this.init_observer();
 		}
-
-		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
@@ -40,19 +38,15 @@ var avatar = {
 			.attr({x: 0, y: 0, w: 80, h: 80});
 
 		this.shield.visible = false;
-		/*
-		this.dashText = Crafty.e("2D, Canvas, Text")
-			.attr({ x: 200, y: 100 })
-			.text("DASH (C) READY");
-
-		this.shieldText = Crafty.e("2D, Canvas, Text")
-			.attr({ x: 200, y: 130 })
-			.text("SHIELD (X) READY");
-		*/
+		
+		document.getElementById('dashText').style.display = ''
+		document.getElementById('shieldText').style.display = ''
 
 		this.shield.x = this.entity.x - 15;
 		this.shield.y = this.entity.y - 15;
 		this.entity.attach(this.shield);
+
+		Crafty.viewport.follow(this.entity, 0, 0);
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
@@ -60,7 +54,12 @@ var avatar = {
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
-			.reel('North', 700, 0, 3, 3);
+			.reel('North', 700, 0, 3, 3)
+			.bind('KeyDown', function(e){
+				if(e.key == Crafty.keys.SPACE){
+					Crafty.viewport.follow(avatar.entity, 0, 0);
+				}
+			});
 
 		dispatch.on('move', function(data) {
 			avatar.entity.x = data.x;
@@ -72,6 +71,10 @@ var avatar = {
 			avatar.entity.pauseAnimation();
 			console.log('stop')
 		})
+
+		document.getElementById('dashText').style.display = 'none'
+		document.getElementById('shieldText').style.display = 'none'
+		Crafty.viewport.mouselook(true);
 	},
 	check_deathzones: function() {
 		if (avatar.shieldUp) {
