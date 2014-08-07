@@ -34,6 +34,11 @@ window.onload = function() {
 	
 	dispatch.on('reset', function(data){
 		console.log('reset ' + data)
+		Crafty.pause();
+		avatar.entity.destroy();
 		player.is_controller = data
+		avatar.init();
+		document.getElementById("victory").style.display = "none";
+		document.getElementById("defeat").style.display = "none";
 	});
 }

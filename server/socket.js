@@ -111,8 +111,6 @@ dispatch.io.on('connection', function(socket) {
 				}
 			}
 
-			console.log(clients)
-
 			for(var socketID in clients){
 				sockets[socketID].emit('reset', clients[socketID].is_controller)
 			}
