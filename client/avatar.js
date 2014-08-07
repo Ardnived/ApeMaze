@@ -38,6 +38,9 @@ function init_avatar() {
 					else if(this.isDown('LEFT_ARROW'))
 						hitDetection[0].obj.x -= 4;
 				}
+
+				this.shieldSprite.x = this.x+this.w/2-this.shieldSprite.w/2
+				this.shieldSprite.y = this.y+this.h/2-this.shieldSprite.h/2
 			})
 			.bind('KeyDown', function(e){
 				if(e.key == Crafty.keys.DOWN_ARROW){
@@ -49,6 +52,8 @@ function init_avatar() {
 				}
 			});
 			avatar.direction = 'East'
+			avatar.shieldSprite = Crafty.e("2D, Canvas, CircleSprite")
+				.attr({x: -100, y: -100, w: 80, h: 80})
 	} else {
 		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
 			.attr({x: 0, y: 0, w: 50, h: 50})

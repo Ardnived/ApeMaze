@@ -12,3 +12,6 @@ Crafty.sprite(32, "../resources/img/doodad.png", {
 	FireSprite: [0, 0]
 });
 
+Crafty.sprite(256, "../resources/img/circle.png", {
+	CircleSprite: [0, 0]
+})
