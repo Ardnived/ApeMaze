@@ -13,7 +13,9 @@ body {
 }
 
 #chat {
-	float:left;
+	position: absolute;
+	bottom: 0;
+	right: 0;
 	width: 400px;
 	border: 1px solid gray;
 	padding: 5px;
@@ -31,7 +33,7 @@ body {
 	width: 98%;
 }
 
-.overlay {
+#gameover {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -47,14 +49,14 @@ body {
 	display: none;
 }
 
-.overlay .title {
+#gameover .title {
 	font-size: 80px;
 }
 
-#victory strong {
+.victory strong {
 	color: green;
 }
 
-#defeat strong {
+.defeat strong {
 	color: darkred;
 }
