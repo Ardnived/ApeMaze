@@ -1,7 +1,7 @@
 
 function init_avatar() {
 	if (player.is_controller) {
-		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity')
+		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
@@ -28,7 +28,6 @@ function init_avatar() {
 				}
 			})
 			.bind('EnterFrame', function(){
-				/*
 				var hitDetection = this.hit('Movable');
 				if(hitDetection){
 					if(this.isDown('RIGHT_ARROW'))
@@ -36,7 +35,6 @@ function init_avatar() {
 					else if(this.isDown('LEFT_ARROW'))
 						hitDetection[0].obj.x -= 4;
 				}
-				*/
 			});
 	} else {
 		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
@@ -44,18 +42,7 @@ function init_avatar() {
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
-			.reel('North', 700, 0, 3, 3)
-			.bind('EnterFrame', function() {
-				/*
-				var hitDetection = this.hit('Movable');
-				if(hitDetection){
-					if(this.isDown('RIGHT_ARROW'))
-						hitDetection[0].obj.x += 4;
-					else if(this.isDown('LEFT_ARROW'))
-						hitDetection[0].obj.x -= 4;
-				}
-				*/
-			});
+			.reel('North', 700, 0, 3, 3);
 
 		dispatch.on('move', function(data) {
 			avatar.x = data.x;
