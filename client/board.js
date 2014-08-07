@@ -35,15 +35,15 @@ var board = {
 					if(player.is_controller) {
 						fireSwitch.visible = false;
 					}
-					// Observer 
-					else {
-						fireSwitch.addComponent("Mouse");
-						fireSwitch.bind("Click", function() {
-							fireTrap.click();
-						});
-					}
+					// Everyone
+					fireSwitch.addComponent("Mouse");
+					fireSwitch.bind("Click", function() {
+						fireTrap.click();
+					});
 
 					traps[trapId] = fireTrap;
+					trapSwitches[trapId] = fireSwitch;
+
 					trapId += 1;
 				}
 
