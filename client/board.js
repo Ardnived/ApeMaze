@@ -29,7 +29,7 @@ var board = {
 					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
 
 					// Create a fire trap
-					var fireTrap = new FireTrap(trapId, fireSwitch.x, fireSwitch.y);
+					var fireTrap = new FireTrap(trapId, 3, fireSwitch.x, fireSwitch.y);
 
 					// Runner
 					if(player.is_controller) {

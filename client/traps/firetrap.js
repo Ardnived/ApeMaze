@@ -1,6 +1,7 @@
-function FireTrap(id, x, y) {
+function FireTrap(id, threshold, x, y) {
 	this.trap_id = 0;
 	this.clicked = false;
+	this.threshold = threshold;
 
 	this.flame = Crafty.e("2D, Canvas, SpriteAnimation, FireSprite, Deathzone")
 					.attr({x: x - 5, y: y - 30, w: 35, h: 35})
@@ -19,10 +20,15 @@ FireTrap.prototype.activate = function(){
 }
 
 FireTrap.prototype.click = function() {
-	this.clicked = true;
-	console.log(this.trap_id)
-	var id = this.trap_id;
-	dispatch.emit('trap', {
-		trap_id: id,
-	});
+	if(!this.clicked) {
+		this.clicked = true;
+	
+		var id = this.trap_id;
+		var threshold = this.threshold;
+		
+		dispatch.emit('trap', {
+			trap_id: id,
+			threshold: threshold,
+		});
+	}
 }
