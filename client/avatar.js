@@ -94,6 +94,17 @@ var avatar = {
 			return false;
 		}
 	},
+	check_mapborders: function() {
+		if (avatar.entity.x < 0 || avatar.entity.y < 0
+			 || avatar.entity.x > SOURCE_FROM_TILED_MAP_EDITOR.width * SOURCE_FROM_TILED_MAP_EDITOR.tilewidth
+			 || avatar.entity.y > SOURCE_FROM_TILED_MAP_EDITOR.height * SOURCE_FROM_TILED_MAP_EDITOR.tileheight) {
+			
+			avatar.on_death();
+			return true;
+		}
+
+		return false;
+	},
 	on_enter_frame: function() {
 		//move colliding movable objects
 		var hitDetection = this.hit('Movable');
@@ -156,7 +167,9 @@ var avatar = {
 	},
 	on_moved: function(event) {
 		// Get all intersections with objects marked as "deathzones"
-		var killed = avatar.check_deathzones();
+		var killed = false;
+		killed != avatar.check_deathzones();
+		killed != avatar.check_mapborders();
 
 		if (!killed) {
 			dispatch.emit('move', {
