@@ -9,6 +9,7 @@ dispatch.on('meta', function(data) {
 	if (typeof data.player_id != 'undefined') {
 		player.id = data.player_id;
 	}
-
+	
+	board.init();
 	avatar.init();
 });
