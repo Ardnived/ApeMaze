@@ -41,6 +41,7 @@ var avatar = {
 		
 		document.getElementById('dashText').style.display = ''
 		document.getElementById('shieldText').style.display = ''
+		document.getElementById('observerHint').style.display = 'none'
 
 		this.shield.x = this.entity.x - 15;
 		this.shield.y = this.entity.y - 15;
@@ -74,6 +75,7 @@ var avatar = {
 
 		document.getElementById('dashText').style.display = 'none'
 		document.getElementById('shieldText').style.display = 'none'
+		document.getElementById('observerHint').style.display = ''
 		Crafty.viewport.mouselook(true);
 	},
 	check_deathzones: function() {

@@ -31,8 +31,18 @@ dispatch.on('gameover', function(data) {
 dispatch.on('reset', function(data){
 	console.log('reset ' + data)
 	Crafty.pause();
+
 	avatar.entity.destroy();
 	player.is_controller = data
 	avatar.init();
+
+	for(var trapID in traps){
+		traps[trapID].clicked = false;
+		if(player.is_controller){
+			trapSwitches[trapID].visible = false;
+		}else{
+			trapSwitches[trapID].visible = true;
+		}
+	}
 	document.getElementById("gameover").style.display = "none";
 });

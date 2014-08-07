@@ -27,6 +27,7 @@ var board = {
 				for(var fire = 0; fire < map.getEntitiesInLayer("fire_switch").length; ++fire) {
 					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
 					traps[trapId] = new FireTrap(trapId, fireSwitch, 1);
+					trapSwitches[trapId] = fireSwitch;
 					trapId++;
 				}
 
