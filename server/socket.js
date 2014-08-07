@@ -9,48 +9,47 @@ var autoinc = 0;
 var first = true;
 
 dispatch.io.on('connection', function(socket) {
-	clients[socket] = {
+	var client = {
 		name: "",
-		player_id: autoinc
+		player_id: autoinc,
+		is_controller: first,
+		room: "room00"
 	};
+	first = false;
 	autoinc++;
 	
+	clients[socket] = client;
+
 	debug.dispatch("Received Game Connection. Player ID:", clients[socket].player_id);
 	
 	// ------------------
-	var room = "room00";
-	socket.join(room);
+	socket.join(client.room);
 
 	socket.emit('meta', { 
-		player_id: clients[socket].player_id,
-		is_controller: first
+		player_id: client.player_id,
+		is_controller: client.is_controller
 	});
-	first = false;
 
 	socket.on('meta', function(data) {
-		clients[socket].name = data.name;
+		client.name = data.name;
 	});
 	
 	socket.on('move', function(data) {
 		socket.broadcast.to(room).emit('move', data);
 	});
-	
-	socket.on('stop', function(data) {
-		socket.broadcast.to(room).emit('stop', data);
-	});
 
 	socket.on('enter', function(data) {
 		socket.leave(room);
-		room = data.room;
+		client.room = data.room;
 		socket.join(room);
 	})
 
 	socket.on('chat', function(data) {
-		data.sender_id = clients[socket].player_id
+		data.sender_id = client.player_id;
 		socket.broadcast.to(room).emit('chat', data);
 	})
 	
 	socket.on('disconnect', function () {
-	    // Do Nothing?
+	    // Do nothing.
 	});
 });

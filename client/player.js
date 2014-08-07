@@ -2,8 +2,13 @@
 var player = {};
 
 dispatch.on('meta', function(data) {
-	player.is_controller = data.is_controller;
-	player.id = data.player_id;
+	if (typeof data.is_controller != 'undefined') {
+		player.is_controller = data.is_controller;
+	}
+	
+	if (typeof data.player_id != 'undefined') {
+		player.id = data.player_id;
+	}
 
 	init_avatar();
 });
