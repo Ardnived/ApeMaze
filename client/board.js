@@ -30,7 +30,9 @@ var board = {
 					trapId++;
 				}
 
-				PlatformTrap(trapId, 300,0,100,20, 100, 100)
+				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)
+
+				trapId++
 			});
 
 		/*

@@ -17,4 +17,20 @@ FireTrap.prototype.activate = function() {
 	}, 3000);
 };
 
+FireTrap.prototype.click = function() {
+	if (!this.clicked) {
+		this.clicked = true;
+	
+		var id = this.trap_id;
+		var threshold = this.threshold;
+
+		dispatch.emit('trap', {
+			trap_id: id,
+			type: 'firetrap',
+			threshold: threshold,
+		});
+	}
+};
+
+
 extend(Trap, FireTrap);

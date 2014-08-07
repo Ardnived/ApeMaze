@@ -54,21 +54,25 @@ dispatch.io.on('connection', function(socket) {
 	});
 	
 	socket.on('trap', function(data) {
-		data.activate = false;
+		if(data.type == 'firetrap'){
+			data.activate = false;
 
-		if(data.trap_id in trap.traps) {
-			trap.traps[data.trap_id].clicks += 1;
-		} else {
-			trap.traps[data.trap_id] = {
-				clicks: 1,
-				threshold: data.threshold
-			};
+			if(data.trap_id in trap.traps) {
+				trap.traps[data.trap_id].clicks += 1;
+			} else {
+				trap.traps[data.trap_id] = {
+					clicks: 1,
+					threshold: data.threshold
+				};
+			}
+
+			// Activate the trap
+			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold) {
+				data.activate = true;
+			}
 		}
 
-		// Activate the trap
-		if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold) {
-			data.activate = true;
-		}
+		console.log(data.type + " " + data.trap_id + " " + data.x + " " + data.y)
 
 		dispatch.io.to(client.room).emit('trap', data);
 	});
