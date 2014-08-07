@@ -41,6 +41,10 @@ dispatch.io.on('connection', function(socket) {
 		avatar.direction = data.direction;
 		socket.broadcast.to(client.room).emit('move', data);
 	});
+
+	socket.on('stop', function(data){
+		socket.broadcast.to(client.room).emit('stop', data)
+	});
 	
 	socket.on('trap', function(data) {
 		dispatch.io.to(client.room).emit('trap', data);

@@ -24,7 +24,8 @@ var avatar = {
 			.bind('NewDirection', this.on_change_direction)
 			.bind('Moved', this.on_moved)
 			.bind('EnterFrame', this.on_enter_frame)
-			.bind('KeyDown', this.on_key_down);
+			.bind('KeyDown', this.on_key_down)
+			.bind('KeyUp', this.on_key_up);
 
 		this.direction = 'East';
 		this.shieldUp = false;
@@ -64,6 +65,11 @@ var avatar = {
 			avatar.direction = data.direction;
 			avatar.on_receive_direction()
 		});
+
+		dispatch.on('stop', function(data){
+			avatar.entity.pauseAnimation();
+			console.log('stop')
+		})
 	},
 	check_deathzones: function() {
 		// Get all intersections with objects marked as "deathzones"
@@ -170,6 +176,12 @@ var avatar = {
 			avatar.lastShield = new Date();
 			avatar.shieldCountdown = true;
 			avatar.shield.visible = true;
+		}
+	},
+	on_key_up: function(e){
+		if(e.key == Crafty.keys.LEFT_ARROW || e.key == Crafty.keys.RIGHT_ARROW || e.key == Crafty.keys.UP_ARROW){
+			dispatch.emit('stop', {});
+			avatar.entity.pauseAnimation();
 		}
 	},
 	on_death: function() {
