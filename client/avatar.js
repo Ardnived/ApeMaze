@@ -43,7 +43,8 @@ function init_avatar() {
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
 			.reel('North', 700, 0, 3, 3)
-			.bind('EnterFrame', function(){
+			.bind('EnterFrame', function() {
+				/*
 				var hitDetection = this.hit('Movable');
 				if(hitDetection){
 					if(this.isDown('RIGHT_ARROW'))
@@ -51,10 +52,12 @@ function init_avatar() {
 					else if(this.isDown('LEFT_ARROW'))
 						hitDetection[0].obj.x -= 4;
 				}
+				*/
+			});
 
 		dispatch.on('move', function(data) {
 			avatar.x = data.x;
 			avatar.y = data.y;
 		});
 	}
-};
+}
