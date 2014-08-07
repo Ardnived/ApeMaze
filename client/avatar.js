@@ -63,6 +63,23 @@ var avatar = {
 			avatar.entity.y = data.y;
 		});
 	},
+	check_deathzones: function() {
+		// Get all intersections with objects marked as "deathzones"
+		var hits = avatar.entity.hit('Deathzone');
+
+		if (hits) {
+			// If we had any hits, loop through them, and make sure they are visible.
+			for (var i = 0; i < hits.length; i++) {
+				console.log("Hit", hits[i]);
+				if (hits[i].obj.visible) {
+					avatar.on_death();
+					return true;
+				}
+			}
+		} else {
+			return false;
+		}
+	},
 	on_enter_frame: function() {
 		//move colliding movable objects
 		var hitDetection = this.hit('Movable');
@@ -121,18 +138,9 @@ var avatar = {
 	},
 	on_moved: function(event) {
 		// Get all intersections with objects marked as "deathzones"
-		var hits = this.hit('Deathzone');
+		var killed = avatar.check_deathzones();
 
-		if (hits) {
-			// If we had any hits, loop through them, and make sure they are visible.
-			for (var i = 0; i < hits.length; i++) {
-				console.log("Hit", hits[i]);
-				if (hits[i].obj.visible) {
-					avatar.on_death();
-					break;
-				}
-			}
-		} else {
+		if (!killed) {
 			dispatch.emit('move', {
 				x: this.x,
 				y: this.y
