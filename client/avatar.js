@@ -28,6 +28,7 @@ function init_avatar() {
 				}
 			})
 			.bind('EnterFrame', function(){
+				/*
 				var hitDetection = this.hit('Movable');
 				if(hitDetection){
 					if(this.isDown('RIGHT_ARROW'))
@@ -35,6 +36,7 @@ function init_avatar() {
 					else if(this.isDown('LEFT_ARROW'))
 						hitDetection[0].obj.x -= 4;
 				}
+				*/
 			});
 	} else {
 		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
