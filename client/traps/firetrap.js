@@ -1,5 +1,4 @@
-/*
-function FloorTrap(id, threshold, x, y) {
+function FireTrap(id, threshold, x, y) {
 	Trap.call(this, id, threshold);
 
 	this.flame = Crafty.e("2D, Canvas, SpriteAnimation, FireSprite, Deathzone")
@@ -19,4 +18,3 @@ FireTrap.prototype.activate = function() {
 };
 
 extend(Trap, FireTrap);
-*/
