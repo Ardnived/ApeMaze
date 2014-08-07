@@ -38,6 +38,10 @@ dispatch.io.on('connection', function(socket) {
 		room = data.room;
 		socket.join(room);
 	})
+
+	socket.on('chat', function(data) {
+		socket.broadcast.to(room).emit('chat', data);
+	})
 	
 	socket.on('disconnect', function () {
 	    // Do Nothing?
