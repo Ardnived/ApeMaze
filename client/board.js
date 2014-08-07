@@ -10,6 +10,8 @@ var direction = {
 var board = {
 	display: null,
 	init: function() {
+		var trapId = 0;
+
 		Crafty.e("2D, Canvas, TiledMapBuilder")
 			.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
 			.createWorld(function(map) {
@@ -21,13 +23,26 @@ var board = {
 						.addComponent("Floor");				
 				}
 
-				// Fire trap
+				// Fire traps
 				for(var fire = 0; fire < map.getEntitiesInLayer("fire_switch").length; ++fire) {
+					// Get the switch
+					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
+
+					// Create a fire trap
+					var fireTrap = new FireTrap(trapId, fireSwitch.x, fireSwitch.y);
+
+					// Runner
 					if(player.is_controller) {
-						map.getEntitiesInLayer("fire_switch")[fire]
-							.addComponent("2D")
-							.visible = false;
+						fireSwitch.visible = false;
 					}
+					// Observer 
+					else {
+						fireSwitch.addComponent("Mouse");
+						fireSwitch.bind("Click", fireTrap.click);
+					}
+
+					traps[trapId] = fireTrap;
+					trapId += 1;
 				}
 			});
 
@@ -36,6 +51,6 @@ var board = {
 			.color('lightblue')
 			.gravity('Floor');
 			
-		trap.create(0);
+		//trap.create(0);
 	}
 };
