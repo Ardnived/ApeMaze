@@ -7,9 +7,10 @@ var FireTrap = function(id, x, y) {
 					.animate('Burning', -1);
 	this.flame.visible = false;
 
+	var id = this.id;
 	this.click = function() {
 		dispatch.emit('trap', {
-			trap_id: this.id,
+			trap_id: id,
 		});
 	}
 
@@ -22,11 +23,4 @@ var FireTrap = function(id, x, y) {
 			flame.visible = false;
 		}, 3000);
 	}
-
-	dispatch.on('trap', function(data) {
-		traps[data.trap_id].activate();
-		if(player.is_controller) {
-			avatar.check_deathzones();
-		}
-	});
 }
