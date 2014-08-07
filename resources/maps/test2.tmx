@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32">
+  <image source="../img/tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <layer name="background" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <layer name="floor" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2D4AC4q41EwuAAAXg8AyQ==
+  </data>
+ </layer>
+ <layer name="fire_switch" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BkAPmBdsAooBgAADtsACA=
+  </data>
+ </layer>
+</map>

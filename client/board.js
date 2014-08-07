@@ -10,27 +10,47 @@ var direction = {
 var board = {
 	display: null,
 	init: function() {
-		this.display = canvas.display.line({
-			x: canvas.width / 2,
-			y: canvas.height / 2
-		});
-		this.display.add();
+		var trapId = 0;
+
+		Crafty.e("2D, Canvas, TiledMapBuilder")
+			.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
+			.createWorld(function(map) {
+				console.log("Building tile map");				
+
+				// Floor
+				for(var floor = 0; floor < map.getEntitiesInLayer("floor").length; ++floor) {
+					map.getEntitiesInLayer("floor")[floor]
+						.addComponent("Floor");				
+				}
+
+				// Fire traps
+				for(var fire = 0; fire < map.getEntitiesInLayer("fire_switch").length; ++fire) {
+					// Get the switch
+					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
+
+					// Create a fire trap
+					var fireTrap = new FireTrap(trapId, fireSwitch.x, fireSwitch.y);
+
+					// Runner
+					if(player.is_controller) {
+						fireSwitch.visible = false;
+					}
+					// Observer 
+					else {
+						fireSwitch.addComponent("Mouse");
+						fireSwitch.bind("Click", fireTrap.click);
+					}
+
+					traps[trapId] = fireTrap;
+					trapId += 1;
+				}
+			});
+
+		Crafty.e("2D, Canvas, Color, Movable, Gravity")
+			.attr({x: 100, y: 100, w: 32, h: 32})
+			.color('lightblue')
+			.gravity('Floor');
+			
+		//trap.create(0);
 	}
 };
-
-Crafty.e("2D, Canvas, TiledMapBuilder")
-	.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
-	.createWorld(function(map) {
-		console.log("Building tile map");
-		for(var floor = 0; floor < map.getEntitiesInLayer("floor").length; ++floor) {
-			map.getEntitiesInLayer("floor")[floor]
-				.addComponent("Floor");
-		}
-	});
-
-Crafty.e("2D, Canvas, Color, Movable, Gravity, Floor") //all movables must have Floor property so the player can stand on it
-	.attr({x: 100, y: 100, w: 32, h: 32})
-	.color('lightblue')
-	.gravity('Floor');
-	
-trap.create(0);
