@@ -10,19 +10,26 @@ var trap = require("../server/trap");
 var clients = {};
 var sockets = {};
 var autoinc = 0;
-var first = true;
 var chat_messages = [];
 var gameStarted = true;
 
 dispatch.io.on('connection', function(socket) {
+
+	client_is_controller = true;
+	for(var key in clients){
+		if (clients[key].is_controller){
+			client_is_controller = false;
+			break;
+		}
+	}
+
 	var client = {
 		name: "",
 		player_id: autoinc,
-		is_controller: first,
+		is_controller: client_is_controller,
 		room: "room00",
 		ready: true,
 	};
-	first = false;
 	autoinc++;
 	
 	clients[socket.id] = client;
