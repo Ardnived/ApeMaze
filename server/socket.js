@@ -38,6 +38,7 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('move', function(data) {
 		avatar.x = data.x;
 		avatar.y = data.y;
+		avatar.direction = data.direction;
 		socket.broadcast.to(client.room).emit('move', data);
 	});
 	

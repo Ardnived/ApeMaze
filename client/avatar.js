@@ -61,6 +61,8 @@ var avatar = {
 		dispatch.on('move', function(data) {
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
+			avatar.direction = data.direction;
+			avatar.on_receive_direction()
 		});
 	},
 	on_enter_frame: function() {
@@ -109,15 +111,16 @@ var avatar = {
 	},
 	on_change_direction: function(event) {
 		if (this.isDown('LEFT_ARROW')) {
-			this.animate('West', -1);
 			avatar.direction = 'West';
 	    } else if (this.isDown('RIGHT_ARROW')) {
-			this.animate('East', -1);
 			avatar.direction = 'East';
-	    } else if (this.isDown('UP_ARROW')) {
-			this.animate('South', -1);
+	    } else if (this.isDown('UP_ARROW')) {	
 			avatar.direction = 'South';
 		}
+		this.animate(avatar.direction, -1);
+	},
+	on_receive_direction: function(){
+		avatar.entity.animate(avatar.direction, -1);
 	},
 	on_moved: function(event) {
 		// Get all intersections with objects marked as "deathzones"
@@ -135,7 +138,8 @@ var avatar = {
 		} else {
 			dispatch.emit('move', {
 				x: this.x,
-				y: this.y
+				y: this.y,
+				direction: avatar.direction,
 			});
 		}
 	},
