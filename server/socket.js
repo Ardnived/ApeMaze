@@ -50,8 +50,12 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	socket.on('stop', function(data){
-		socket.broadcast.to(client.room).emit('stop', data)
+		socket.broadcast.to(client.room).emit('stop', data);
 	});
+
+	socket.on('shield', function(data) {
+		socket.broadcast.to(client.room).emit('shield', data);
+	})
 	
 	socket.on('trap', function(data) {
 		data.activate = false;
