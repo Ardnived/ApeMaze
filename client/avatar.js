@@ -188,7 +188,7 @@ var avatar = {
 		}
 	},
 	on_key_up: function(e){
-		if(e.key == Crafty.keys.LEFT_ARROW || e.key == Crafty.keys.RIGHT_ARROW || e.key == Crafty.keys.UP_ARROW){
+		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
 			dispatch.emit('stop', {});
 			avatar.entity.pauseAnimation();
 		}

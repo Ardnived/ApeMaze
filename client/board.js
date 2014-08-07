@@ -28,7 +28,7 @@ Crafty.e("2D, Canvas, TiledMapBuilder")
 		}
 	});
 
-Crafty.e("2D, Canvas, Color, Movable, Gravity")
+Crafty.e("2D, Canvas, Color, Movable, Gravity, Floor") //all movables must have Floor property so the player can stand on it
 	.attr({x: 100, y: 100, w: 32, h: 32})
 	.color('lightblue')
 	.gravity('Floor');
