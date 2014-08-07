@@ -15,3 +15,7 @@ Crafty.sprite(32, "../resources/img/doodad.png", {
 Crafty.sprite(256, "../resources/img/circle.png", {
 	CircleSprite: [0, 0]
 })
+
+Crafty.sprite(49, 86, "../resources/img/fire.png", {
+	FlameSprite: [0, 0]
+})

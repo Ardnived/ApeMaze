@@ -13,7 +13,7 @@ traps[0] = Crafty.e('Floor, 2D, Canvas, Color, Mouse')
 	});
 
 var flame = Crafty.e("2D, DOM, SpriteAnimation, FireSprite")
-	.attr({x: traps[0].x - 3.5, y: traps[0].y - 30, w: 32, h: 32})
+	.attr({x: traps[0].x - 5, y: traps[0].y - 30, w: 35, h: 35})
 	.reel('Burning', 600, 0, 0, 6)
 	.animate('Burning', -1);
 
