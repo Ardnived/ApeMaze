@@ -11,6 +11,7 @@ function chat_module_send() {
 		});
 	document.getElementById('chat_module_text').value = ''
 	document.getElementById('chat_module_content').value += 'You say:\n' + chat_message + '\n'
+	document.getElementById("chat_module_content").scrollTop = document.getElementById("chat_module_content").scrollHeight
 }
 
 function char_module_keypress(e) {
@@ -22,4 +23,5 @@ function char_module_keypress(e) {
 dispatch.on('chat', function(data) {
 	debug.dispatch('Received Chat Message', data);
 	document.getElementById('chat_module_content').value += 'Player ' + data.sender_id + ' says:\n' + data.message + '\n'
+	document.getElementById("chat_module_content").scrollTop = document.getElementById("chat_module_content").scrollHeight
 });
