@@ -60,6 +60,7 @@ dispatch.io.on('connection', function(socket) {
 		for(var key in clients){
 			clients[key].ready = false;
 		}
+		gameStarted = false;
 	})
 
 	socket.on('enter', function(data) {
@@ -81,6 +82,9 @@ dispatch.io.on('connection', function(socket) {
 	socket.emit('chats', chat_messages);
 	
 	function checkReadyAndAssignPlayers(){
+		if(gameStarted){
+			return;
+		}
 		var allReady = true;
 		var controllers = []
 		var observers = []
@@ -114,6 +118,7 @@ dispatch.io.on('connection', function(socket) {
 			for(var socketID in clients){
 				sockets[socketID].emit('reset', clients[socketID].is_controller)
 			}
+			gameStarted = true;
 		}
 	}
 
