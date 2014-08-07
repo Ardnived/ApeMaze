@@ -1,7 +1,9 @@
 
+var avatar;
+
 function init_avatar() {
 	if (player.is_controller) {
-		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
+		avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
@@ -62,7 +64,7 @@ function init_avatar() {
 			avatar.shieldSprite = Crafty.e("2D, Canvas, CircleSprite")
 				.attr({x: -100, y: -100, w: 80, h: 80})
 	} else {
-		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
+		avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)

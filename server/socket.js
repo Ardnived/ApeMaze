@@ -1,4 +1,5 @@
 var dispatch = require("../server/dispatch");
+var avatar = require("../server/avatar");
 var debug = require("../shared/debug");
 
 /**
@@ -35,11 +36,19 @@ dispatch.io.on('connection', function(socket) {
 	});
 	
 	socket.on('move', function(data) {
+		avatar.x = data.x;
+		avatar.y = data.y;
 		socket.broadcast.to(client.room).emit('move', data);
 	});
 	
 	socket.on('trap', function(data) {
-		dispatch.io.emit('trap', data);
+		// TODO: This is hard coded.
+		if (avatar.x > 220 && avatar.x < 285 && avatar.y > 150 && avatar.y < 250) {
+			socket.broadcast.to(client.room).emit('death', {});
+		}
+		// ------
+
+		dispatch.io.to(client.room).emit('trap', data);
 	});
 
 	socket.on('enter', function(data) {
