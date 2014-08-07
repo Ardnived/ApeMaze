@@ -1,5 +1,6 @@
 
 // ===== CANVAS SETUP ===== //
+/*
 var canvas;
 var player;
 var updatelist = [];
@@ -139,3 +140,4 @@ document.onkeyup = function (event) {
 	}
 };
 
+*/

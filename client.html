@@ -2,19 +2,17 @@
 
 <head>
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/ocanvas/2.6.0/ocanvas.min.js"></script>
+    <script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/resources/style.css">
 </head>
 <body>
-	<canvas id="canvas" width="1260" height="300" oncontextmenu="return false;" style="border: 1px solid lightblue;">
-		Your browser does not support the canvas element.<br />
-		Upgrade to a more modern browser if you wish to play this game.
-	</canvas>
+	<div id="canvas"></div>
+
 	
 	<script src="/shared/debug.js"></script>
+	<script src="/client/canvas.js"></script>
 	<script src="/client/dispatch.js"></script>
 	<script src="/client/board.js"></script>
-	<script src="/client/avatar.js"></script>
-	<script src="/client/game.js"></script>
+	<!--script src="/client/avatar.js"></script-->
 	<script src="/client/client.js"></script>
 </body>
