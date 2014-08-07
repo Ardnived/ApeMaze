@@ -26,6 +26,15 @@ function init_avatar() {
 						y: this.y
 					});
 				}
+			})
+			.bind('EnterFrame', function(){
+				var hitDetection = this.hit('Movable');
+				if(hitDetection){
+					if(this.isDown('RIGHT_ARROW'))
+						hitDetection[0].obj.x += 4;
+					else if(this.isDown('LEFT_ARROW'))
+						hitDetection[0].obj.x -= 4;
+				}
 			});
 	} else {
 		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
@@ -33,7 +42,15 @@ function init_avatar() {
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
-			.reel('North', 700, 0, 3, 3);
+			.reel('North', 700, 0, 3, 3)
+			.bind('EnterFrame', function(){
+				var hitDetection = this.hit('Movable');
+				if(hitDetection){
+					if(this.isDown('RIGHT_ARROW'))
+						hitDetection[0].obj.x += 4;
+					else if(this.isDown('LEFT_ARROW'))
+						hitDetection[0].obj.x -= 4;
+				}
 
 		dispatch.on('move', function(data) {
 			avatar.x = data.x;
