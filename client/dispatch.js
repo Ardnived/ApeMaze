@@ -1,7 +1,6 @@
-var SERVER_NAME = "http://localhost";
 
 var dispatch = {
-	chat: io.connect(SERVER_NAME+"/chat"),
-	game: io.connect(SERVER_NAME+"/game")
+	chat: io.connect(document.URL+"chat"),
+	game: io.connect(document.URL+"game")
 };
 
