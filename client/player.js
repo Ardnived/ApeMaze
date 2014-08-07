@@ -10,5 +10,5 @@ dispatch.on('meta', function(data) {
 		player.id = data.player_id;
 	}
 
-	init_avatar();
+	var avatar = new Avatar(player);
 });

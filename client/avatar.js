@@ -1,10 +1,8 @@
-DASH_COOLDOWN = 2000
-SHIELD_DURATION = 2000
-SHIELD_COOLDOWN = 2000
+function Avatar(player) {
+	DASH_COOLDOWN = 2000
+	SHIELD_DURATION = 2000
+	SHIELD_COOLDOWN = 2000
 
-var avatar;
-
-function init_avatar() {
 	if (player.is_controller) {
 		avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
 			.attr({x: 0, y: 0, w: 50, h: 50})
@@ -140,7 +138,7 @@ function init_avatar() {
 				}
 			};
 	} else {
-		var avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
+		this.avatar = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
@@ -155,17 +153,17 @@ function init_avatar() {
 		dashText.visible = false;
 		shieldText.visible = false;
 	}
-}
 
-var shield = Crafty.e("2D, Canvas, CircleSprite")
+	this.shield = Crafty.e("2D, Canvas, CircleSprite")
 	.attr({x: 0, y: 0, w: 80, h: 80});
 
-shield.visible = false;
+	shield.visible = false;
 
-var dashText = Crafty.e("2D, Canvas, Text")
-	.attr({ x: 200, y: 100 })
-	.text("DASH (Z) READY");
+	this.dashText = Crafty.e("2D, Canvas, Text")
+		.attr({ x: 200, y: 100 })
+		.text("DASH (Z) READY");
 
-var shieldText = Crafty.e("2D, Canvas, Text")
-	.attr({ x: 200, y: 130 })
-	.text("SHIELD (X) READY");
+	this.shieldText = Crafty.e("2D, Canvas, Text")
+		.attr({ x: 200, y: 130 })
+		.text("SHIELD (X) READY");
+}
