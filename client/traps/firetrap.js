@@ -12,6 +12,7 @@ function FireTrap(id, threshold, x, y) {
 
 FireTrap.prototype.activate = function(){
 	this.flame.visible = true;
+	this.clicked = false;			// Reset clickable
 
 	var flame = this.flame;
 	this.flame.timeout(function() {
@@ -25,7 +26,7 @@ FireTrap.prototype.click = function() {
 	
 		var id = this.trap_id;
 		var threshold = this.threshold;
-		
+
 		dispatch.emit('trap', {
 			trap_id: id,
 			threshold: threshold,
