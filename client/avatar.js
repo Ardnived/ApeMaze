@@ -38,9 +38,13 @@ function init_avatar() {
 					else if(this.isDown('LEFT_ARROW'))
 						hitDetection[0].obj.x -= 4;
 				}
-
-				this.shieldSprite.x = this.x+this.w/2-this.shieldSprite.w/2
-				this.shieldSprite.y = this.y+this.h/2-this.shieldSprite.h/2
+				if(this.shieldUp){
+					this.shieldSprite.x = this.x+this.w/2-this.shieldSprite.w/2
+					this.shieldSprite.y = this.y+this.h/2-this.shieldSprite.h/2
+				}else{
+					this.shieldSprite.x = -100
+					this.shieldSprite.y = -100
+				}
 			})
 			.bind('KeyDown', function(e){
 				if(e.key == Crafty.keys.DOWN_ARROW){
@@ -49,9 +53,12 @@ function init_avatar() {
 					}else if(this.direction == 'West'){
 						this.x -= 50
 					}
+				}else if(e.key == Crafty.keys.BACKSPACE){
+					this.shieldUp = !this.shieldUp
 				}
 			});
 			avatar.direction = 'East'
+			avatar.shieldUp = false
 			avatar.shieldSprite = Crafty.e("2D, Canvas, CircleSprite")
 				.attr({x: -100, y: -100, w: 80, h: 80})
 	} else {
