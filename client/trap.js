@@ -28,4 +28,5 @@ traps[0].activate = function() {
 
 dispatch.on('trap', function(data) {
 	traps[data.trap_id].activate();
+	avatar.check_deathzones();
 });
