@@ -15,12 +15,14 @@ var board = {
 		Crafty.e("2D, Canvas, TiledMapBuilder")
 			.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
 			.createWorld(function(map) {
-				console.log("Building tile map");				
+				console.log("Building tile map");
 
 				// Floor
 				for(var floor = 0; floor < map.getEntitiesInLayer("floor").length; ++floor) {
-					map.getEntitiesInLayer("floor")[floor]
-						.addComponent("Floor");				
+					var floorEntity = map.getEntitiesInLayer("floor")[floor];
+					floorEntity.addComponent("Platform");
+					floorEntity.addComponent("Floor");
+					//floorEntity.north.addComponent("Floor");
 				}
 
 				// Fire traps
@@ -35,7 +37,7 @@ var board = {
 					if(player.is_controller) {
 						fireSwitch.visible = false;
 					}
-					// Observer 
+					// Observer
 					else {
 						fireSwitch.addComponent("Mouse");
 						fireSwitch.bind("Click", function() {
@@ -47,7 +49,20 @@ var board = {
 					trapId += 1;
 				}
 
+				// Clickable Falling platforms
+				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platforms").length; ++falling) {
+					var platform = map.getEntitiesInLayer("clickable_falling_platforms")[falling];
+					platform.addComponent("ClickableFallingPlatform");
+					platform.addComponent("Mouse");
+					platform.addComponent("Platform");
+					platform.addComponent("Floor");
+					//platform.north.addComponent("Floor");
 
+					platform.bind("Click", function() {
+						this.addComponent("Gravity");
+						this.gravity("Floor")
+					});
+				}
 			});
 
 		Crafty.e("2D, Canvas, Color, Movable, Gravity")
