@@ -9,6 +9,7 @@ var clients = {};
 var autoinc = 0;
 var first = true;
 var chat_messages = [];
+var gameStarted = true;
 
 dispatch.io.on('connection', function(socket) {
 	var client = {
@@ -57,7 +58,6 @@ dispatch.io.on('connection', function(socket) {
 		for(var key in clients){
 			clients[key].ready = false;
 		}
-		console.log(clients);
 	})
 
 	socket.on('enter', function(data) {
@@ -74,35 +74,55 @@ dispatch.io.on('connection', function(socket) {
 			chat_messages.shift();
 		socket.broadcast.to(client.room).emit('chat', data);
 	})
+
 	// Send the most recent messages to the player on login
 	socket.emit('chats', chat_messages);
 	
+	function checkReadyAndAssignPlayers(){
+		var allReady = true;
+		var controllers = []
+		var observers = []
+		for(var key in clients){
+			if(!clients[key].ready){
+				allReady = false;
+			}else{
+				if(clients[key].is_controller){
+					controllers.push(key);
+				}else{
+					observers.push(key);
+				}
+			}
+		}
+
+		if(allReady){
+			if(controllers.length == 0){
+				var key = observers[Math.floor(Math.random()*observers.length)]
+				clients[key].is_controller = true
+			}else if(controllers.length > 1){
+				var keyC = controllers[Math.floor(Math.random()*controllers.length)]
+				for(key in controllers){
+					if(key == keyC){
+						clients[controllers[key]].is_controller = false
+					}else{
+						clients[controllers[key]].is_controller = true
+					}
+				}
+			}
+			dispatch.io.to(client.room).emit('reset')
+		}
+		console.log(clients)
+	}
+
 	socket.on('disconnect', function () {
 		delete clients[socket.id]
 
-		var allReady = true;
-		for(var key in clients){
-			if(!clients[key].ready)
-				allReady = false;
-		}
-		
-		if(allReady){
-			dispatch.io.to(client.room).emit('reset')
-		}
+		checkReadyAndAssignPlayers();
 	});
 
-	socket.on('ready', function(){
+	socket.on('ready', function(data){
 		client.ready = true;
+		client.is_controller = data;
 
-		var allReady = true;
-		for(var key in clients){
-			if(!clients[key].ready)
-				allReady = false;
-		}
-
-		if(allReady){
-			dispatch.io.to(client.room).emit('reset')
-		}
-		console.log(clients);
+		checkReadyAndAssignPlayers();
 	})
 });
