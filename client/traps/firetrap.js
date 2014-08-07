@@ -1,5 +1,5 @@
-function FireTrap(id, threshold, x, y) {
-	Trap.call(this, id, threshold);
+function FireTrap(id, trigger, threshold) {
+	Trap.call(this, id, trigger, threshold);
 
 	this.flame = Crafty.e("2D, Canvas, SpriteAnimation, FireSprite, Deathzone")
 					.attr({x: x - 5, y: y - 30, w: 35, h: 35})
