@@ -10,6 +10,8 @@ var avatar = {
 		} else {
 			this.init_observer();
 		}
+
+		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
@@ -71,6 +73,11 @@ var avatar = {
 		})
 	},
 	check_deathzones: function() {
+		if (avatar.shieldUp) {
+			// We are shielded and can't be hurt.
+			return false;
+		}
+
 		// Get all intersections with objects marked as "deathzones"
 		var hits = avatar.entity.hit('Deathzone');
 
