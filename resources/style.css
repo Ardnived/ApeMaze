@@ -3,20 +3,10 @@ body {
 	font-family: 'Roboto Slab', serif;
 }
 
-#canvas_and_chat {
-	display: inline-block;
-}
-
-#canvas {
-	float:left;
-	margin-top: 12px;
-}
-
 #chat {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	width: 400px;
 	border: 1px solid gray;
 	padding: 5px;
 

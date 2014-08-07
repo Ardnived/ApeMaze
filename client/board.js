@@ -29,7 +29,7 @@ var board = {
 					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
 
 					// Create a fire trap
-					var fireTrap = new FireTrap(trapId, fireSwitch.x, fireSwitch.y);
+					var fireTrap = new FireTrap(trapId, 1, fireSwitch.x, fireSwitch.y);
 
 					// Runner
 					if(player.is_controller) {
@@ -38,11 +38,19 @@ var board = {
 					// Observer 
 					else {
 						fireSwitch.addComponent("Mouse");
-						fireSwitch.bind("Click", fireTrap.click);
+						fireSwitch.bind("Click", function() {
+							fireTrap.click();
+						});
 					}
 
 					traps[trapId] = fireTrap;
 					trapId += 1;
+				}
+
+				// Falling platforms
+				for(var falling = 0; falling < map.getEntitiesInLayer("falling_platforms").length; ++falling) {
+					var platform = map.getEntitiesInLayer("falling_platforms")[falling];
+					platform.addComponent("FallingPlatform");
 				}
 			});
 

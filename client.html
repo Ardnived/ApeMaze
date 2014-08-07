@@ -8,23 +8,25 @@
 	<link rel="stylesheet" type="text/css" href="/resources/style.css">
 </head>
 <body>
-	<div id="canvas_and_chat" align="center">
-		<div id="canvas"></div>
+	<div id="canvas"></div>
+	<div id="dashText">DASH READY</div>
+	<div id="shieldText">SHIELD READY</div>
 
-		<div id="gameover">
-			<strong class="title">GAME OVER</strong>
-			<br />
-			<small class="result">The Game Has Ended</small>
-		</div>
+	<div id="gameover">
+		<strong class="title">GAME OVER</strong>
+		<br />
+		<small class="result">The Game Has Ended</small>
+		<button onclick="dispatch.emit('ready', true);">READY (play as runner)</button>
+		<button onclick="dispatch.emit('ready', false);">READY (play as observer)</button>
+	</div>
 
-		<div id="chat">
-			<strong>Message</strong>
-			<br />
-			<textarea id="chat_module_content" cols="40" rows="10" resize="false" readonly></textarea>
-			<br />
-			<input id="chat_module_text" size="60" onkeypress="return char_module_keypress(event)"></input>
-			<button onclick="chat_module_send()" id="chat_module_submit" cols="40">Submit</button>
-		</div>
+	<div id="chat">
+		<strong>Message</strong>
+		<br />
+		<textarea id="chat_module_content" cols="40" rows="20" resize="false" readonly></textarea>
+		<br />
+		<input id="chat_module_text" size="50" onkeypress="return char_module_keypress(event)"></input>
+		<button onclick="chat_module_send()" id="chat_module_submit" cols="40">Submit</button>
 	</div>
 	
 	<script src="/resources/libs/modules/create_mocks_module.js"></script>
@@ -37,7 +39,7 @@
 	<script src="/client/player.js"></script>
 	<script src="/client/canvas.js"></script>
 	<script src="/client/trap.js"></script>
-	<script src="/client/firetrap.js"></script>
+	<script src="/client/traps/firetrap.js"></script>
 	<script src="/client/board.js"></script>
 	<script src="/client/client.js"></script>
 	<script src="/client/sound.js"></script>
