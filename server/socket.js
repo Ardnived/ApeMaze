@@ -6,6 +6,7 @@ var debug = require("../shared/debug");
  * When a new user connects, handle it.
  */
 var clients = {};
+var sockets = {};
 var autoinc = 0;
 var first = true;
 var chat_messages = [];
@@ -23,6 +24,7 @@ dispatch.io.on('connection', function(socket) {
 	autoinc++;
 	
 	clients[socket.id] = client;
+	sockets[socket.id] = socket;
 
 	debug.dispatch("Received Game Connection. Player ID:", clients[socket.id].player_id);
 	
@@ -99,18 +101,22 @@ dispatch.io.on('connection', function(socket) {
 				var key = observers[Math.floor(Math.random()*observers.length)]
 				clients[key].is_controller = true
 			}else if(controllers.length > 1){
-				var keyC = controllers[Math.floor(Math.random()*controllers.length)]
-				for(key in controllers){
-					if(key == keyC){
-						clients[controllers[key]].is_controller = false
+				var cID = Math.floor(Math.random()*controllers.length)
+				for(var i=0; i<controllers.length; i++){
+					if(i == cID){
+						clients[controllers[i]].is_controller = true
 					}else{
-						clients[controllers[key]].is_controller = true
+						clients[controllers[i]].is_controller = false
 					}
 				}
 			}
-			dispatch.io.to(client.room).emit('reset')
+
+			console.log(clients)
+
+			for(var socketID in clients){
+				sockets[socketID].emit('reset', clients[socketID].is_controller)
+			}
 		}
-		console.log(clients)
 	}
 
 	socket.on('disconnect', function () {

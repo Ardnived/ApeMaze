@@ -32,7 +32,8 @@ window.onload = function() {
 		document.getElementById("chat").style.display = "block";
 	});
 	
-	dispatch.on('reset', function(){
-		console.log('reset')
+	dispatch.on('reset', function(data){
+		console.log('reset ' + data)
+		player.is_controller = data
 	});
 }
