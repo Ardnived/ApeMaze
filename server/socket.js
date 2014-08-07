@@ -58,23 +58,30 @@ dispatch.io.on('connection', function(socket) {
 	})
 	
 	socket.on('trap', function(data) {
-		data.activate = false;
+		if(data.type == 'firetrap'){
+			data.activate = false;
 
-		if(data.trap_id in trap.traps) {
-			trap.traps[data.trap_id].clicks += 1;
-		} else {
-			trap.traps[data.trap_id] = {
-				clicks: 1,
-				threshold: data.threshold
-			};
+			if(data.trap_id in trap.traps) {
+				trap.traps[data.trap_id].clicks += 1;
+			} else {
+				trap.traps[data.trap_id] = {
+					clicks: 1,
+					threshold: data.threshold
+				};
+			}
+
+			// Activate the trap
+			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold) {
+				data.activate = true;
+			}
+			dispatch.io.to(client.room).emit('trap', data);
+		}else if(data.type == 'platformtrap'){
+			for(var socketID in sockets){ //prevent lag
+				if(socketID != socket.id){
+					sockets[socketID].emit('trap', data)
+				}
+			}
 		}
-
-		// Activate the trap
-		if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold) {
-			data.activate = true;
-		}
-
-		dispatch.io.to(client.room).emit('trap', data);
 	});
 
 	socket.on('gameover', function(data) {
@@ -151,7 +158,7 @@ dispatch.io.on('connection', function(socket) {
 	}
 
 	socket.on('disconnect', function () {
-		delete clients[socket.id]
+		delete clients[socket.id];
 
 		checkReadyAndAssignPlayers();
 	});

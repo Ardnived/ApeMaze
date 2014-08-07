@@ -46,6 +46,9 @@ var board = {
 						this.gravity("Floor")
 					});
 				}
+
+				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)
+				trapId++
 			});
 
 		/*
