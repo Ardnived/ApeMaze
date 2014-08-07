@@ -9,13 +9,14 @@
 </head>
 <body>
 	<div id="canvas"></div>
-	<div id="dashText">DASH READY</div>
-	<div id="shieldText">SHIELD READY</div>
+	<div id="dashText" style="display:none">DASH READY</div>
+	<div id="shieldText" style="display:none">SHIELD READY</div>
+	<div id="observerHint" style="display:none">Press SPACEBAR to follow runner. Drag screen to free move</div>
 
 	<div id="gameover">
 		<strong class="title">GAME OVER</strong>
 		<br />
-		<small class="result">The Game Has Ended</small>
+		<small class="result">The Game Has Ended</small><br>
 		<button onclick="dispatch.emit('ready', true);">READY (play as runner)</button>
 		<button onclick="dispatch.emit('ready', false);">READY (play as observer)</button>
 	</div>
@@ -33,7 +34,8 @@
 	<script src="/resources/libs/tiledmapbuilder.js"></script>  
 
 	<script src="/shared/debug.js"></script>
-	<script src="resources/maps/test2.js"></script>
+	<script src="/client/utility.js"></script>
+	<script src="/resources/maps/test2.js"></script>
 	<script src="/client/dispatch.js"></script>
 	<script src="/client/avatar.js"></script>
 	<script src="/client/player.js"></script>

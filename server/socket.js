@@ -50,8 +50,12 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	socket.on('stop', function(data){
-		socket.broadcast.to(client.room).emit('stop', data)
+		socket.broadcast.to(client.room).emit('stop', data);
 	});
+
+	socket.on('shield', function(data) {
+		socket.broadcast.to(client.room).emit('shield', data);
+	})
 	
 	socket.on('trap', function(data) {
 		data.activate = false;
@@ -98,18 +102,8 @@ dispatch.io.on('connection', function(socket) {
 		socket.broadcast.to(client.room).emit('chat', data);
 	})
 
-
-	// Send the position of the avatar to the player on login
-	if(!client.is_controller){
-		socket.emit('move', {
-			x: avatar.x,
-			y: avatar.y,
-			direction: avatar.direction
-		});
-	}
 	// Send the most recent messages to the player on login
 	socket.emit('chats', chat_messages);
-
 	
 	function checkReadyAndAssignPlayers(){
 		if(gameStarted){
@@ -147,6 +141,10 @@ dispatch.io.on('connection', function(socket) {
 
 			for(var socketID in clients){
 				sockets[socketID].emit('reset', clients[socketID].is_controller)
+			}
+
+			for(var trapID in trap.traps){
+				trap.traps[trapID].clicks = 0;
 			}
 			gameStarted = true;
 		}

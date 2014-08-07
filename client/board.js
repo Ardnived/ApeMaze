@@ -27,26 +27,9 @@ var board = {
 
 				// Fire traps
 				for(var fire = 0; fire < map.getEntitiesInLayer("fire_switch").length; ++fire) {
-					// Get the switch
 					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
-
-					// Create a fire trap
-					var fireTrap = new FireTrap(trapId, 1, fireSwitch.x, fireSwitch.y);
-
-					// Runner
-					if(player.is_controller) {
-						fireSwitch.visible = false;
-					}
-					// Observer
-					else {
-						fireSwitch.addComponent("Mouse");
-						fireSwitch.bind("Click", function() {
-							fireTrap.click();
-						});
-					}
-
-					traps[trapId] = fireTrap;
-					trapId += 1;
+					traps[trapId] = new FireTrap(trapId, fireSwitch, 1);
+					trapId++;
 				}
 
 				// Clickable Falling platforms
@@ -65,11 +48,11 @@ var board = {
 				}
 			});
 
+		/*
 		Crafty.e("2D, Canvas, Color, Movable, Gravity")
 			.attr({x: 100, y: 100, w: 32, h: 32})
 			.color('lightblue')
 			.gravity('Floor');
-			
-		//trap.create(0);
+		*/
 	}
 };
