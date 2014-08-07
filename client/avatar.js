@@ -1,8 +1,4 @@
 
-var DASH_COOLDOWN = 2000;
-var SHIELD_DURATION = 2000;
-var SHIELD_COOLDOWN = 2000;
-
 var AVATAR = {
 	gravity: 0.4,
 	speed: 4,
@@ -10,6 +6,15 @@ var AVATAR = {
 	color: "#FFFFFF",
 	intensity: 0.0
 };
+
+var DASH = {
+	cooldown: 2000
+};
+
+var SHIELD = {
+	cooldown: 2000,
+	duration: 2000
+}
 
 var FROZEN = {
 	duration: 5000,
@@ -134,7 +139,7 @@ var avatar = {
 	},
 	update_dash: function() {
 		if (avatar.dashCountdown) {
-			var cooldown = (DASH_COOLDOWN - (new Date() - avatar.lastDash));
+			var cooldown = (DASH.cooldown - (new Date() - avatar.lastDash));
 			if (cooldown <= 0){
 				avatar.dashCountdown = false;
 				document.getElementById('dashText').innerHTML = ("DASH READY");
@@ -155,7 +160,7 @@ var avatar = {
 	update_shield: function() {
 		if (avatar.shieldCountdown) {
 			if (avatar.shieldUp) {
-				var countdown = (SHIELD_DURATION - (new Date() - avatar.lastShield));
+				var countdown = (SHIELD.duration - (new Date() - avatar.lastShield));
 
 				if (countdown <= 0) {
 					avatar.shield.visible = false;
@@ -165,7 +170,7 @@ var avatar = {
 					document.getElementById('shieldText').innerHTML = ("SHIELD: " + countdown/1000);
 				}
 			} else {
-				var countdown = SHIELD_COOLDOWN - (new Date() - avatar.lastShield);
+				var countdown = SHIELD.cooldown - (new Date() - avatar.lastShield);
 				if (countdown <= 0) {
 					avatar.shieldCountdown = false;
 					document.getElementById('shieldText').innerHTML = ("SHIELD READY");

@@ -158,7 +158,7 @@ dispatch.io.on('connection', function(socket) {
 	}
 
 	socket.on('disconnect', function () {
-		delete clients[socket.id]
+		delete clients[socket.id];
 
 		checkReadyAndAssignPlayers();
 	});
