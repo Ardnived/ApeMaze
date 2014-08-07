@@ -31,4 +31,8 @@ window.onload = function() {
 		// Make sure everyone can see chat now.
 		document.getElementById("chat").style.display = "block";
 	});
+	
+	dispatch.on('reset', function(){
+		console.log('reset')
+	});
 }

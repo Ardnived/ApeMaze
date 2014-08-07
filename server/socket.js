@@ -14,7 +14,8 @@ dispatch.io.on('connection', function(socket) {
 		name: "",
 		player_id: autoinc,
 		is_controller: first,
-		room: "room00"
+		room: "room00",
+		ready: true,
 	};
 	first = false;
 	autoinc++;
@@ -52,6 +53,9 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('gameover', function(data) {
 		dispatch.io.to(client.room).emit('gameover', data);
+		for(var i=0; i<clients.length; i++){
+			clients[i].ready = false
+		}
 	})
 
 	socket.on('enter', function(data) {
@@ -66,6 +70,26 @@ dispatch.io.on('connection', function(socket) {
 	})
 	
 	socket.on('disconnect', function () {
-	    // Do nothing.
+		delete clients[socket]
+
+		var allReady = true;
+		for(var key in clients){
+			if(!clients[key].ready)
+				allReady = false;
+		}
 	});
+
+	socket.on('ready', function(){
+		client.ready = true;
+
+		var allReady = true;
+		for(var key in clients){
+			if(!clients[key].ready)
+				allReady = false;
+		}
+
+		if(allReady){
+			dispatch.io.to(client.room).emit('reset')
+		}
+	})
 });
