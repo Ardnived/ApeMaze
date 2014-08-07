@@ -6,6 +6,7 @@ var debug = require("../shared/debug");
  */
 var clients = {};
 var autoinc = 0;
+var first = true;
 
 dispatch.io.on('connection', function(socket) {
 	clients[socket] = {
@@ -20,7 +21,12 @@ dispatch.io.on('connection', function(socket) {
 	var room = "room00";
 	socket.join(room);
 
-	socket.emit('meta', { player_id: clients[socket].player_id });
+	socket.emit('meta', { 
+		player_id: clients[socket].player_id,
+		is_controller: first
+	});
+	first = false;
+
 	socket.on('meta', function(data) {
 		clients[socket].name = data.name;
 	});

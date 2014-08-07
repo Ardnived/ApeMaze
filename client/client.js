@@ -1,4 +1,6 @@
 
+
+// Testing Code
 Crafty.e("2D, DOM, SpriteAnimation, FireSprite")
 	.attr({x: 100, y: 100, w: 32, h: 32})
 	.reel('Burning', 600, 0, 0, 6)
