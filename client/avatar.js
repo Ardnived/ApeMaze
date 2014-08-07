@@ -18,7 +18,7 @@ var avatar = {
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)
 			.reel('North', 700, 0, 3, 3)
-			.twoway(4, 10)
+			.twoway(4, 8.5)
 			.gravity('Floor')
 			.gravityConst(0.4)
 			.bind('NewDirection', this.on_change_direction)

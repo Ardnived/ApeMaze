@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="500" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32">
+  <image source="../img/tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <layer name="background" width="500" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvgzqYAAB
+  </data>
+ </layer>
+ <layer name="floor" width="500" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt2UEOgjAQQFHW7r3/VTVxY0xwKp12pLyXdENaCKtPy7YBAAAAAABndn+OW/EAAPrpOQD8j4w26jkA1Mlqo54DQI3eNr6v1XMAmG+vjS3NbFk3qsV6DsAVRO2M+nq0yzP31XoOwMpa+jnizNvZOADkqPh/HfUcAGhX0fC95wMAv6nck2e/w+e1aA4ArKK651HrWzt9dB4ArKCq59GZe+/9vvVc1wFYzZV6DgCrquz5yO8DPQeAefQcAM6v8nwfAMih5wAAAAAAAAAAAAAAAAAAAAAAAAAvD/7QGMY=
+  </data>
+ </layer>
+ <layer name="walk_through_walls" width="500" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1bEJAAAIBDFr9x/Y1g3kJYGb4aoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALjUKwAgk58DQD4vB4AfPB0A8vk5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwDTX8AHk=
+  </data>
+ </layer>
+ <layer name="fire_switch" width="500" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1aERAAAIAzE2Yf8tcTgcHCYxb+saAQAAAAAAAAAAAAAAAAAAADfyewAA0LZ+OYcCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwLYCA18AnA==
+  </data>
+ </layer>
+ <layer name="clickable_falling_platforms" width="500" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzqEJAAAIAEFncf8hrRaDSYQ7+P4RAAAAAAAAAAAAwEZeDwAAAMBz2QIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEkBWP4AiQ==
+  </data>
+ </layer>
+ <layer name="spikes" width="500" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAIA7C5wb9Dnj0o4GmTJgAAAAAAAAAAAAAAAAAAAAAAcE0DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwJcF0moATw==
+  </data>
+ </layer>
+ <layer name="sign" width="500" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAMAiATrX+8xdADEpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbLl2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqHt6XAAv
+  </data>
+ </layer>
+</map>
