@@ -18,14 +18,19 @@ var board = {
 	}
 };
 
-// TODO: Remove this sample code.
+Crafty.e("2D, Canvas, TiledMapBuilder")
+	.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
+	.createWorld(function(map) {
+		console.log("Building tile map");
+		for(var floor = 0; floor < map.getEntitiesInLayer("floor").length; ++floor) {
+			map.getEntitiesInLayer("floor")[floor]
+				.addComponent("Floor");
+		}
+	});
+
 Crafty.e("2D, Canvas, Color, Movable, Gravity")
 	.attr({x: 100, y: 100, w: 32, h: 32})
 	.color('lightblue')
 	.gravity('Floor');
-
-Crafty.e('Floor, 2D, Canvas, Color')
-	.attr({x: 0, y: 250, w: 250, h: 10})
-	.color('green');
-
+	
 trap.create(0);
