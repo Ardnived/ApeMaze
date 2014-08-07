@@ -12,10 +12,9 @@ dispatch.on('trap', function(data) {
 			// Show counter?
 		}
 	}else if(data.type == 'platformtrap'){
-		traps[data.trap_id].x = data.x;
-		traps[data.trap_id].y = data.y;
+		traps[data.trap_id].box.x = data.x;
+		traps[data.trap_id].box.y = data.y;
 	}
-	console.log(data.type + " " + data.trap_id + " " + data.x + " " + data.y)
 });
 
 function Trap(id, trigger, threshold) {

@@ -70,11 +70,14 @@ dispatch.io.on('connection', function(socket) {
 			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold) {
 				data.activate = true;
 			}
+			dispatch.io.to(client.room).emit('trap', data);
+		}else if(data.type == 'platformtrap'){
+			for(var socketID in sockets){ //prevent lag
+				if(socketID != socket.id){
+					sockets[socketID].emit('trap', data)
+				}
+			}
 		}
-
-		console.log(data.type + " " + data.trap_id + " " + data.x + " " + data.y)
-
-		dispatch.io.to(client.room).emit('trap', data);
 	});
 
 	socket.on('gameover', function(data) {
