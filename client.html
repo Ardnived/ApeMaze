@@ -8,29 +8,33 @@
 	<link rel="stylesheet" type="text/css" href="/resources/style.css">
 </head>
 <body>
-	<div id="canvas_and_chat" align="center">
-		<div id="canvas"></div>
+	<div id="canvas"></div>
+	<div id="dashText">DASH READY</div>
+	<div id="shieldText">SHIELD READY</div>
 
-		<div id="victory" class="overlay">
-			<strong class="title">VICTORY</strong>
-			<br />
-			<small></small>
-		</div>
+	<div id="victory" class="overlay">
+		<strong class="title">VICTORY</strong>
+		<br />
+		<small></small>
+		<button onclick="dispatch.emit('ready', true);">READY (play as runner)</button>
+		<button onclick="dispatch.emit('ready', false);">READY (play as observer)</button>
+	</div>
 
-		<div id="defeat" class="overlay">
-			<strong class="title">DEFEAT</strong>
-			<br />
-			<small></small>
-		</div>
+	<div id="defeat" class="overlay">
+		<strong class="title">DEFEAT</strong>
+		<br />
+		<small></small>
+		<button onclick="dispatch.emit('ready', true);">READY (play as runner)</button>
+		<button onclick="dispatch.emit('ready', false);">READY (play as observer)</button>
+	</div>
 
-		<div id="chat">
-			<strong>Message</strong>
-			<br />
-			<textarea id="chat_module_content" cols="60" rows="20" resize="false" readonly></textarea>
-			<br />
-			<input id="chat_module_text" size="60" onkeypress="return char_module_keypress(event)"></input>
-			<button onclick="chat_module_send()" id="chat_module_submit" cols="40">Submit</button>
-		</div>
+	<div id="chat">
+		<strong>Message</strong>
+		<br />
+		<textarea id="chat_module_content" cols="60" rows="20" resize="false" readonly></textarea>
+		<br />
+		<input id="chat_module_text" size="80" onkeypress="return char_module_keypress(event)"></input>
+		<button onclick="chat_module_send()" id="chat_module_submit" cols="40">Submit</button>
 	</div>
 	
 	<script src="/resources/libs/modules/create_mocks_module.js"></script>
@@ -46,6 +50,7 @@
 	<script src="/client/traps/firetrap.js"></script>
 	<script src="/client/board.js"></script>
 	<script src="/client/client.js"></script>
+	<script src="/client/sound.js"></script>
 	
 	<script src="/client/chat.js"></script>
 </body>

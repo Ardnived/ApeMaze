@@ -7,23 +7,27 @@ var trap = require("../server/trap");
  * When a new user connects, handle it.
  */
 var clients = {};
+var sockets = {};
 var autoinc = 0;
 var first = true;
 var chat_messages = [];
+var gameStarted = true;
 
 dispatch.io.on('connection', function(socket) {
 	var client = {
 		name: "",
 		player_id: autoinc,
 		is_controller: first,
-		room: "room00"
+		room: "room00",
+		ready: true,
 	};
 	first = false;
 	autoinc++;
 	
-	clients[socket] = client;
+	clients[socket.id] = client;
+	sockets[socket.id] = socket;
 
-	debug.dispatch("Received Game Connection. Player ID:", clients[socket].player_id);
+	debug.dispatch("Received Game Connection. Player ID:", clients[socket.id].player_id);
 	
 	// ------------------
 	socket.join(client.room);
@@ -70,6 +74,10 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('gameover', function(data) {
 		dispatch.io.to(client.room).emit('gameover', data);
+		for(var key in clients){
+			clients[key].ready = false;
+		}
+		gameStarted = false;
 	})
 
 	socket.on('enter', function(data) {
@@ -86,10 +94,61 @@ dispatch.io.on('connection', function(socket) {
 			chat_messages.shift();
 		socket.broadcast.to(client.room).emit('chat', data);
 	})
+
 	// Send the most recent messages to the player on login
 	socket.emit('chats', chat_messages);
 	
+	function checkReadyAndAssignPlayers(){
+		if(gameStarted){
+			return;
+		}
+		var allReady = true;
+		var controllers = []
+		var observers = []
+		for(var key in clients){
+			if(!clients[key].ready){
+				allReady = false;
+			}else{
+				if(clients[key].is_controller){
+					controllers.push(key);
+				}else{
+					observers.push(key);
+				}
+			}
+		}
+
+		if(allReady){
+			if(controllers.length == 0){
+				var key = observers[Math.floor(Math.random()*observers.length)]
+				clients[key].is_controller = true
+			}else if(controllers.length > 1){
+				var cID = Math.floor(Math.random()*controllers.length)
+				for(var i=0; i<controllers.length; i++){
+					if(i == cID){
+						clients[controllers[i]].is_controller = true
+					}else{
+						clients[controllers[i]].is_controller = false
+					}
+				}
+			}
+
+			for(var socketID in clients){
+				sockets[socketID].emit('reset', clients[socketID].is_controller)
+			}
+			gameStarted = true;
+		}
+	}
+
 	socket.on('disconnect', function () {
-	    // Do nothing.
+		delete clients[socket.id]
+
+		checkReadyAndAssignPlayers();
 	});
+
+	socket.on('ready', function(data){
+		client.ready = true;
+		client.is_controller = data;
+
+		checkReadyAndAssignPlayers();
+	})
 });

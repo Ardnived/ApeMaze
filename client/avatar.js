@@ -32,15 +32,15 @@ var avatar = {
 		this.direction = 'East';
 		this.shieldUp = false;
 		this.dashCountdown = false;
-		this.lastDash = new Date();
+		this.lastDash = 0;
 		this.shieldCountdown = false;
-		this.lastShield = new Date();
+		this.lastShield = 0;
 
 		this.shield = Crafty.e("2D, Canvas, CircleSprite")
 			.attr({x: 0, y: 0, w: 80, h: 80});
 
 		this.shield.visible = false;
-
+		/*
 		this.dashText = Crafty.e("2D, Canvas, Text")
 			.attr({ x: 200, y: 100 })
 			.text("DASH (C) READY");
@@ -48,6 +48,7 @@ var avatar = {
 		this.shieldText = Crafty.e("2D, Canvas, Text")
 			.attr({ x: 200, y: 130 })
 			.text("SHIELD (X) READY");
+		*/
 
 		this.shield.x = this.entity.x - 15;
 		this.shield.y = this.entity.y - 15;
@@ -120,9 +121,9 @@ var avatar = {
 			var cooldown = (DASH_COOLDOWN - (new Date() - avatar.lastDash));
 			if (cooldown <= 0){
 				avatar.dashCountdown = false;
-				avatar.dashText.text("DASH READY");
+				document.getElementById('dashText').innerHTML = ("DASH READY");
 			} else {
-				avatar.dashText.text("NEXT DASH: " + cooldown/1000);
+				document.getElementById('dashText').innerHTML = ("NEXT DASH: " + cooldown/1000);
 			}
 		}
 
@@ -136,15 +137,15 @@ var avatar = {
 					avatar.shieldUp = false;
 					avatar.lastShield = new Date();
 				} else {
-					avatar.shieldText.text("SHIELD: " + countdown/1000);
+					document.getElementById('shieldText').innerHTML = ("SHIELD: " + countdown/1000);
 				}
 			} else {
 				var countdown = SHIELD_COOLDOWN - (new Date() - avatar.lastShield);
 				if (countdown <= 0) {
 					avatar.shieldCountdown = false;
-					avatar.shieldText.text("SHIELD READY");
+					document.getElementById('shieldText').innerHTML = ("SHIELD READY");
 				} else {
-					avatar.shieldText.text("NEXT SHIELD: " + countdown/1000);
+					document.getElementById('shieldText').innerHTML = ("NEXT SHIELD: " + countdown/1000);
 				}
 			}
 		}
@@ -181,7 +182,7 @@ var avatar = {
 	},
 	on_key_down: function(e) {
 		//dash
-		if (e.key == Crafty.keys.C && !this.dashCountdown) {
+		if (e.key == Crafty.keys.C && !avatar.dashCountdown) {
 			if (avatar.direction == 'East') {
 				this.x += 50;
 			} else if (avatar.direction == 'West') {
