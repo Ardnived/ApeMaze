@@ -148,6 +148,8 @@ dispatch.io.on('connection', function(socket) {
 						clients[controllers[i]].is_controller = false
 					}
 				}
+			}else{
+				return
 			}
 
 			for(var socketID in clients){

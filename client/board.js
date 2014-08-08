@@ -32,19 +32,22 @@ var board = {
 					trapId++;
 				}
 
+				/*				
 				traps[trapId] = new PlatformTrap(trapId, 100,300,100,20, 100, 100)
-				trapId++
+				trapId++*/
 
-				traps[trapId] = new BearTrap(trapId, 150,250,100,20, 100)
-				trapId++
+				/*traps[trapId] = new BearTrap(trapId, 150,250,100,20, 100)
+				trapId++*/
 
 				// Clickable Falling platforms
+				/*
 				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platform_switch").length; ++falling) {
 					var platformSwitch = map.getEntitiesInLayer("clickable_falling_platform_switch")[falling];
 					var platform = map.getEntitiesInLayer("clickable_falling_platform")[falling];
 					traps[trapId] = new ClickableFallingPlatform(trapId, platformSwitch, 1, platform);
 					trapId++;
 				}
+				*/
 
 				// Beam traps
 				/*
@@ -53,10 +56,10 @@ var board = {
 					traps[trapId] = new FireTrap(trapId, trap, 1);
 					trapId++;
 				}
-				*/
-
+				
 				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)
 				trapId++
+				*/
 
 				document.getElementById("loading").display.style = "none";
 			});
