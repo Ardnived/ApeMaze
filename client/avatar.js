@@ -469,6 +469,8 @@ var avatar = {
 			//shield
 			avatar.use_shield();
 		} else if(this.isDown(Crafty.keys.UP_ARROW)) {
+			if(!avatar.falling)
+				Crafty.audio.play('bump');
 			avatar.falling = true;
 			avatar.entity.animate('Jump', -1);
 			dispatch.emit('animation', 'Jump');

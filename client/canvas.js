@@ -33,3 +33,4 @@ Crafty.sprite(25, 198, "../resources/img/beam.png", {
 Crafty.audio.create('dash', "../resources/sounds/dash.wav")
 Crafty.audio.create('shield', "../resources/sounds/shield.wav")
 Crafty.audio.create('ape_call', "../resources/sounds/ape_call.wav")
+Crafty.audio.create('bump', "../resources/sounds/bump.wav")
