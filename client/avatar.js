@@ -341,28 +341,43 @@ var avatar = {
 			});
 		}
 
-		if (old.y == avatar.entity.y && avatar.falling) {
+		// Land
+		if (hitInfo && avatar.falling && !top_collision) {
 			avatar.falling = false;
-			avatar.entity.animate('Stand', -1);
+			if(avatar.moving) {
+				avatar.entity.animate('Walk', -1);
+			} else {
+				avatar.entity.animate('Stand', -1);
+			}
 		}
 	},
 	on_key_down: function(e) {
+		if(this.isDown(Crafty.keys.LEFT_ARROW) || this.isDown(Crafty.keys.RIGHT_ARROW)) {
+			avatar.moving = true;
+		}
+
 		if (e.key == Crafty.keys.C && !avatar.dashCountdown) {
 			//dash
 			avatar.use_dash();
 		} else if (e.key == Crafty.keys.X && !avatar.shieldCountdown){
 			//shield
 			avatar.use_shield();
-		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)) {
+		} else if(this.isDown(Crafty.keys.UP_ARROW)) {
+			avatar.falling = true;
 			avatar.entity.animate('Jump', -1);
+		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling) {
+			//avatar.entity.animate('Jump', -1);
+			avatar.entity.animate('Stand', -1);
+			avatar.moving = false;
 			//avatar.entity.pauseAnimation(); // What does this even do?
 		}
 	},
 	on_key_up: function(e){
-		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
+		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling){
 			dispatch.emit('stop', {});
 			//avatar.entity.pauseAnimation();
 			avatar.entity.animate('Stand', -1);
+			avatar.moving = false;
 		}
 	},
 	on_death: function() {
