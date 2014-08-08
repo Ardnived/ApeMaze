@@ -32,35 +32,36 @@ var board = {
 				for(var trapIndex = 0; trapIndex < map.getEntitiesInLayer("traps").length; ++trapIndex) {
 					var trap = map.getEntitiesInLayer("traps")[trapIndex];
 					var trapType = trap.tileProperty;
-					
+					console.log(trapType);
 					/*
-						34 - falling
-						15 - elevator
-						31 - fire
-						39 - spikes
-						48 - laser
+						9 - falling
+						7 - elevator
+						8 - fire
+						6 - spikes
+						10 - laser
 					*/
 					switch(trapType) {
 						// Falling
-						case 34:
+						case 9:
 							traps[trapId] = new FallingTrap(trapId, trap, 1);
 							break;
 						// Elevator
-						case 15:
+						case 7:
 							traps[trapId] = new ElevatorTrap(trapId, trap)
 							break;
 						// Fire
-						case 31:
+						case 8:
 							traps[trapId] = new FireTrap(trapId, trap, 1);
 							break;
 						// Spikes
-						case 39:
+						case 6:
 							trap.addComponent("Deathzone");
 							trap.y += board.tileheight / 2;
 							trap.h = board.tileheight / 2;
 							break;
 						// Laser
-						case 48:
+						case 10:
+							traps[trapId] = new BeamTrap(trapId, trap, 1);
 							break;
 					}
 

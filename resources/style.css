@@ -24,7 +24,7 @@ body {
 }
 
 #loading,
-#gameover {
+#lobby {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -32,17 +32,17 @@ body {
 	bottom: 0;
 
 	background: white;
-	opacity: 0.5;
+	opacity: 0.7;
 
 	text-align: center;
 	font-size: 24px;
 }
 
-#gameover {
+#lobby {
 	display: none;
 }
 
-#gameover .title {
+#lobby .title {
 	font-size: 80px;
 }
 

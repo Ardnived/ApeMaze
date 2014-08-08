@@ -1,6 +1,7 @@
 
 var player = {};
 
+
 dispatch.on('meta', function(data) {
 	if (typeof data.is_controller != 'undefined') {
 		player.is_controller = data.is_controller;

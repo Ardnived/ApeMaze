@@ -59,6 +59,10 @@ dispatch.io.on('connection', function(socket) {
 		socket.broadcast.to(client.room).emit('stop', data);
 	});
 
+	socket.on('animation', function(data){
+		socket.broadcast.to(client.room).emit('animation', data);
+	})
+
 	socket.on('shield', function(data) {
 		socket.broadcast.to(client.room).emit('shield', data);
 	})
@@ -155,9 +159,7 @@ dispatch.io.on('connection', function(socket) {
 				}
 			}
 
-			for(var trapID in trap.traps){
-				trap.traps[trapID].clicks = 0;
-			}
+			trap.traps = {}
 			
 			for(var socketID in clients){
 				sockets[socketID].emit('reset', clients[socketID].is_controller)
