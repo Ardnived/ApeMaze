@@ -75,7 +75,7 @@ body.controller #controller {
 	margin: auto;
 }
 
-#chat-toggle:not(:checked) ~ div {
+#chat-toggle:not(:checked) ~ form {
 	display: none;
 }
 
@@ -98,6 +98,10 @@ body.controller #controller {
 
 	background: white;
 	opacity: 0.8;
+}
+
+#chat strong {
+	margin-right: 5px;
 }
 
 #chat #chat_list {

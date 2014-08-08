@@ -491,6 +491,12 @@ var avatar = {
 		if (!avatar.dead) {
 			debug.game("Player died");
 			avatar.dead = true;
+
+			avatar.entity.rotation = 90;
+			avatar.entity.x += avatar.entity.h;
+			avatar.entity.y +=avatar.entity.w;
+
+
 			dispatch.emit('gameover', { controller_won: false, cause: trapname });
 		}
 	},
