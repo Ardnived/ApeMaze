@@ -90,6 +90,7 @@ var avatar = {
 			});
 
 		dispatch.on('move', function(data) {
+			debug.dispatch('move', data);
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
 			avatar.on_receive_direction(data.direction);
@@ -98,8 +99,7 @@ var avatar = {
 
 		dispatch.on('shield', avatar.use_shield);
 
-		dispatch.on('stop', function(data){
-			avatar.entity.pauseAnimation();
+		dispatch.on('stop', function(data) {
 			console.log('stop')
 		})
 
