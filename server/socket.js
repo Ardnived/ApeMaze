@@ -83,12 +83,8 @@ dispatch.io.on('connection', function(socket) {
 				trap.traps[data.trap_id].clicks = 0;
 			}
 			dispatch.io.to(client.room).emit('trap', data);
-		}else if(data.type == 'platformtrap'){
-			for(var socketID in sockets){ //prevent lag
-				if(socketID != socket.id){
-					sockets[socketID].emit('trap', data)
-				}
-			}
+		}else if(data.type == 'platformtrap' || data.type == 'beartrap'){
+			socket.broadcast.to(client.room).emit('trap', data);
 		}
 	});
 

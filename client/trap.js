@@ -11,9 +11,37 @@ dispatch.on('trap', function(data) {
 		} else {
 			// Show counter?
 		}
-	} else if (data.type == 'platformtrap') {
-		traps[data.trap_id].box.x = data.x;
-		traps[data.trap_id].box.y = data.y;
+	}else if(data.type == 'platformtrap'){
+		trapBox = traps[data.trap_id].box
+
+		trapBox.x = data.x;
+		trapBox.y = data.y;
+
+		if(player.is_controller){
+			hitDetection = trapBox.hit('Player')
+			if(hitDetection){
+				if(trapBox.y > hitDetection[0].obj.y){
+					hitDetection[0].obj.y = trapBox.y - hitDetection[0].obj.h
+				}
+
+				dispatch.emit('move', {
+					x: avatar.entity.x,
+					y: avatar.entity.y,
+					direction: avatar.direction,
+				});
+			}
+		}
+	}else if(data.type == 'beartrap'){
+		trapBox = traps[data.trap_id].box
+
+		trapBox.x = data.x
+
+		if(player.is_controller){
+			hitDetection = trapBox.hit('Player')
+			if(hitDetection){
+				avatar.on_death();
+			}
+		}
 	}
 });
 

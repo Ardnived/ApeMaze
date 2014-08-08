@@ -32,6 +32,12 @@ var board = {
 					trapId++;
 				}
 
+				traps[trapId] = new PlatformTrap(trapId, 100,300,100,20, 100, 100)
+				trapId++
+
+				traps[trapId] = new BearTrap(trapId, 150,250,100,20, 100)
+				trapId++
+
 				// Clickable Falling platforms
 				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platform_switch").length; ++falling) {
 					var platformSwitch = map.getEntitiesInLayer("clickable_falling_platform_switch")[falling];
