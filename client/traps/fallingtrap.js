@@ -14,8 +14,19 @@ function FallingTrap(id, trigger, threshold) {
 	console.log(this.trigger.y);
 	var h = board.tileheight/3;
 
-	this.crush = Crafty.e("2D, Canvas, Deathzone, Collision").attr({x: this.trigger.x, y: this.trigger.y + board.tileheight - h + 2, h: h, w: this.trigger.w});
+	this.block = Crafty.e("2D, Canvas, GroundSprite")
+		.attr({x: this.trigger.x, y: this.trigger.y, h: this.trigger.h, w: this.trigger.w})
+
+	this.trigger.attach(this.block);
+	this.trigger.z = 100;
+
+	this.crush = Crafty.e("2D, Canvas, Deathzone, Collision")
+		.attr({x: this.trigger.x, y: this.trigger.y + board.tileheight - h + 2, h: h, w: this.trigger.w});
 	this.trigger.attach(this.crush);
+
+	if (player.is_controller) {
+		this.trigger.visible = false;
+	}
 
 	this.reset();
 }
@@ -33,15 +44,15 @@ FallingTrap.prototype.activate = function(){
 		var runnerFallingMove = function() {
 			avatar.check_deathzones();
 		}
-		this.trigger.bind("Move", runnerFallingMove);
+		this.block.bind("Move", runnerFallingMove);
 
 		var runnerFallingHit = function() {
 			console.log("Falling Trap Landed");
 
-			that.trigger.unbind("Move", that.runnerFallingMove);
+			that.block.unbind("Move", that.runnerFallingMove);
 			that.crush.visible = false;
-			that.trigger.addComponent("Platform");
-			that.trigger.removeComponent("Gravity");
+			that.block.addComponent("Platform");
+			that.block.removeComponent("Gravity");
 			that.crush.unbind("EnterFrame", that.runnerFallingHit);
 		}
 
@@ -51,8 +62,8 @@ FallingTrap.prototype.activate = function(){
 		var observerFallingHit = function() {
 			console.log("Falling Trap Landed");
 
-			that.trigger.addComponent("Platform");
-			that.trigger.removeComponent("Gravity");
+			that.block.addComponent("Platform");
+			that.block.removeComponent("Gravity");
 			that.crush.unbind("EnterFrame", that.observerFallingHit);
 		}
 

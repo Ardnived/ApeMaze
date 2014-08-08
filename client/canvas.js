@@ -6,11 +6,8 @@ Crafty.sprite(50, "../resources/img/ape50.png", {
 	JumpSprite:  [4, 0]
 });
 
-Crafty.sprite(32, "../resources/img/spritesheet.png", {
-	SouthSprite: [0, 0], 
-	WestSprite:  [0, 1],
-	EastSprite:  [0, 2],
-	NorthSprite: [0, 3]
+Crafty.sprite(64, "../resources/img/fall.png", {
+	GroundSprite: [0, 0]
 });
 
 Crafty.sprite(32, "../resources/img/doodad.png", {

@@ -6,6 +6,7 @@ var AVATAR = {
 	color: "#FFFFFF",
 	intensity: 0.0,
 	offset: -150,
+	startX: 70,
 	startY: 64 * 10
 };
 
@@ -50,7 +51,7 @@ var avatar = {
 		}
 
 		this.entity
-			.attr({x: 0, y: AVATAR.startY, w: 50, h: 50, z:1000})
+			.attr({x: AVATAR.startX, y: AVATAR.startY, w: 50, h: 50, z:1000})
 			.reel('Walk', 200, 0, 0, 2)
 			.reel('Stand', 200, 2, 0, 2)
 			.reel('Jump', 160, 3, 0, 2)

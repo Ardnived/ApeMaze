@@ -123,7 +123,7 @@ var board = {
 			Crafty.enterScene("stage"+index);
 
 			if (avatar.entity != null) {
-				avatar.entity.x = 5;
+				avatar.entity.x = AVATAR.startX;
 				avatar.entity.y = AVATAR.startY;
 			}
 
