@@ -310,8 +310,8 @@ Crafty.c("TiledMapBuilder", {
     			 var mockEntity = mockEntities[layer][idx];
     			 if( mockEntity == 0 ){
     				 layers[layer].push(0);
-				}else{    					    				
-					var entity = Crafty.e( mockEntity.head ).attr({ x:mockEntity.x, y:mockEntity.y });
+				}else{    					    
+					var entity = Crafty.e( mockEntity.head ).attr({ x:mockEntity.x, y:mockEntity.y, tileProperty: mockEntity.tileProperty });
 	    			if( isIsometric ){
 	    				isometric.place( entity.x, entity.y, 0, entity);	
 	    			}    			     			

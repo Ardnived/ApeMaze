@@ -1,4 +1,3 @@
-
 var direction = {
 	north: { x: 0, y: -1 },
 	south: { x: 0, y: 1 },
@@ -17,6 +16,7 @@ var board = {
 			.createWorld(function(map) {
 				console.log("Building tile map");
 
+				console.log(map.getLayers());
 				// Floor
 				for(var floor = 0; floor < map.getEntitiesInLayer("floor").length; ++floor) {
 					var floorEntity = map.getEntitiesInLayer("floor")[floor];
@@ -28,7 +28,30 @@ var board = {
 				// Traps
 				for(var trapIndex = 0; trapIndex < map.getEntitiesInLayer("traps").length; ++trapIndex) {
 					var trap = map.getEntitiesInLayer("traps")[trapIndex];
-					console.log(trap);
+					var trapType = trap.tileProperty;
+
+					/*
+						34 - falling
+						15 - lift
+						31 - fire
+						39 - spikes
+					*/
+					switch(trapType) {
+						case 34:
+							// traps[trapId] = new 
+							break;
+						case 15:
+							// traps[trapId] = new 
+							break;
+						case 31:
+							// traps[trapId] = new 
+							break;
+						case 39:
+							// traps[trapId] = new 
+							break;
+					}
+
+					trapId++;
 				}
 
 /*				// Fire traps
