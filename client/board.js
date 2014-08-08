@@ -79,7 +79,7 @@ var board = {
 		}
 
 		document.getElementById("loading").style.display = "none";
-
+		
 		/*
 		Crafty.e("2D, Canvas, Color, Movable, Gravity, Floor")
 			.attr({x: 100, y: 100, w: 32, h: 32})

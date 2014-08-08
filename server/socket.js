@@ -66,7 +66,7 @@ dispatch.io.on('connection', function(socket) {
 	})
 	
 	socket.on('trap', function(data) {	
-		if(data.type == 'beartrap' || data.type == 'platformtrap') {
+		if(data.type == 'beartrap' || data.type == 'platformtrap' || data.type == 'elevatortrap') {
 			// Special
 			socket.broadcast.to(client.room).emit('trap', data);
 		} else {
@@ -186,9 +186,7 @@ function checkReadyAndAssignPlayers(){
 			}
 		}
 
-		for(var trapID in trap.traps){
-			trap.traps[trapID].clicks = 0;
-		}
+		trap.traps = {}
 		
 		if (game.controller_won == null) {
 			for (var socketID in clients) {
