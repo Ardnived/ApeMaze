@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="35" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32">
+  <image source="../img/tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <layer name="background" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
+  </data>
+ </layer>
+ <layer name="floor" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBg4wDWAdqODUbdgB6NuwQ5G3YIdDDW3cGHB+MzApp5YTKo7aIkJuWOgwWBwB7FxRw8wWNwBAgCSnQKf
+  </data>
+ </layer>
+ <layer name="walk_through_walls" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
+  </data>
+ </layer>
+ <layer name="fire_switch" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKRC+SheBSMglFAGAAAzVgAPw==
+  </data>
+ </layer>
+ <layer name="clickable_falling_platforms" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjESghIRHwSgYBaOAGAAAtPsAZw==
+  </data>
+ </layer>
+ <layer name="spikes" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRgAuoI+FRMApGOgAAbL8Adg==
+  </data>
+ </layer>
+ <layer name="sign" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjILhBfQG2gGjYBQMUwAAorwALw==
+  </data>
+ </layer>
+ <layer name="breakable_glass" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDHbAP9AOQAKjbhkFo2DkAgC8NAAu
+  </data>
+ </layer>
+ <layer name="canon" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjAL8QGGgHTAKRsEoGBQAAIm0ACE=
+  </data>
+ </layer>
+ <layer name="clickable_laser_beam" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQCzQH2gHjIJRMIAAAJU0ADA=
+  </data>
+ </layer>
+ <layer name="clickable_fire_beam" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
+  </data>
+ </layer>
+ <layer name="clickable_ice_beam" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
+  </data>
+ </layer>
+ <layer name="up_down_platforms" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjALSgRQSHgWjYBSMDAAAPJsATw==
+  </data>
+ </layer>
+ <layer name="WIN!" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
+  </data>
+ </layer>
+</map>
