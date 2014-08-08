@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="22" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tilesheet" tilewidth="64" tileheight="64">
+  <image source="../img/tilesheet.png" width="320" height="256"/>
+  <tile id="5">
+   <properties>
+    <property name="trap" value="spike"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="trap" value="lift"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="trap" value="fire"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="trap" value="fall"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="trap" value="beam"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="trap" value="beam_right"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="trap" value="beam_left"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="40" height="22">
+  <data encoding="base64" compression="zlib">
+   eJxjYIAA1kGIkcFAu2Uwu48YMNjcM1DuIxcMpfAbDABf/hhoQCj/DjQYLO7ABQa7+0BgMLtvsIffSHEfKXUnqeZiK18I8Smt24lVR6j8o3ZdRe+6mlQw6r7h7b7hDAA7GAXJ
+  </data>
+ </layer>
+ <layer name="floor" width="40" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztlEsKwCAMRCXQ+1+5q4CEfJuoKfggi7G1HYbRMS5/5xGmi59OdPPDAcr6PBJSHypHI/s8A/qTstJym7+xiq/Z7DpTmB0HKP/eda4q+reSiv6dRMqO+rY0rnn2eTOJ9M/S4HwPtffe0LpH+2DpiD+6n5sVRHPfzfWXg95lnL6c4wUyggH3
+  </data>
+ </layer>
+ <layer name="traps" width="40" height="22">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BkAe6BdsAwBjwD7YAhAEbTH27AQaH+0fQ3OAE7AT41ABsSJoY/3AC+vENpvhoFtAMjLZ2OAuoBALy1AK8=
+  </data>
+ </layer>
+</map>
