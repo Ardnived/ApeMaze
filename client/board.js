@@ -25,12 +25,18 @@ var board = {
 					//floorEntity.north.addComponent("Floor");
 				}
 
-				// Fire traps
+				// Traps
+				for(var trapIndex = 0; trapIndex < map.getEntitiesInLayer("traps").length; ++trapIndex) {
+					var trap = map.getEntitiesInLayer("traps")[trapIndex];
+					console.log(trap);
+				}
+
+/*				// Fire traps
 				for(var fire = 0; fire < map.getEntitiesInLayer("fire_switch").length; ++fire) {
 					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
 					traps[trapId] = new FireTrap(trapId, fireSwitch, 1);
 					trapId++;
-				}
+				}*/
 
 /*				traps[trapId] = new PlatformTrap(trapId, 100,300,100,20, 100, 100)
 				trapId++*/
