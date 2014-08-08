@@ -93,14 +93,25 @@ var avatar = {
 			debug.dispatch('move', data);
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
-			avatar.on_receive_direction(data.direction);
-			avatar.entity.animate(data.animation, -1);
+
+			if(data.direction=="West")
+				avatar.entity.flip("X");
+			else
+				avatar.entity.unflip("X");
+			//avatar.on_receive_direction(data.direction);
+			//avatar.entity.animate(data.animation, -1);
 		});
 
 		dispatch.on('shield', avatar.use_shield);
 
 		dispatch.on('stop', function(data) {
-			console.log('stop')
+			console.log('stop');
+			avatar.entity.animate("Stand", -1);
+		})
+
+		dispatch.on('animation', function(data) {
+			avatar.entity.animate(data, -1);
+			console.log('animation')
 		})
 
 		document.getElementById('dashText').style.display = 'none'
@@ -289,10 +300,12 @@ var avatar = {
 			case 'West':
 				avatar.entity.flip("X");
 				avatar.entity.animate("Walk", -1);
+				dispatch.emit('animation', 'Walk');
 				break;
 			case 'East':
 				avatar.entity.unflip("X");
 				avatar.entity.animate("Walk", -1);
+				dispatch.emit('animation', 'Walk');
 				break;
 		}
 	},
@@ -350,6 +363,7 @@ var avatar = {
 			avatar.use_shield();
 		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)) {
 			avatar.entity.animate('Jump', -1);
+			dispatch.emit('animation', 'Jump');
 			//avatar.entity.pauseAnimation(); // What does this even do?
 		}
 	},
