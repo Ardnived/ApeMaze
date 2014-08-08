@@ -87,8 +87,6 @@ var avatar = {
 		this.dead = false;
 
 		this.entity.animate('Stand', -1)
-		
-		Crafty.viewport.follow(this.entity, AVATAR.offset, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Persist, Player')
@@ -107,6 +105,7 @@ var avatar = {
 		document.getElementById('dashContainer').style.visible = 'visible'
 		document.getElementById('shieldContainer').style.visible = 'visible'
 		Crafty.viewport.mouselook(false);
+		Crafty.viewport.follow(this.entity, AVATAR.offset, 0);
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Persist, Player')
@@ -118,13 +117,17 @@ var avatar = {
 			.bind('EnterFrame', function(){
 				if(Crafty.keydown[Crafty.keys.RIGHT_ARROW] || Crafty.keydown[Crafty.keys.D]){
 					Crafty.viewport.x -= 20
+					Crafty.viewport.mouselook(false);
 				}else if(Crafty.keydown[Crafty.keys.LEFT_ARROW] || Crafty.keydown[Crafty.keys.A]){
 					Crafty.viewport.x += 20
+					Crafty.viewport.mouselook(false);
 				}
 				if(Crafty.keydown[Crafty.keys.UP_ARROW] || Crafty.keydown[Crafty.keys.W]){
 					Crafty.viewport.y += 20
+					Crafty.viewport.mouselook(false);
 				}else if(Crafty.keydown[Crafty.keys.DOWN_ARROW] || Crafty.keydown[Crafty.keys.S]){
 					Crafty.viewport.y -= 20
+					Crafty.viewport.mouselook(false);
 				}
 			});
 
