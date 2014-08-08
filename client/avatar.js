@@ -35,7 +35,8 @@ var BURNING = {
 };
 
 var ENERGY = {
-	distance: 100,
+	distance: 1000,
+	max: 2
 }
 
 var avatar = {
@@ -60,7 +61,7 @@ var avatar = {
 		this.lastShield = 0;
 		this.energy = 0
 		avatar.update_energy();
-		this.furthest = 0
+		this.furthest = { x:0, y:0 };
 
 		this.shield = Crafty.e("2D, Canvas, CircleSprite")
 			.attr({x: this.entity.x - 15, y: this.entity.y - 15, w: 80, h: 80});
@@ -392,9 +393,17 @@ var avatar = {
 		}
 
 		//energy
-		if(avatar.entity.x > avatar.furthest){
-			avatar.energy += Math.floor(avatar.entity.x/ENERGY.distance) - Math.floor(avatar.furthest/ENERGY.distance);
-			avatar.furthest = avatar.entity.x;
+		if (avatar.entity.x > avatar.furthest.x || avatar.entity.y > avatar.furthest.y) {
+			if (avatar.entity.x > avatar.furthest.x) {
+				avatar.energy += avatar.entity.x/ENERGY.distance - avatar.furthest.x/ENERGY.distance;
+				avatar.furthest.x = avatar.entity.x;
+			}
+			if (avatar.entity.y > avatar.furthest.y) {
+				avatar.energy += avatar.entity.y/ENERGY.distance - avatar.furthest.y/ENERGY.distance;
+				avatar.furthest.y = avatar.entity.y;
+			}
+
+			avatar.energy = Math.min(avatar.energy, ENERGY.max)
 			avatar.update_energy();
 		}
 	},
@@ -445,6 +454,6 @@ var avatar = {
 		}
 	},
 	update_energy: function(){
-		document.getElementById('energy').innerHTML = avatar.energy;
+		document.getElementById('energy').innerHTML = toFixed(avatar.energy, 2);
 	}
 };
