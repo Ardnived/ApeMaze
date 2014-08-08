@@ -2,7 +2,7 @@
 var AVATAR = {
 	gravity: 0.4,
 	speed: 4,
-	jump: 8.5,
+	jump: 9,
 	color: "#FFFFFF",
 	intensity: 0.0
 };
@@ -53,12 +53,11 @@ var avatar = {
 		this.burning = false;
 	},
 	init_controller: function() {
-		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision, Player')
-			.attr({x: 0, y: 0, w: 25, h: 25})
-			.reel('South', 700, 0, 0, 3)
-			.reel('West', 700, 0, 1, 3)
-			.reel('East', 700, 0, 2, 3)
-			.reel('North', 700, 0, 3, 3)
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
+			.attr({x: 0, y: 0, w: 50, h: 50})
+			.reel('Walk', 200, 0, 0, 2)
+			.reel('Stand', 700, 0, 2, 1)
+			.reel('Jump', 700, 0, 3, 1)
 			.twoway(AVATAR.speed, AVATAR.jump)
 			.gravity('Floor')
 			.gravityConst(AVATAR.gravity)
@@ -79,12 +78,11 @@ var avatar = {
 		Crafty.viewport.follow(this.entity, 0, 0);
 	}, 
 	init_observer: function() {
-		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite, Player')
-			.attr({x: 0, y: 0, w: 25, h: 25})
-			.reel('South', 700, 0, 0, 3)
-			.reel('West', 700, 0, 1, 3)
-			.reel('East', 700, 0, 2, 3)
-			.reel('North', 700, 0, 3, 3)
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
+			.attr({x: 0, y: 0, w: 50, h: 50})
+			.reel('Walk', 200, 0, 0, 2)
+			.reel('Stand', 700, 0, 2, 1)
+			.reel('Jump', 700, 0, 3, 1)
 			.bind('EnterFrame', this.update_shield)
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
@@ -278,18 +276,28 @@ var avatar = {
 	},
 	on_change_direction: function(event) {
 		if (this.isDown('LEFT_ARROW')) {
-			avatar.direction = 'West';
+			avatar.on_receive_direction('West');
 	    } else if (this.isDown('RIGHT_ARROW')) {
-			avatar.direction = 'East';
+			avatar.on_receive_direction('East');
 	    } else if (this.isDown('UP_ARROW')) {	
-			avatar.direction = 'South';
+			avatar.on_receive_direction('Up');
 		}
-		this.animate(avatar.direction, -1);
 	},
 	on_receive_direction: function(direction){
-		if(direction != avatar.direction){
+		if (direction != avatar.direction){
 			avatar.direction = direction;
-			avatar.entity.animate(avatar.direction, -1);
+
+			switch (avatar.direction) {
+				case 'West':
+					avatar.entity.flip("X");
+					avatar.entity.animate("Walk", -1);
+					break;
+				case 'East':
+					avatar.entity.unflip("X");
+					avatar.entity.animate("Walk", -1);
+					break;
+			}
+			
 		}
 	},
 	on_moved: function(old) {
@@ -300,25 +308,27 @@ var avatar = {
 
 		var hitInfo = this.hit("Platform");
         if(hitInfo) {
+        	
+        	top_collision = false;
+
         	for(var i = 0; i < hitInfo.length; ++i) {
         		var hitObj = hitInfo[i].obj;
-        		if(hitObj.x > avatar.entity.x + avatar.entity.w) {
-        			// Right side
-        			avatar.entity.x = old.x;
-        		} else if(hitObj.x + hitObj.w < avatar.entity.x) {
-        			// Left side
-					avatar.entity.x = old.x;
-					alert('lol');
-        		} else if(hitObj.y + hitObj.h < avatar.entity.y) {
-        			// Bottom
-        			console.log("collide");
-        			avatar.entity.y = old.y;
+        		
+        		if(hitObj.y + hitObj.h > avatar.entity.y
+        			&& hitObj.x < avatar.entity.x + 0.8*avatar.entity.w
+        			&& hitObj.x + hitObj.w > avatar.entity.x + 0.2*avatar.entity.w
+        			&& avatar.entity.y > hitObj.y + 0.8*hitObj.h) {
+        			top_collision = true;
         		}
         	}
-
             // when hit from left, bottom or right side
             avatar.entity.x -= avatar.entity._movement.x;
-            //avatar.entity._up = false;
+            //avatar.entity.y += avatar.entity._movement.y;
+            
+            if(top_collision){
+            	avatar.entity._up = false;
+            	avatar.entity.y += 2;
+            }
         }
 
 		if (!killed) {
@@ -336,16 +346,22 @@ var avatar = {
 		//shield
 		} else if (e.key == Crafty.keys.X && !avatar.shieldCountdown){
 			avatar.use_shield();
+		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
+			avatar.entity.pauseAnimation();
 		}
 	},
 	on_key_up: function(e){
 		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
 			dispatch.emit('stop', {});
 			avatar.entity.pauseAnimation();
+			//avatar.entity.animate('Stand', -1);
 		}
 	},
 	on_death: function() {
-		console.log("Player died");
-		dispatch.emit('gameover', { controller_won: false });
+		if (!avatar.dead) {
+			console.log("Player died");
+			avatar.dead = true;
+			dispatch.emit('gameover', { controller_won: false });
+		}
 	}
 };
