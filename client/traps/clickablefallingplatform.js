@@ -1,6 +1,6 @@
 function ClickableFallingPlatform(id, trigger, threshold, tile) {
 	Trap.call(this, id, trigger, threshold);
-
+	
 	this.entity = tile;
 	this.entity.addComponent("ClickableFallingPlatform");
 	this.entity.visible = false;
