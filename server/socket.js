@@ -187,7 +187,9 @@ function checkReadyAndAssignPlayers() {
 				cause: game.cause,
 				latecomer: false
 			});
-			dispatch.io.emit('chat', {message: "Game over. The ape " + (data.controller_won ? "escaped." : "died.")})
+			dispatch.io.emit('chat', {
+				message: 'The ape has lost its connection lol...'
+			});
 			for(var key in clients){
 				clients[key].ready = false;
 			}
