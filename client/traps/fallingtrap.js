@@ -13,10 +13,10 @@ function FallingTrap(id, trigger, threshold) {
 
 FallingTrap.prototype.activate = function(){
 	Trap.prototype.activate.call(this);
-	this.unbind("Click");
-
+	//this.unbind("Click");
 	this.entity.addComponent("Gravity");
-	this.gravity("Floor");
+	this.entity.gravityConst(0.4);
+	this.entity.gravity("Floor");
 }
 
 FallingTrap.prototype.click = function() {
