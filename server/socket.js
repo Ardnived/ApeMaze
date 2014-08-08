@@ -10,6 +10,7 @@ var trap = require("../server/trap");
 var clients = {};
 var autoinc = 0;
 var chat_messages = [];
+var current_scene = 0;
 
 dispatch.io.on('connection', function(socket) {
 	client_is_controller = true;
@@ -61,11 +62,16 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('animation', function(data){
 		socket.broadcast.emit('animation', data);
-	})
+	});
 
 	socket.on('shield', function(data) {
 		socket.broadcast.emit('shield', data);
-	})
+	});
+
+	socket.on('scene', function(data) {
+		current_scene = data.index;
+		socket.broadcast.emit('scene', data);
+	});
 	
 	socket.on('trap', function(data) {	
 		if(data.type == 'beartrap' || data.type == 'platformtrap' || data.type == 'elevatortrap') {
@@ -138,6 +144,11 @@ dispatch.io.on('connection', function(socket) {
 			is_controller: clients[socket.id].is_controller,
 			num_players: clients.length
 		});
+
+		socket.emit('scene', {
+			index: current_scene
+		});
+
 		socket.emit('move', {
 			x: avatar.x,
 			y: avatar.y,
