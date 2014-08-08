@@ -23,6 +23,7 @@ body {
 	width: 98%;
 }
 
+#loading,
 #gameover {
 	position: absolute;
 	top: 0;
@@ -35,7 +36,9 @@ body {
 
 	text-align: center;
 	font-size: 24px;
+}
 
+#gameover {
 	display: none;
 }
 

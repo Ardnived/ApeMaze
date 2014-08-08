@@ -57,6 +57,8 @@ var board = {
 
 				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)
 				trapId++
+
+				document.getElementById("loading").display.style = "none";
 			});
 
 		/*
