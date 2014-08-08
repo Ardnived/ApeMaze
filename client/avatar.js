@@ -37,6 +37,13 @@ var avatar = {
 			this.init_observer();
 		}
 
+		this.entity
+			.attr({x: 0, y: 0, w: 50, h: 50})
+			.reel('Walk', 200, 0, 0, 2)
+			.reel('Stand', 200, 2, 0, 2)
+			.reel('Jump', 160, 3, 0, 2)
+			.bind('EnterFrame', this.update_shield);
+
 		this.shieldUp = false;
 		this.dashCountdown = false;
 		this.lastDash = 0;
@@ -51,22 +58,19 @@ var avatar = {
 
 		this.frozen = false;
 		this.burning = false;
+
+		this.entity.animate('Stand', -1)
 		
 		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
-			.attr({x: 0, y: 0, w: 50, h: 50})
-			.reel('Walk', 200, 0, 0, 2)
-			.reel('Stand', 200, 2, 0, 2)
-			.reel('Jump', 160, 3, 0, 2)
 			.twoway(AVATAR.speed, AVATAR.jump)
 			.gravity('Floor')
 			.gravityConst(AVATAR.gravity)
 			.bind('NewDirection', this.on_change_direction)
 			.bind('Moved', this.on_moved)
 			.bind('EnterFrame', this.update_dash)
-			.bind('EnterFrame', this.update_shield)
 			.bind('EnterFrame', this.update_frozen)
 			.bind('EnterFrame', this.update_burning)
 			.bind('KeyDown', this.on_key_down)
@@ -79,11 +83,6 @@ var avatar = {
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
-			.attr({x: 0, y: 0, w: 50, h: 50})
-			.reel('Walk', 200, 0, 0, 2)
-			.reel('Stand', 200, 2, 0, 2)
-			.reel('Jump', 160, 3, 0, 2)
-			.bind('EnterFrame', this.update_shield)
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
 					Crafty.viewport.follow(avatar.entity, 0, 0);
@@ -91,15 +90,16 @@ var avatar = {
 			});
 
 		dispatch.on('move', function(data) {
+			debug.dispatch('move', data);
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
-			avatar.on_receive_direction(data.direction)
+			avatar.on_receive_direction(data.direction);
+			avatar.entity.animate(data.animation, -1);
 		});
 
 		dispatch.on('shield', avatar.use_shield);
 
-		dispatch.on('stop', function(data){
-			avatar.entity.pauseAnimation();
+		dispatch.on('stop', function(data) {
 			console.log('stop')
 		})
 
@@ -332,6 +332,7 @@ var avatar = {
 				x: avatar.entity.x,
 				y: avatar.entity.y,
 				direction: avatar.direction,
+				animation: avatar.entity.getReel().id
 			});
 		}
 
