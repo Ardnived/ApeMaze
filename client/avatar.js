@@ -384,7 +384,7 @@ var avatar = {
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
 		}
-	}
+	},
 	on_win: function() {
 		if (!avatar.dead) {
 			console.log("Player won");
