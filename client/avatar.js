@@ -69,6 +69,7 @@ var avatar = {
 		this.shield = Crafty.e("2D, Canvas, CircleSprite, Persist")
 			.attr({x: this.entity.x - 15, y: this.entity.y - 15, w: 80, h: 80});
 
+		this.shield.z = 1000;
 		this.shield.visible = false;
 		this.entity.attach(this.shield);
 
@@ -76,6 +77,7 @@ var avatar = {
 			.attr({w: 150, h: 50})
 			.reel("Animate", 100, 0, 0, 3);
 
+		this.dash.z = 1000;
 		this.dash.visible = false;
 
 		this.frozen = false;
