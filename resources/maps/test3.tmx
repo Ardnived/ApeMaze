@@ -23,7 +23,12 @@
    eJzt3D0KwCAMBtDOvUTuf8uOgmhbSv8074EImRzyDTbFZQEAAAAAAOBIfH0AeMFdfR6dHfiGDAIAADNwtyE7GQAAAAAAAAAAAAAAAAAAAACA/2m9C7JX844IGehzAAAAAIA5Xfn+a0ZCRvodzullpa7LFNm1MhGNOgAAAAAAAABQ1P8vmrMDAAAAAADA/czlABjRWi2gqHMRDy8YiXzAefIBAAAAAAAAAAAAAAAAAAAAAAAAAACQzwZp4gyr
   </data>
  </layer>
- <layer name="clickable_falling_platforms" width="200" height="100">
+ <layer name="clickable_falling_platform" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3WEGACAMBtDOsvsfMhGlHxVJ4j2mE2xGfEsJAAD+ErUAoIjFC0DboU9no9kKAAAAAAAAAAAAAAAAAAAAANzQ56PIkgLgpjGTS9YtNPoDAAAAAAB4afefYnaLJxYFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwJkMgcwEyQ==
+  </data>
+ </layer>
+ <layer name="clickable_falling_platform_switch" width="200" height="100">
   <data encoding="base64" compression="zlib">
    eJzt3UsKgCAUBVDX4v4XGVFQiD4Da2CeA6I2zu/gmhIAAMwlnwUAdrlTA3DtoUfnRnMrAAAAAAAAAAAAAAAAAAAAANBS5pw87dfa9xoAviTrFoA3WVMAGOFeDAAAgNXlot06I/fe4slBAQAAAAAAAAAAAAAAAAAAAGBe8iMgFmWywIqif7/MPAIOtfFgjLCiaJ3o9QEAgHlEudi1bOvaG1PRNwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+LsNnMoIxQ==
   </data>
