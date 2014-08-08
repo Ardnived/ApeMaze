@@ -23,6 +23,10 @@ body {
 	width: 98%;
 }
 
+#chat input {
+	width: 220px;
+}
+
 #loading,
 #lobby {
 	position: absolute;
