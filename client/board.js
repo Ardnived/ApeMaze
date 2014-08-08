@@ -115,8 +115,9 @@ var board = {
 		if (index < board.stage_count) {
 			board.current_stage = index;
 			Crafty.enterScene("stage"+index);
-			avatar.x = 0;
-			avatar.y = 0;
+			avatar.entity.x = 5;
+			avatar.entity.y = AVATAR.startY;
+			Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
 		} else {
 			avatar.on_win();
 		}
