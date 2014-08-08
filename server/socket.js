@@ -128,7 +128,7 @@ dispatch.io.on('connection', function(socket) {
 
 	if (game.active) {
 		socket.emit('meta', { 
-			is_controller: socket.is_controller
+			is_controller: clients[socket.id].is_controller
 		});
 	} else if (game.controller_won != null) {
 		socket.emit('gameover', {
