@@ -5,6 +5,32 @@ body {
 	overflow: hidden;
 }
 
+#players_waiting {
+	width: 1000px;
+	display: block;
+	display: inline-block;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#circle {
+	display: inline-block;
+    background: grey;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 2px;
+}
+
+#circle_ready {
+	display: inline-block;
+	background: green;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;	
+    margin: 2px;
+}
+
 body.observer #observer,
 body.controller #controller {
 	display: block;

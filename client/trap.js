@@ -3,9 +3,9 @@ var threshold_text = {};
 var threshold_left = {};
 
 dispatch.on('trap', function(data) {
-
-	if(data.clicks!=null)
-	traps[data.trap_id].set_threshold_text(data.trap_id, traps[data.trap_id].trigger, data.threshold - data.clicks);
+	if(data.clicks!=null) {
+		traps[data.trap_id].set_threshold_text(data.trap_id, traps[data.trap_id].trigger, data.threshold - data.clicks);
+	}
 
 	if(data.type == 'platformtrap'){
 		trapBox = traps[data.trap_id].box
@@ -51,8 +51,6 @@ dispatch.on('trap', function(data) {
 			if(player.is_controller) {
 				avatar.check_deathzones();
 			}
-		} else {
-			// Show counter?
 		}
 	}
 });
@@ -107,11 +105,12 @@ Trap.prototype.set_threshold_text = function(id, trigger, num) {
 Trap.prototype.activate = function() {
 	// debug.game("Activate", this.constructor.name.toLowerCase());
 	// this.clicked = false; // Reset clickable
+	this.activated = true;
 };
 
 Trap.prototype.click = function() {
 	console.log("Trap Clicked: " + this.string);
-	if (!player.is_controller) {
+	if (!player.is_controller && !this.activated) {
 		var id = this.trap_id;
 		var threshold = this.threshold;
 
@@ -134,6 +133,7 @@ Trap.prototype.click = function() {
 */
 Trap.prototype.reset = function() {
 	var that = this;
+	this.activated = false;
 
 	if (this.trigger != null){
 		if (!player.is_controller) {
