@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="53" height="24" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="tilesheet" tilewidth="64" tileheight="64">
   <image source="../img/tilesheet.png" width="320" height="256"/>
   <tile id="5">
@@ -38,19 +38,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="background" width="53" height="24">
+ <layer name="background" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJztl4EKwCAIRIXo/395DDbYDl0pltI6kI0W5suURvRWXcBQ0fGsypRZq/Gc8mAql/W8P8dGaedpPhOX01aeszF9xYvfpLlWJqyV1rMVq1R7vWt5MGXS6J4ze/3oPR6xn1gLPeal25dUk1ZZ6sGDqxBfk9HnRivMdUYmzXnEOVLvjGZCSYxSXjR3x0zS8mjrezavlacyPnruD8TMwTHpn0DT8y08lfGBsUedRysP9gztWf0a0/rd9g87AI4ZChE=
+   eJztlm0LwCAIhAXZ///LfQqc2JXTYswdHGO9PaPyGNFd12FrVedn6ud/h8+LbVl8tLbuG4318lkYvRN4RvhRzc5jp3bf5VU+O0xqTpTv3YPOfMveVeSPzu1ULWVlcSbfyrZZ3lk1hPK0W/LlWFnP+rsyZeXxk38n1OZdt5Ibi+YFlg==
   </data>
  </layer>
- <layer name="floor" width="53" height="24">
+ <layer name="floor" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJztV1sKxCAMlIK/3v+4y0IL2TAxD9NUlg6Isb4y0Zi0tV/09n+YcZL67rRDd8oI4xyDitSHvq+Ar+ORq+xbMa8CUd1Gqha5yDqn4ywWmX67A1mcqL9q9a7+tHr3PPuiM52d81NvxGw+17eDvi6M1dbWdOK+otV0f098RTGO1pwXv+PW2NaIfAhzZrEwk1MDvKpx2UBChNOT8ZLbE73rEU50Lb7mVx6snQXJn7V7qXHS7rrWjkKyzSqnalhyBq/Nsrnw99ky1jJmt3zYG+MRUO64EyL6eGJXNd/ofij3kfJ6lDcgn+W+zN95a1mBFqekfxsehyR+L15QfACD2AQm
+   eJztlUsKgDAMREMh297/uCK6iMMkxDZSkA6U/uy8UE0UeUplrSK+t1cZc7/9WPP22PpqrY5h8//Fb8m1Kj56K9lT59kKPp5XMrY9xoA1wasdVXwhMcxohD96503i953lWy/0PMcd5tYv4mX4XvMYSs6P8mf19p9VWVswl1cJ+ZW5NMKP7uOL2Fh9tb0ds3rHchjzEHMz48G+e8/fWxMy37p0AJypAnI=
   </data>
  </layer>
- <layer name="traps" width="53" height="24">
+ <layer name="traps" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJztldsKgCAMhr3yUPj+rxteCENq/hXpZvtAdjBz6OacMzSSH8xxa96Sbuq9fyDfG3322QEMxAO6JjIopdbJyrkXZgfwER6UHIkMznYnsqXtWWhvk1oTUggXuhbiwD1qvhZ7a2zjH1zdtZTaQd87rTnb6xOrMPt+pORzocbCnQmd82RExlf9dD2ViM8wNHAAC8UCrQ==
+   eJxjYBgFyICXDDl8ekgFnAT4o2AUjALaAE4kjI/PgIVGB+hlAjXLCFoAdhzsoQo4oDQszkB8LjT+KBgecT0KUAG5cQrThy9vIMuxIWEOPGIwcWT9o/lvcAAADOgBcQ==
   </data>
  </layer>
 </map>

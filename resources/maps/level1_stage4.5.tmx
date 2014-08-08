@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="14" height="28" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="20" height="22" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="tilesheet" tilewidth="64" tileheight="64">
   <image source="../img/tilesheet.png" width="320" height="256"/>
   <tile id="5">
@@ -38,19 +38,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="background" width="14" height="28">
+ <layer name="background" width="20" height="22">
   <data encoding="base64" compression="zlib">
-   eJxjYBh6gJUETA19pNhPbX3MBPQOBncyQzE9w4VQ/DEjYXL0Y/MfobigxL2Uqqe2fmzmoYcnMxGYkjChJP+yUqBvMGN6AwDjpgP4
+   eJxjYEAAVipgBhqax4BDjFj7SDGLGDPpbR4zFcxDNwObmcQCbPFNiZnI5jEzoPqDGQvGJk7IfbjChlj3YbMDX/gTig9K8wwuwExAH6nmkeM2WHjhijtquo8aZc0opm56GQwAAO9dBNo=
   </data>
  </layer>
- <layer name="floor" width="14" height="28">
+ <layer name="floor" width="20" height="22">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFhAArGibXDErspqd95OojVS8TmfbRMj6YkDA64CPCPmR5mDnEuBFdDSG/4fM/evhgw6QCkB4+MvWBMHJ4MhHAfGj6sbGJAbjicRQQDwAIVQEV
+   eJxjYKAfYEWjydGPbgYrFjlC9uPiE1I/1M3jQ+MzYVHPx4AIS2xsdPVMePikAlz+J9dMZPOYsPDRMTZxZIAefvjCH1uYERN++AChcEDPA+TmM1x2U9M8cs3CFm+UpLlRMLwBAOLnAVA=
   </data>
  </layer>
- <layer name="traps" width="14" height="28">
+ <layer name="traps" width="20" height="22">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUEAN4SFDLQTNXDJx93FQ0iwONRmZzoallg+JRQH8AALAcAFY=
+   eJxjYBh6gBMHPQrwA24i1PASwcYHOIh3zoADDixsdBoZEBN+yICLZBeNAnLAUEpzo4C+AACZBgCT
   </data>
  </layer>
 </map>
