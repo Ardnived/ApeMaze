@@ -69,9 +69,17 @@ var board = {
 					trap.y += board.tileheight / 2;
 					trap.h = board.tileheight / 2;
 					break;
-				// Laser
+				// Laser Up
 				case 10:
-					traps[trapId] = new BeamTrap(trapId, trap, 1);
+					traps[trapId] = new BeamTrap(trapId, trap, 1, 'up');
+					break;
+				// Laser Right
+				case 11:
+					traps[trapId] = new BeamTrap(trapId, trap, 1, 'right');
+					break;
+				// Laser Left
+				case 12:
+					traps[trapId] = new BeamTrap(trapId, trap, 1, 'left');
 					break;
 			}
 

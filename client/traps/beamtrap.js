@@ -1,11 +1,27 @@
-function BeamTrap(id, trigger, threshold) {
+function BeamTrap(id, trigger, threshold, direction) {
 	Trap.call(this, id, trigger, threshold);
 
+	this.direction = direction;
 	this.beam = Crafty.e("2D, Canvas, SpriteAnimation, BeamSprite, Deathzone")
-					.attr({x: trigger.x + 28.5, y: trigger.y + 16, w: 25*2, h: 198*2})
+					.attr({w: 25*2, h: 198*2})
 					.reel('Firing', 300, 0, 0, 3)
 					.animate('Firing', -1);
 
+	switch (this.direction) {
+		case 'up':
+			this.beam.rotation = 180;
+			this.beam.attr({x: trigger.x + 40, y: trigger.y + 40 });
+			break;
+		case 'right':
+			this.beam.rotation = 90;
+			this.beam.attr({x: trigger.x + 24, y: trigger.y + 40 });
+			break;
+		case 'left':
+			this.beam.rotation = 270
+			this.beam.attr({x: trigger.x - 24, y: trigger.y + 40 });
+			break;
+	}
+	
 	this.reset();
 }
 
@@ -22,7 +38,6 @@ BeamTrap.prototype.activate = function() {
 BeamTrap.prototype.reset = function() {
 	Trap.prototype.reset.call(this);
 
-	this.beam.rotation = 180;
 	this.beam.visible = false;
 
 	if(player.is_controller) {
