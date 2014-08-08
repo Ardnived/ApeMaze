@@ -40,7 +40,7 @@
  </tileset>
  <layer name="background" width="37" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQwWwouHBAEbdRBwYddMoQAeDLcwHWzqgV9okJh+gq8GmnlpuxWcHsW4iFZPqnoFwEzXNHnXTKB6MGABsOwUu
+   eJztk1EKACEIRIPY+195v4IYJindIRccmK80n2mtlf6iB5xBxbQnJVN35qmYvDwqZeVR72YnXp0PHmSy8lm9yDlqdzdZn8jLamPfVi2MYfHef7SaQ4Tp1JZOcpRMX94dYZrndZsn6zuVfX4BX/EFkQ==
   </data>
  </layer>
  <layer name="floor" width="37" height="20">

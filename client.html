@@ -4,6 +4,7 @@
 	<script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="resources/libs/crafty-min.js"></script>
 
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="/resources/style.css">
 </head>
@@ -24,20 +25,20 @@
 		<br />
 		<small class="result"></small>
 		<br />
-		<button onclick="dispatch.emit('ready', true);">I WANT TO BE THE RUNNER</button>
+		<button class="btn" onclick="dispatch.emit('ready', true);">I WANT TO BE THE RUNNER</button>
 		<br />
-		<button onclick="dispatch.emit('ready', false);">I WANT TO BE THE OBSERVER</button>
+		<button class="btn" onclick="dispatch.emit('ready', false);">I WANT TO BE THE OBSERVER</button>
 	</div>
 
 	<div id="chat">
 		<strong>Message</strong>
 		<br />
 		<input id="name_input" onkeypress="return chat.on_rename_keypress(event);"></input>
-		<button onclick="chat.rename();">Rename</button>
+		<button class="btn" onclick="chat.rename();">Rename</button>
 		<br />
 		<div id="chat_list"></div>
 		<input id="chat_input" onkeypress="return chat.on_send_keypress(event);"></input>
-		<button onclick="chat.send();">Submit</button>
+		<button class="btn" onclick="chat.send();">Submit</button>
 	</div>
 	
 	<script src="/resources/libs/modules/create_mocks_module.js"></script>
@@ -45,7 +46,8 @@
 
 	<script src="/shared/debug.js"></script>
 	<script src="/client/utility.js"></script>
-	<script src="/resources/maps/level1_working.js"></script>
+	<script src="/resources/maps/level1_stage1.js"></script>
+	<script src="/resources/maps/level1_stage2.js"></script>
 	<script src="/client/dispatch.js"></script>
 	<script src="/client/player.js"></script>
 	<script src="/client/avatar.js"></script>

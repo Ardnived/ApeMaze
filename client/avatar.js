@@ -306,10 +306,12 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y > board.pixelheight) {
+		if (avatar.entity.x < 0) {
+			avatar.entity.x = 0;
+		} else if (avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
-		} else if (avatar.entity.x > board.pixelwidth) {
-			avatar.on_win();
+		} else if (avatar.entity.x > board.pixelwidth - avatar.entity.w) {
+			board.load(board.current_stage + 1);
 		} else {
 			return false;
 		}
@@ -441,14 +443,14 @@ var avatar = {
 	},
 	on_death: function() {
 		if (!avatar.dead) {
-			console.log("Player died");
+			debug.game("Player died");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
 		}
 	},
 	on_win: function() {
 		if (!avatar.dead) {
-			console.log("Player won");
+			debug.game("Player won");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: true });
 		}
