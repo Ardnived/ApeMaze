@@ -40,17 +40,17 @@
  </tileset>
  <layer name="background" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJztltEKgDAIRYXRQ///w9FDMESduy4n0QGhQeZJDCOqzRGIM5hvxQq/N6OK34hqPjv9bpri0Vjs8FvRvwy0Xj3X1vexG80jy8+av0wPlAp+M/NXDd4//g7kOM/kafMmPU/yQ/DWRO7nfqirN6/fG1ZYfryWdEZ3AfofMKq9aldl7UGU3+/bflEudHsGbg==
+   eJztltEKgDAIRYXRQ///w9FDMESduy4n0QGhQeaZCEZUmyMQZzDfihV+b0YVvxHVfHb63TTFo7HY4Yf0j3tmoPXqeZY8Mv0sNI8sP2v+Mj1QKvgh81cF3j9+B3KcZ/K0eZO+J/kheGsi73M/1NWb1+8NKyw/Xks6o7sA/Q8Y1V61q7L34Cy/37f9oly/VAZa
   </data>
  </layer>
  <layer name="floor" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJztlNsKwCAMQ6Ww///lwaAgJb2IuhbxQB/i5ghZaGvn8mQbuHz/AE0VP5Wo5gdBxnk/GlofVo7F7PMZ2J+WlZVb/41dZGYTgbNDUKvhr3KGK/qXCcoO7RtPj9yLZmL1T557moLvsY7uDat7sg+eHvEn76PZwWjuf3P9zSF3GdKn8wKTbAHl
+   eJztlN0KwCAIhUPYbe//uGODbsRf0ozoAy9cyU52srVzeaoFXP47oGIXPTvx6enVIhS4ngEKqT47OLqyLp0vgqGP65Xl39n6JP9VvxfpfkFYW0WE/zKJ8F8llDepeaPlnjppluG9XP/wdy0H476RWzRq3sR+0HKPPlxPRQbevq/m6psDzzIqP50X60YCMg==
   </data>
  </layer>
  <layer name="traps" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDBbAPdAOGMaAZ6AdMATAaPrDDTgo1D+a/kYuYEPCxPCHG8CXdyjNV4QAOwH+KMANRlo6HWoAADhtAK8=
+   eJztkksKACAIRFv1oe5/3rYiWUnZ1weSA7MYbIxRlL8JuwMA4u4AD5MY3gCmpLEX79gHtWfkWI32j2b03zj9k+Tk/tWYeb/VN7BgevRreOLFuwSuoRWa33p6Gxmh6QFG
   </data>
  </layer>
 </map>
