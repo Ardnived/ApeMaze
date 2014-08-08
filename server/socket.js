@@ -44,7 +44,8 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	socket.emit('meta', { 
-		player_id: client.player_id
+		player_id: client.player_id,
+		num_players: client.length
 	});
 	
 	socket.on('move', function(data) {
@@ -89,7 +90,7 @@ dispatch.io.on('connection', function(socket) {
 				data.activate = true;
 				trap.traps[data.trap_id].clicks = 0;
 			}
-			debug.dispatch(data);
+			
 			dispatch.io.emit('trap', data);
 		}
 	});
@@ -134,7 +135,8 @@ dispatch.io.on('connection', function(socket) {
 
 	if (game.active) {
 		socket.emit('meta', { 
-			is_controller: clients[socket.id].is_controller
+			is_controller: clients[socket.id].is_controller,
+			num_players: clients.length
 		});
 		socket.emit('move', {
 			x: avatar.x,
@@ -206,12 +208,17 @@ function checkReadyAndAssignPlayers() {
 		if (game.controller_won == null) {
 			for (var socketID in clients) {
 				clients[socketID].socket.emit('meta', { 
-					is_controller: clients[socketID].is_controller
+					is_controller: clients[socketID].is_controller,
+					num_players: clients.length
 				});
 			}
 		} else {
 			for (var socketID in clients) {
 				clients[socketID].socket.emit('reset', clients[socketID].is_controller)
+				clients[socketID].socket.emit('meta', { 
+					is_controller: clients[socketID].is_controller,
+					num_players: clients.length
+				});
 			}
 		}
 		
