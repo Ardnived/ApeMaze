@@ -58,24 +58,32 @@
 	<div id="lobby">
 		<strong class="title">Ape Escape</strong>
 		<br />
+		<br />
+		<div id="players_waiting">
+		</div>
+		<br />
 		<small class="result"></small>
 		<br />
 		<button id="wantape" class="btn" onclick="dispatch.emit('ready', true);">I WANT TO BE THE RUNNER</button>
 		<br />
 		<button id="wantobs" class="btn" onclick="dispatch.emit('ready', false);">I WANT TO BE THE OBSERVER</button>
 		<br />
+
 		<img src="/resources/img/ape.png" style="position: absolute; top: 100; left: 0; width: 500px;" />
 	</div>
 
 	<div id="chat">
-		<strong>Message</strong>
-		<br />
-		<input id="name_input" onkeypress="return chat.on_rename_keypress(event);"></input>
-		<button class="btn" onclick="chat.rename();">Rename</button>
-		<br />
-		<div id="chat_list"></div>
-		<input id="chat_input" onkeypress="return chat.on_send_keypress(event);"></input>
-		<button class="btn" onclick="chat.send();">Submit</button>
+		<input id="chat-toggle" name="chat-toggle" type="checkbox" checked="checked" />
+		<strong><label for="chat-toggle">CHAT</label></strong>
+		<span id="latest-chat"></span>
+		<form>
+			<input id="name_input" type="text" onkeypress="return chat.on_rename_keypress(event);"></input>
+			<button class="btn" onclick="chat.rename();">Rename</button>
+			<br />
+			<div id="chat_list"></div>
+			<input id="chat_input" type="text" onkeypress="return chat.on_send_keypress(event);"></input>
+			<button class="btn" onclick="chat.send();">Submit</button>
+		</form>
 	</div>
 	
 	<script src="/resources/libs/modules/create_mocks_module.js"></script>

@@ -9,6 +9,7 @@ var trap = require("../server/trap");
  */
 var clients = {};
 var num_clients = 0;
+var players_ready = 0;
 var autoinc = 0;
 var chat_messages = [];
 var current_scene = 0;
@@ -40,6 +41,8 @@ dispatch.io.on('connection', function(socket) {
 	// ------------------
 	socket.join(client.room);
 
+	socket.broadcast.emit('connection', {num_players: num_clients, players_ready: players_ready});
+
 	socket.on('meta', function(data) {
 		if (typeof data.name != 'undefined') {
 			client.name = data.name;
@@ -48,7 +51,8 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.emit('meta', { 
 		player_id: client.player_id,
-		num_players: client.length
+		num_players: num_clients,
+		players_ready: players_ready
 	});
 	
 	socket.on('move', function(data) {
@@ -96,7 +100,6 @@ dispatch.io.on('connection', function(socket) {
 			// Activate the trap
 			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold && !trap.traps[data.trap_id].used) {
 				data.activate = true;
-				trap.traps[data.trap_id].clicks = 0;
 			}
 			
 			dispatch.io.emit('trap', data);
@@ -164,6 +167,14 @@ dispatch.io.on('connection', function(socket) {
 
 			checkReadyAndAssignPlayers();
 		}
+
+		players_ready = 0;
+		for(var key in clients) {
+			if(clients[key].ready) {
+				players_ready++;
+			}
+		}
+		dispatch.io.emit('ready', {num_players: num_clients, players_ready: players_ready});
 	})
 });
 
@@ -226,7 +237,7 @@ function checkReadyAndAssignPlayers() {
 			for(var i=0; i<controllers.length; i++){
 				if(i == cID){
 					clients[controllers[i]].is_controller = true
-				}else{
+					}else{
 					clients[controllers[i]].is_controller = false
 				}
 			}

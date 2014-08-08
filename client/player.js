@@ -8,11 +8,15 @@ var meta = {
 	num_players: 1
 }
 
+var waiting_players = [];
+
 dispatch.on('meta', function(data) {
 	debug.dispatch("Meta", data);
 	console.log(data);
 	if (typeof data.num_players != 'undefined') {
 		meta.num_players = data.num_players;
+
+		updateWaiting(data.num_players, data.players_ready);
 	}
 
 	if (typeof data.player_id != 'undefined') {
@@ -42,7 +46,53 @@ dispatch.on('meta', function(data) {
 		player.is_controller = data.is_controller;
 
 		document.getElementById("lobby").style.display = "none";
+		document.getElementById("chat-toggle").checked = false;
+
+		if (player.is_controller) {
+			document.body.className = "controller";
+		} else {
+			document.body.className = "observer";
+		}
+
 		board.set_ready();
 		avatar.init();
 	}
 });
+
+dispatch.on('ready', function(data) {
+	debug.dispatch("Ready", data);
+updateWaiting(data.num_players, data.players_ready)
+});
+
+
+dispatch.on('connection', function(data) {
+	debug.dispatch("connection", data);
+	updateWaiting(data.num_players, data.players_ready);
+	
+});
+
+dispatch.on('reset', function(data) {
+	document.getElementById('players_waiting').style.visibility = 'hidden';
+});
+
+dispatch.on('gameover', function(data) {
+	document.getElementById('players_waiting').style.visibility = 'visible';
+	updateWaiting(meta.num_players, 0);
+});
+
+function updateWaiting(num_players, num_ready) {
+	meta.num_players = num_players;
+
+	document.getElementById('players_waiting').innerHTML = '';
+	waiting_players = [];
+	var waiting_container = document.getElementById('players_waiting');
+
+	// Show waiting players
+	for(var i = 0; i < num_players; ++i) {
+		console.log("player");
+
+		waiting_players.push(document.createElement('div'));
+		waiting_players[i].id = i < num_ready ? "circle_ready" : "circle";
+		waiting_container.appendChild(waiting_players[i]);
+	}
+}

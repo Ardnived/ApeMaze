@@ -5,6 +5,32 @@ body {
 	overflow: hidden;
 }
 
+#players_waiting {
+	width: 1000px;
+	display: block;
+	display: inline-block;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#circle {
+	display: inline-block;
+    background: grey;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 2px;
+}
+
+#circle_ready {
+	display: inline-block;
+	background: green;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;	
+    margin: 2px;
+}
+
 body.observer #observer,
 body.controller #controller {
 	display: block;
@@ -37,8 +63,24 @@ body.controller #controller {
 	padding-left: 10px;
 }
 
+#chat .btn {
+	height: 26px;
+	padding: 0;
+	margin-top: -2px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 #canvas {
 	margin: auto;
+}
+
+#chat-toggle:not(:checked) ~ div {
+	display: none;
+}
+
+#chat-toggle:checked ~ #latest-chat {
+	display: none;
 }
 
 #chat {
@@ -65,17 +107,19 @@ body.controller #controller {
 	overflow-y: scroll;
 }
 
-#chat input {
+#chat input[type="text"] {
 	width: 90%;
 }
 
 #loading,
 #lobby {
 	position: absolute;
-	top: 40px;
+	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+
+	padding-top: 40px;
 
 	background: white;
 	opacity: 0.7;
@@ -92,19 +136,11 @@ body.controller #controller {
 #dashContainer {
 	width: 170px;
 	height: 100px;
-	position: absolute;
-	right:150px;
-	top: 100px;
-	
 }
 
 #shieldContainer {
 	width: 170px;
 	height: 100px;
-	position: absolute;
-	right:150px;
-	top: 220px;
-	
 }
 
 #dashText {
