@@ -38,7 +38,7 @@ var board = {
 		}
 
 		var trapId = 0;
-		var players = meta.num_players;
+		var players = meta.num_players - 1;
 
 		// Floor
 		for(var floor = 0; floor < board.map.getEntitiesInLayer("floor").length; ++floor) {
@@ -62,7 +62,7 @@ var board = {
 			switch(trapType) {
 				// Falling
 				case 9:
-					traps[trapId] = new FallingTrap(trapId, trap, players * 6);
+					traps[trapId] = new FallingTrap(trapId, trap, players * 10);
 					break;
 				// Lift
 				case 7:
@@ -70,7 +70,7 @@ var board = {
 					break;
 				// Fire
 				case 8:
-					traps[trapId] = new FireTrap(trapId, trap, players * 3);
+					traps[trapId] = new FireTrap(trapId, trap, players * 5);
 					break;
 				// Spikes
 				case 6:
@@ -81,19 +81,19 @@ var board = {
 					break;
 				// Laser Up
 				case 10:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'up');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 14, 'up');
 					break;
 				// Laser Right
 				case 11:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'right');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 14, 'right');
 					break;
 				// Laser Left
 				case 12:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'left');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 14, 'left');
 					break;
 				// Laser Bottom
 				case 13:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'bottom');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 14, 'bottom');
 					break;
 			}
 
