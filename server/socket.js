@@ -149,7 +149,6 @@ dispatch.io.on('connection', function(socket) {
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
 			cause: game.cause,
-			latecomer: true
 		});
 	}
 
