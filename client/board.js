@@ -144,5 +144,8 @@ debug.game("Building Tile Maps...");
 board.create(STAGE_01);
 board.create(STAGE_02);
 board.create(STAGE_03);
+board.create(STAGE_04);
+board.create(STAGE_05);
+board.create(STAGE_FINAL);
 
 board.load(0);
