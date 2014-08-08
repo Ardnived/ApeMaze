@@ -11,14 +11,14 @@ var AVATAR = {
 };
 
 var DASH = {
-	cooldown: 2000,
+	cooldown: 100,
 	distance: 100,
 	energy: 1,
 	key: Crafty.keys.C
 };
 
 var SHIELD = {
-	cooldown: 2000,
+	cooldown: 100,
 	duration: 2000,
 	energy: 1,
 	key: Crafty.keys.X

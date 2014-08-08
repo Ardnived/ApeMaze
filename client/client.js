@@ -45,6 +45,7 @@ dispatch.on('gameover', function(data) {
 	}
 
 	document.getElementById("lobby").style.display = "block";
+	document.getElementById("chat-toggle").checked = true;
 
 	// Make sure everyone can see chat now.
 	document.getElementById("chat").style.display = "block";

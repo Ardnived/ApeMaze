@@ -144,6 +144,8 @@ dispatch.io.on('connection', function(socket) {
 		delete clients[socket.id];
 		num_clients--;
 		checkReadyAndAssignPlayers();
+
+		socket.broadcast.emit('player_left', {num_players: num_clients, players_ready: players_ready});
 	});
 
 	if (game.active) {

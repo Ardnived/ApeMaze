@@ -68,7 +68,6 @@ updateWaiting(data.num_players, data.players_ready)
 dispatch.on('connection', function(data) {
 	debug.dispatch("connection", data);
 	updateWaiting(data.num_players, data.players_ready);
-	
 });
 
 dispatch.on('reset', function(data) {
@@ -78,6 +77,11 @@ dispatch.on('reset', function(data) {
 dispatch.on('gameover', function(data) {
 	document.getElementById('players_waiting').style.visibility = 'visible';
 	updateWaiting(meta.num_players, 0);
+});
+
+dispatch.on('player_left', function(data) {
+	debug.dispatch("player_left", data);
+	updateWaiting(data.num_players, data.players_ready);
 });
 
 function updateWaiting(num_players, num_ready) {
