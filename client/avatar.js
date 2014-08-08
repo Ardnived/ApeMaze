@@ -90,7 +90,6 @@ var avatar = {
 			});
 
 		dispatch.on('move', function(data) {
-			debug.dispatch('move', data);
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
 			avatar.on_receive_direction(data.direction);
