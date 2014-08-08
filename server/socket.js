@@ -108,6 +108,7 @@ dispatch.io.on('connection', function(socket) {
 		game.controller_won = data.controller_won;
 		game.cause = data.cause
 		dispatch.io.emit('gameover', data);
+		dispatch.io.emit('chat', {message: "Game over. The ape " + (data.controller_won ? "escaped." : "died.")})
 		for(var key in clients){
 			clients[key].ready = false;
 		}
@@ -143,20 +144,7 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	if (game.active) {
-		socket.emit('meta', { 
-			is_controller: clients[socket.id].is_controller,
-			num_players: num_clients
-		});
-
-		socket.emit('scene', {
-			index: current_scene
-		});
-
-		socket.emit('move', {
-			x: avatar.x,
-			y: avatar.y,
-			direction: avatar.direction
-		});
+		socket.emit('gameover', {latecomer: true, controller_won:null})
 	} else if (game.controller_won != null) {
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
@@ -166,19 +154,44 @@ dispatch.io.on('connection', function(socket) {
 	}
 
 	socket.on('ready', function(data){
-		client.ready = true;
-		client.is_controller = data;
-		dispatch.io.emit('chat', {
-			message: client.name+" is ready."
-		});
+		if(game.active){
+			socket.emit('chat', {message: "You need to wait for the current game to end."})
+		}else{
+			client.ready = true;
+			client.is_controller = data;
+			dispatch.io.emit('chat', {
+				message: client.name+" is ready."
+			});
 
-		checkReadyAndAssignPlayers();
+			checkReadyAndAssignPlayers();
+		}
 	})
 });
 
 	
 function checkReadyAndAssignPlayers() {
 	if(game.active){
+		var has_controller = false;
+		for(var key in clients){
+			if(clients[key].is_controller){
+				has_controller=true;
+				break;
+			}
+		}
+		if(!has_controller){
+			game.active = false;
+			game.controller_won = false;
+			game.cause = 'The ape has lost its connection lol...';
+			dispatch.io.emit('gameover', {
+				controller_won: game.controller_won,
+				cause: game.cause,
+				latecomer: false
+			});
+			dispatch.io.emit('chat', {message: "Game over. The ape " + (data.controller_won ? "escaped." : "died.")})
+			for(var key in clients){
+				clients[key].ready = false;
+			}
+		}
 		return;
 	}
 

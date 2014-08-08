@@ -69,6 +69,7 @@ var avatar = {
 		this.shield = Crafty.e("2D, Canvas, CircleSprite, Persist")
 			.attr({x: this.entity.x - 15, y: this.entity.y - 15, w: 80, h: 80});
 
+		this.shield.z = 1000;
 		this.shield.visible = false;
 		this.entity.attach(this.shield);
 
@@ -76,6 +77,7 @@ var avatar = {
 			.attr({w: 150, h: 50})
 			.reel("Animate", 100, 0, 0, 3);
 
+		this.dash.z = 1000;
 		this.dash.visible = false;
 
 		this.frozen = false;
@@ -202,7 +204,8 @@ var avatar = {
 			var cooldown = (DASH.cooldown - (new Date() - avatar.lastDash));
 			if (cooldown <= 0){
 				avatar.dashCountdown = false;
-				document.getElementById('dashText').innerHTML = ("DASH (C) READY");
+				//document.getElementById('dashText').innerHTML = ("C");
+				document.getElementById('dashIcon').style.opacity = "1";
 			} else {
 				document.getElementById('dashIcon').style.opacity = "0.5";
 				//document.getElementById('dashText').innerHTML = ("NEXT DASH: " + cooldown/1000);
@@ -236,15 +239,18 @@ var avatar = {
 					avatar.shieldUp = false;
 					avatar.lastShield = new Date();
 				} else {
-					document.getElementById('shieldText').innerHTML = ("SHIELD: " + countdown/1000);
+					document.getElementById('shieldIcon').style.opacity = "0.5";
+					//document.getElementById('shieldText').innerHTML = ("SHIELD: " + countdown/1000);
 				}
 			} else {
 				var countdown = SHIELD.cooldown - (new Date() - avatar.lastShield);
 				if (countdown <= 0) {
 					avatar.shieldCountdown = false;
-					document.getElementById('shieldText').innerHTML = ("SHIELD (X) READY");
+					document.getElementById('shieldIcon').style.opacity = "1";
+					//document.getElementById('shieldText').innerHTML = ("SHIELD (X) READY");
 				} else {
-					document.getElementById('shieldText').innerHTML = ("NEXT SHIELD: " + countdown/1000);
+					document.getElementById('shieldIcon').style.opacity = "0.5";
+					//document.getElementById('shieldText').innerHTML = ("NEXT SHIELD: " + countdown/1000);
 				}
 			}
 		}
