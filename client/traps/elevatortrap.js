@@ -1,11 +1,13 @@
-function ElevatorTrap(id, x, oy, w, h, dy, dydt) {
+ELEVATOR_SPEED = 1
+
+function ElevatorTrap(id, tile) {
 	Trap.call(this, id, null, 9001);
 
+	this.entity = tile
 	var trap = this
 
-	this.box = Crafty.e("2D, Canvas, Color, Floor, Collision")
-					.attr({x: x, y: oy, w: w, h: h})
-					.color('#444444')
+	this.box = this.entity.addComponent('Collision')
+					.addComponent('Floor')
 					.bind('EnterFrame', function(){
 						if(player.is_controller){
 							var old = {x:avatar.entity.x, y:avatar.entity.y}
@@ -20,15 +22,15 @@ function ElevatorTrap(id, x, oy, w, h, dy, dydt) {
 							if(this.dydt > 0){ //handle moving down
 								if(avatar.entity.x + avatar.entity.w/2 > this.x
 									&& avatar.entity.x + avatar.entity.w/2 < this.x + this.w
-									&& avatar.entity.y + avatar.entity.h < this.x
-									&& avatar.entity.y + avatar.entity.h > this.x-10){
+									&& avatar.entity.y + avatar.entity.h < this.y
+									&& avatar.entity.y + avatar.entity.h > this.y-20){
 
-									avatar.entity.y += dydt
+									avatar.entity.y += this.dydt
 								}
 							}
 
 							//switch direction
-							if(this.y < this.oy || this.y > this.oy+this.dy){
+							if(this.y > this.oy || this.y < this.oy-this.dy){
 								this.dydt = -this.dydt
 							}
 							trap.action()
@@ -36,9 +38,9 @@ function ElevatorTrap(id, x, oy, w, h, dy, dydt) {
 						}
 					})
 
-	this.box.dy = dy
-	this.box.oy = oy
-	this.box.dydt = dydt
+	this.box.dy = 5*this.box.h
+	this.box.oy = this.box.y
+	this.box.dydt = ELEVATOR_SPEED
 
 	this.box.visible = true
 }

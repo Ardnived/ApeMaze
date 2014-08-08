@@ -35,7 +35,7 @@ var board = {
 					
 					/*
 						34 - falling
-						15 - lift
+						15 - elevator
 						31 - fire
 						39 - spikes
 						48 - laser
@@ -45,9 +45,9 @@ var board = {
 						case 34:
 							traps[trapId] = new FallingTrap(trapId, trap, 1);
 							break;
-						// Lift
+						// Elevator
 						case 15:
-							// traps[trapId] = new 
+							traps[trapId] = new ElevatorTrap(trapId, trap)
 							break;
 						// Fire
 						case 31:
