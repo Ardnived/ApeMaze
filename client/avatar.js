@@ -359,6 +359,7 @@ var avatar = {
 				avatar.entity.animate('Walk', -1);
 			} else {
 				avatar.entity.animate('Stand', -1);
+				dispatch.emit('animation', 'Stand');
 			}
 		}
 	},
@@ -377,18 +378,20 @@ var avatar = {
 			avatar.falling = true;
 			avatar.entity.animate('Jump', -1);
 			dispatch.emit('animation', 'Jump');
-		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling) {
+		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)) {
 			//avatar.entity.animate('Jump', -1);
 			avatar.entity.animate('Stand', -1);
+			dispatch.emit('animation', 'Stand');
 			avatar.moving = false;
 			//avatar.entity.pauseAnimation(); // What does this even do?
 		}
 	},
 	on_key_up: function(e){
-		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling){
+		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
 			dispatch.emit('stop', {});
 			//avatar.entity.pauseAnimation();
 			avatar.entity.animate('Stand', -1);
+			dispatch.emit('animation', 'Stand');
 			avatar.moving = false;
 		}
 	},
