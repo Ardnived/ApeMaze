@@ -53,6 +53,8 @@ var board = {
 						// Spikes
 						case 39:
 							trap.addComponent("Deathzone");
+							trap.y += 32/2
+							trap.h = 32/2
 							break;
 						// Laser
 						case 48:
@@ -61,6 +63,8 @@ var board = {
 
 					trapId++;
 				}
+
+				traps[trapId] = new ElevatorTrap(trapId, 200,200,100,20, 100, 1)
 
 /*				// Fire traps
 				for(var fire = 0; fire < map.getEntitiesInLayer("fire_switch").length; ++fire) {
