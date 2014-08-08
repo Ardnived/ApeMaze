@@ -95,19 +95,23 @@ var board = {
 
 		document.getElementById("loading").style.display = "none";
 	},
-	load: function(source) {
+	load: function(key, source) {
 		if (source == null) {
 			return;
 		}
 
-		Crafty.e("2D, Canvas, TiledMapBuilder")
-			.setMapDataSource(source)
-			.createWorld(function(map) {
-				board.set_map(source, map);
-			});
+		Crafty.defineScene(key, function() {
+			Crafty.e("2D, Canvas, TiledMapBuilder")
+				.setMapDataSource(source)
+				.createWorld(function(map) {
+					board.set_map(source, map);
+				});
+		})
 	}
 };
 
 debug.game("Building Tile Maps...");
-board.load(LEVEL_01);
-board.load(LEVEL_02);
+board.load("level1", LEVEL_01);
+//board.load("level2", LEVEL_02);
+
+Crafty.enterScene("level1");
