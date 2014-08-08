@@ -45,12 +45,12 @@
  </layer>
  <layer name="floor" width="37" height="20">
   <data encoding="base64" compression="zlib">
-   eJztk9sKACEIBUPw/395nwKRc0TCZY11QILKGrusNdyAfi0AGKccf3SSwzx1UYUUrVfltM+ni5O9rzedBAQbZ+tF+Wi/yAnl+3msFjUOSvpR7LnoTbJ6sk6nqGm9f5SD6qp26kRXp+x/GHrzANUkAPc=
+   eJztk9EKgDAIRYfga///uT0FItchcmNGHpDGUjlKrTV8AT0tABinHH90uop16oKFkPqxnITYr7pri5jzm3sSENH7qN+u3mN3g5xQvc+LZlHjoME9iicXfZPRPFmnKmqe3n9Xg+ZiO3Wiq1P2fxh6cwOYPwEY
   </data>
  </layer>
  <layer name="traps" width="37" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRQG3AiYRHAQRwUKCXDYopMYNegIMATQ5gQ8KjYBSMguEHAAh2AGo=
+   eJxjYBgFo2AUDFbAiYSHEuAaaAeMIMAz0A4gAXBQoJcNikkxY6DChoMATQ5gQ8KjYBSMguEHAP1KAIw=
   </data>
  </layer>
 </map>

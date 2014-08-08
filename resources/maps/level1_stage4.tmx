@@ -40,12 +40,12 @@
  </tileset>
  <layer name="background" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJzt0zsOACAIREEa739laxs/8FaNQkJnwgRZs7bKgV6p13xm/RmkzeObmZG+t31kRX1qL+FTGimfykjc3+jt7nz0dhjNF/0PdP7TF/dRRuJ2f/Z5jenT+4i+3afIRwXdLghn
+   eJztlOEKwCAIhAXZ+7/yfg2aWDO9azF2ICtZ+CVnIncdL8SMvsYnMq6BZMvwRWr8fPEauiGfZfIYUar279qzGCt8anLqhJdfxWfPM4Tw39NdVs/HqIezZ5lq/bcjnxD4ejPkzVtv3ebQfN4/2bcL4d0IX1ZMPtR7z+yf9Vb0u9p/FbH4ELE7H2M+TikfCNA=
   </data>
  </layer>
  <layer name="floor" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJztl9EKgDAIRSXwKfr/3+1pbNh1uakrqAtjOsGdmsliqmJ6n1ixvfmintXLx3RlYhCz7H8Xn+VbFf/5fPEZvl34G8h/UK1FZGfysWCSvlfR51v8KMZIvg34cqD1TD5Zf70cqHfP1p/VRvXX0+i5o/1Q/7fYFr5RReaT9RehyHwZ9x+tX6HvTbMt36GXUbK1/b3t+b31VXxP50GKOJ/sdyhryzqXser/oOzduxe3Myn+F3QC+0UCxw==
+   eJzlVtEKwCAIlMDX/v9z9ySN2xVlugY7ELWG3eYZE2lQ+TYi+Cn4SHhqqjw5KdmLONPLL3Pf+2zU+X/nVyEvpGaVpkUWZ/JT4IR5JCL6a3kGx11+heRobD2TH+pvVINpzqu/2Zjpb4SdvuvNxBHP8DsJ1N/XkMGtN0Ns3nrx6hyuAt/b+lTB472P62/xO12HIaI/2d8QtTXrzd6aXTt79F9899LJ/4AL78cClA==
   </data>
  </layer>
  <layer name="traps" width="40" height="22">
