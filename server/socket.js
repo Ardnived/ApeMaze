@@ -25,7 +25,7 @@ dispatch.io.on('connection', function(socket) {
 		socket: socket,
 		player_id: autoinc,
 		is_controller: client_is_controller,
-		room: "room00",
+		room: null,
 		ready: false
 	};
 	autoinc++;
@@ -51,25 +51,25 @@ dispatch.io.on('connection', function(socket) {
 		avatar.x = data.x;
 		avatar.y = data.y;
 		avatar.direction = data.direction;
-		socket.broadcast.to(client.room).emit('move', data);
+		socket.broadcast.emit('move', data);
 	});
 
 	socket.on('stop', function(data){
-		socket.broadcast.to(client.room).emit('stop', data);
+		socket.broadcast.emit('stop', data);
 	});
 
 	socket.on('animation', function(data){
-		socket.broadcast.to(client.room).emit('animation', data);
+		socket.broadcast.emit('animation', data);
 	})
 
 	socket.on('shield', function(data) {
-		socket.broadcast.to(client.room).emit('shield', data);
+		socket.broadcast.emit('shield', data);
 	})
 	
 	socket.on('trap', function(data) {	
 		if(data.type == 'beartrap' || data.type == 'platformtrap' || data.type == 'elevatortrap') {
 			// Special
-			socket.broadcast.to(client.room).emit('trap', data);
+			socket.broadcast.emit('trap', data);
 		} else {
 			data.activate = false;
 
@@ -88,14 +88,14 @@ dispatch.io.on('connection', function(socket) {
 				trap.traps[data.trap_id].clicks = 0;
 			}
 			debug.dispatch(data);
-			dispatch.io.to(client.room).emit('trap', data);
+			dispatch.io.emit('trap', data);
 		}
 	});
 
 	socket.on('gameover', function(data) {
 		game.active = false;
 		game.controller_won = data.controller_won;
-		dispatch.io.to(client.room).emit('gameover', data);
+		dispatch.io.emit('gameover', data);
 		for(var key in clients){
 			clients[key].ready = false;
 		}
@@ -110,15 +110,15 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('chat', function(data) {
 		var date = new Date();
 
-		data.name = client.name;
-		data.send_date = date.getHours()+":"+date.getMinutes();
+		data.name = client.name+"."+client.player_id;
+		data.send_date = date.getHours()+":"+(date.getMinutes()<10?'0':'') + date.getMinutes();
 		
 		chat_messages.push(data);
 		while (chat_messages.length > 20) {
 			chat_messages.shift();
 		}
 
-		socket.broadcast.to(client.room).emit('chat', data);
+		socket.broadcast.emit('chat', data);
 	})
 
 	// Send the most recent messages to the player on login
@@ -144,13 +144,16 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('ready', function(data){
 		client.ready = true;
 		client.is_controller = data;
+		dispatch.io.emit('chat', {
+			message: client.name+" is ready."
+		});
 
 		checkReadyAndAssignPlayers();
 	})
 });
 
 	
-function checkReadyAndAssignPlayers(){
+function checkReadyAndAssignPlayers() {
 	if(game.active){
 		return;
 	}
@@ -158,12 +161,13 @@ function checkReadyAndAssignPlayers(){
 	if(clients.length < 2){
 		return;
 	}
-	var allReady = true;
+
+	var unreadyCount = 0;
 	var controllers = []
 	var observers = []
 	for(var key in clients){
 		if(!clients[key].ready){
-			allReady = false;
+			unreadyCount++;
 		}else{
 			if(clients[key].is_controller){
 				controllers.push(key);
@@ -173,7 +177,7 @@ function checkReadyAndAssignPlayers(){
 		}
 	}
 
-	if(allReady){
+	if(unreadyCount == 0){
 		if(controllers.length == 0){
 			for (var key in clients){
 				clients[key].is_controller = true
@@ -206,5 +210,11 @@ function checkReadyAndAssignPlayers(){
 		
 		console.log('started')
 		game.active = true;
+	} else {
+		var message = {
+			message: "Waiting for "+unreadyCount+" users to be ready"
+		}
+		chat_messages.push(message);
+		dispatch.io.emit('chat', message);
 	}
 }
