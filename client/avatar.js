@@ -306,9 +306,11 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y > board.pixelheight) {
+		if (avatar.entity.x < 0) {
+			avatar.entity.x = 0;
+		} else if (avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
-		} else if (avatar.entity.x > board.pixelwidth) {
+		} else if (avatar.entity.x > board.pixelwidth - avatar.entity.w) {
 			board.load(board.current_stage + 1);
 		} else {
 			return false;
