@@ -131,6 +131,8 @@ var board = {
 			if (avatar.entity != null) {
 				avatar.entity.x = AVATAR.startX;
 				avatar.entity.y = AVATAR.startY;
+				avatar.furthest.x = 0;
+				avatar.furthest.y = 0;
 			}
 
 			Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
