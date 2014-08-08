@@ -39,12 +39,12 @@ var board = {
 				trapId++
 
 				// Clickable Falling platforms
-				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platform_switch").length; ++falling) {
+/*				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platform_switch").length; ++falling) {
 					var platformSwitch = map.getEntitiesInLayer("clickable_falling_platform_switch")[falling];
 					var platform = map.getEntitiesInLayer("clickable_falling_platform")[falling];
 					traps[trapId] = new ClickableFallingPlatform(trapId, platformSwitch, 1, platform);
 					trapId++;
-				}
+				}*/
 
 				// Beam traps
 				/*

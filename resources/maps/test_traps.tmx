@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="200" height="100" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="35" height="15" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32">
   <image source="../img/tmw_desert_spacing.png" width="265" height="199"/>
  </tileset>
- <layer name="background" width="200" height="100">
+ <layer name="background" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
   </data>
  </layer>
- <layer name="floor" width="200" height="100">
+ <layer name="floor" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt12uu4yAMhuH87jJm/4scjeZWIS6GGNuY95FQTpIWSOKv4TyPnw/tXwNK3jUZqQEl75qM1ICSd0161Cr5gJR3DrzqMso8EJt3Nka1+SZbrfORcorYvHMxU+ur39HoC3fyXgtJxtLIlGRcoBQhH9pz3JE1xDJ6frV97zXQilG/5di1Lfm4i1Wte2Wida2jz0n6IB+5eWfBuk5manqlD2n2yEd8mXPwhmY+MtyP22R4T9T6rO3PjlvOt/Z98pGbdz5GtSKt+9XP9bTm2uqXfOTjlY/VWpvpS6vvWh9ayEdsUbKhMZeyL+2+R/OftSNv0OWZj515s8jH7Lykc0cc3jV9Uj5W+5F8FzF51/Qpbff9Qkyaz7d8zjP7tb+/t95t9zwQ06nP12NeUa4ddsjH+zGR1035qK2VZv+OcO2wc0s+tK4zwrXDzqk14jWvCNcOO575GH2vd558wMLObJTnevu1fj6Dc9K5aW1b4yKviPmo1Wftu5atNy7y0qyfmTyU+5J8RKhF8nEX8jGHfNzltHyU7cef1loHaSMfd1lZg/f6Wt1/m4+/WnnRQj7uckI+3prpb/XdiZxW6mB1fVUbe+b4bm/WlsjpxnzU+l/NBvnIzTIfvVpq1Ww05OMuGvn4Pj4aa+acRe1p/TYgJ811hCQfn87frWOz87RuyEuzRmrbE+qbfKBlVz56n/muqVG9zdYj+YAm63xkkvW68N+O39DZfIw+EzVjEecEXR75yLLeIR/5adelpG5358OqZslHfl75sLiW3chHfpnzsWOc2rUir11rGUk+tGtr91qr9VuAvHau82fyoVFnO/PRe1cir4j5WK05jXfhzHWTj/x25KI1xvf+0zjW+3t2nN3IR34n5UP6vrJCPvI7NR+1eZAPaNPIh2S/Vkdv89G6DivkI7+3/58+lWO982/GbGW0N7dVktonH/lp5KPs5ynOa+Vh9A5rZXMF+cAvb/Oh9TnNd8jT2fbuQe+YNKfIxTIfu+ZfXsvT2bb6IB+oOT0f3yT5kGShdox83OntumZmjJ2k6yvygRma74/RMatreAZb64ZzadeBdZ3MjkM+fos+vyjIB/lAW+3+aOTjqWw1xtDIKfmIP78otGp3dkzy4Sv6/KKwvj9W9eidiej1F31+UVjen5vrMRrul4z3byv58MH9kvGuZfLhg/sl413LVvkoz9U++33sM3HsxBojHzLetbwzH1bP/8Q6Ix8y3rWcKR8n1dqJc/bgXcuWednFejwNp83Xi3ft0vwb2ryfDc2/oc372dD8GwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAYfgJ6K58p
+   eJxjYBg4wDWAdqODUbdgB6NuwQ5G3YIdDDW3cGHB+MzApp5YTKo7aIkJuWOgwWBwB7FxRw8wWNwBAgCSnQKf
   </data>
  </layer>
- <layer name="walk_through_walls" width="200" height="100">
+ <layer name="walk_through_walls" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt3LENwCAMRUFq9h+YNhQfUTgSCXeSR3iWK7cGAAAAAAAAAADAl/THADN9QKYNWNMIZPoAAAAAAAAAAAAAAACo1cMA+oAVPUCmD8j+2ke6G92QALXsVgAAAAAAAAAAAAAAAAAAAAAAAAAAONfOv2Y/RrmVPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3jMASKUCsw==
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
   </data>
  </layer>
- <layer name="fire_switch" width="200" height="100">
+ <layer name="fire_switch" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt3TEKwCAMBVDnXsL737JLoRBUpLRQzXuQxTl/0IiWAgAAAAAAAGRXrwL2I9sAAMAO7G3ITgYAAAAAAAAAAAAAAAAAAAAA4H9a74KM1rwjQgb6HAAAAABgT0/Of81IyEi/w5xeVuK6TJFdKxP+oQYAAAAAAACAsXh/0ZwdAAAAAAAA3mcuB8CKjlDALeaiflywEvmAefIBAAAAAAAAAAAAAAAAAAAAAAAAAACQzwniigxO
+   eJxjYBgFo2AUjIKRC+SheBSMglFAGAAAzVgAPw==
   </data>
  </layer>
- <layer name="clickable_falling_platforms" width="200" height="100">
+ <layer name="clickable_falling_platforms" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt3UsKgCAUBdDW4v4XGVFQyOsZlAPzHBC1cX4H12UBAICxlKMAwKY0agDOPbS5EQAAAAAAAAAAAAAAAAAAAADopc45edqP2tcaAHqS0QXAl6wpALzhXgwAAIDZlap9d0ZuvcVTkgIAAAAAAAAAAAAAAAAAAADAuORHQC7LZIEZZf9+nXkE7KLxYIwwo2ydaPUBAIBxZLnYUbZ19MZU9g0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP5uBRAwCKM=
+   eJxjYBgFo2AUjESghIRHwSgYBaOAGAAAtPsAZw==
   </data>
  </layer>
- <layer name="spikes" width="200" height="100">
+ <layer name="spikes" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt3cEKgCAMAND+Zv//hx0DqUwYtuw9EJ2nXRQGE7cNAAAAAAD+JW4GAOfclfA+5xAOzgEAQL625ujFAAAAs1WtUyrkAAAAABVE0hoAAOBKJM0AAAAAAAAAAMzT6x1v9/R4sBrvJwAAgGp6tbhaHQAAANYQCQMAAAAAAAAAAAAAgG968n9f2z8+Go/moE8dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYD074e0Ntw==
+   eJxjYBgFo2AUjIJRgAuoI+FRMApGOgAAbL8Adg==
   </data>
  </layer>
- <layer name="sign" width="200" height="100">
+ <layer name="sign" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt3LENADAIAzAu6v/n8QFTK0C1L8iQCaREAAAAAAAAcMPpDgAAAAAAAPCYfwgAAAAAAAAAAAAAAAAAAADAfjYkqOgHAAAAAAAAAAAAAAAAAAAAAAAAAAAAm9jVBQAAAACmcK8EAAAAAAAAAAAAAAAAAAAAAAAAAAB+kFNUARU=
+   eJxjYBgFo2AUjILhBfQG2gGjYBQMUwAAorwALw==
   </data>
  </layer>
- <layer name="breakable_glass" width="200" height="100">
+ <layer name="breakable_glass" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt17EJACAMRcFs4P7b2itBCIJC7rrfpXlFIgAAAACgr/H6APiYPiCnDwAAgJ1fCXL6gJw+4K61qdOGTvQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHUTQ8QAtQ==
+   eJxjYBgFo2AUDHbAP9AOQAKjbhkFo2DkAgC8NAAu
   </data>
  </layer>
- <layer name="canon" width="200" height="100">
+ <layer name="canon" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJztzrERgDAAA7GM4v2nZAEKuACGIFXu/GMAAADwhCz+B0BH2gEsJ+2AF0s7AE5IOwCAJaUdAD+VdgAAt0g7AAB2pB0AAAAABZnYAAAAAHC1tAMAAAAAAAAAAAAAAAAAAAAAAAAAAGBxmdgAAAAAAAAAAAAAAAAAAADwBZnYAAAAAAAAAAAAAAAAAAAAAAAAAABwxAYGIwNB
+   eJxjYBgFo2AUjAL8QGGgHTAKRsEoGBQAAIm0ACE=
   </data>
  </layer>
- <layer name="clickable_laser_beam" width="200" height="100">
+ <layer name="clickable_laser_beam" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt3EEKhDAMBVDXnsIb5P63GwZcFGlwapUW5z0IaTfSzW+6clkAAAAAAAAA2sToAzwskg4AAAAAAAAAnFtHH4ApbHuPolr2tXXZAQAAAAAAAAAAAAAAAAAAAAAAAAB6+d8hAEC/s7eUtxYApda5YI4A8HX3/IiONTC39YHiff71XpcPMlkmfs3K8d1U29e+NVMW5QNy8gE5+YCcfMB1caEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABghA+cVQ8w
+   eJxjYBgFo2AUjIJRQCzQH2gHjIJRMIAAAJU0ADA=
   </data>
  </layer>
- <layer name="clickable_fire_beam" width="200" height="100">
+ <layer name="clickable_fire_beam" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJztzjEBAAAIA6DZv7QVdukDCUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4M58BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDaArUvAAI=
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
   </data>
  </layer>
- <layer name="clickable_ice_beam" width="200" height="100">
+ <layer name="clickable_ice_beam" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJztzkEJAAAIBLAD+3c2xAl+tgRLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKA33wEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg3AKu9gAE
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
   </data>
  </layer>
- <layer name="up_down_platforms" width="200" height="100">
+ <layer name="up_down_platforms" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt3TEKACAIBVDP4f0P2lhEIrX2Hji4+xFcjAAAAAAAgFouBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwFn1880vOH5k7mG6zYP8ALDa90LXAz25AQAAAAB+l+FWCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAmwGUhAFt
+   eJxjYBgFo2AUjALSgRQSHgWjYBSMDAAAPJsATw==
   </data>
  </layer>
- <layer name="WIN!" width="200" height="100">
+ <layer name="WIN!" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJzt07EJACEAwEBHcv/pvrAQ5NPYegcZIWMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvGf+BCz+gHb+4A/Y/AHNH9D8Ac0f0PwBzR/Q/AEAAAAAAAAAAAAAAAAAAAAAAAAAAHDvA4RqBOE=
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
   </data>
  </layer>
 </map>
