@@ -8,7 +8,8 @@ var AVATAR = {
 };
 
 var DASH = {
-	cooldown: 2000
+	cooldown: 2000,
+	distance: 50,
 };
 
 var SHIELD = {
@@ -122,11 +123,11 @@ var avatar = {
 		Crafty.audio.play('dash')
 		debug.game("Activate Dash");
 		if (avatar.direction == 'East') {
-			avatar.entity.x += 50;
+			avatar.entity.x += DASH.distance;
 		} else if (avatar.direction == 'West') {
-			avatar.entity.x -= 50;
+			avatar.entity.x -= DASH.distance;
 		} else {
-			avatar.entity.y -= 100;
+			avatar.entity.y -= DASH.distance * 2;
 			debug.warn("Default to dash up.");
 		}
 
@@ -265,12 +266,15 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y < 0  || avatar.entity.x > board.pixelwidth  || avatar.entity.y > board.pixelheight) {
+		if (avatar.entity.x < 0 || avatar.entity.y < 0 || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
-			return true;
+		} else if (avatar.entity.x > board.pixelwidth) {
+			avatar.on_win();
+		} else {
+			return false;
 		}
 
-		return false;
+		return true;
 	},
 	on_change_direction: function(event) {
 		if (this.isDown('LEFT_ARROW')) {
@@ -379,6 +383,13 @@ var avatar = {
 			console.log("Player died");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
+		}
+	}
+	on_win: function() {
+		if (!avatar.dead) {
+			console.log("Player won");
+			avatar.dead = true;
+			dispatch.emit('gameover', { controller_won: true });
 		}
 	}
 };
