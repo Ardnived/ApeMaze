@@ -4,8 +4,16 @@ var player = {
 	name: null
 };
 
+var meta = {
+	num_players: 1
+}
+
 dispatch.on('meta', function(data) {
 	debug.dispatch("Meta", data);
+	console.log(data);
+	if (typeof data.num_players != 'undefined') {
+		meta.num_players = data.num_players;
+	}
 
 	if (typeof data.player_id != 'undefined') {
 		player.id = data.player_id;

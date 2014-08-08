@@ -6,6 +6,7 @@ function BeamTrap(id, trigger, threshold, direction) {
 					.attr({w: 25*2, h: 198*2})
 					.reel('Firing', 300, 0, 0, 3)
 					.animate('Firing', -1);
+	this.beam.type = 'beamtrap'
 
 	switch (this.direction) {
 		case 'up':

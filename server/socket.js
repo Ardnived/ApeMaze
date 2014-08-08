@@ -45,7 +45,8 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	socket.emit('meta', { 
-		player_id: client.player_id
+		player_id: client.player_id,
+		num_players: client.length
 	});
 	
 	socket.on('move', function(data) {
@@ -95,7 +96,7 @@ dispatch.io.on('connection', function(socket) {
 				data.activate = true;
 				trap.traps[data.trap_id].clicks = 0;
 			}
-			debug.dispatch(data);
+			
 			dispatch.io.emit('trap', data);
 		}
 	});
@@ -103,6 +104,7 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('gameover', function(data) {
 		game.active = false;
 		game.controller_won = data.controller_won;
+		game.cause = data.cause
 		dispatch.io.emit('gameover', data);
 		for(var key in clients){
 			clients[key].ready = false;
@@ -140,7 +142,8 @@ dispatch.io.on('connection', function(socket) {
 
 	if (game.active) {
 		socket.emit('meta', { 
-			is_controller: clients[socket.id].is_controller
+			is_controller: clients[socket.id].is_controller,
+			num_players: clients.length
 		});
 
 		socket.emit('scene', {
@@ -155,6 +158,7 @@ dispatch.io.on('connection', function(socket) {
 	} else if (game.controller_won != null) {
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
+			cause: game.cause,
 			latecomer: true
 		});
 	}
@@ -217,12 +221,17 @@ function checkReadyAndAssignPlayers() {
 		if (game.controller_won == null) {
 			for (var socketID in clients) {
 				clients[socketID].socket.emit('meta', { 
-					is_controller: clients[socketID].is_controller
+					is_controller: clients[socketID].is_controller,
+					num_players: clients.length
 				});
 			}
 		} else {
 			for (var socketID in clients) {
 				clients[socketID].socket.emit('reset', clients[socketID].is_controller)
+				clients[socketID].socket.emit('meta', { 
+					is_controller: clients[socketID].is_controller,
+					num_players: clients.length
+				});
 			}
 		}
 		

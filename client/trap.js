@@ -83,7 +83,7 @@ Trap.prototype.set_threshold_text = function(id, trigger, num) {
 		}
 		else{
 			if(num!=0)
-				threshold_text[id].text(num.toString());
+				threshold_text[id].text(num);
 			else
 				threshold_text[id].text("");
 		}
@@ -108,8 +108,10 @@ Trap.prototype.click = function() {
 			threshold: threshold,
 		});
 
-		threshold_left -= 1;
-		traps[this.trap_id].set_threshold_text(id, traps[this.trap_id].trigger, threshold_left[id]);
+		if(threshold_left > 0) {
+			threshold_left -= 1;
+			traps[this.trap_id].set_threshold_text(id, traps[this.trap_id].trigger, threshold_left[id]);
+		}
 	}
 };
 

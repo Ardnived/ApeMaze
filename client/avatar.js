@@ -6,6 +6,7 @@ var AVATAR = {
 	color: "#FFFFFF",
 	intensity: 0.0,
 	offset: -150,
+	startX: 70,
 	startY: 64 * 10
 };
 
@@ -50,7 +51,7 @@ var avatar = {
 		}
 
 		this.entity
-			.attr({x: 0, y: AVATAR.startY, w: 50, h: 50, z:1000})
+			.attr({x: AVATAR.startX, y: AVATAR.startY, w: 50, h: 50, z:1000})
 			.reel('Walk', 200, 0, 0, 2)
 			.reel('Stand', 200, 2, 0, 2)
 			.reel('Jump', 160, 3, 0, 2)
@@ -298,7 +299,7 @@ var avatar = {
 			for (var i = 0; i < hits.length; i++) {
 				//console.log("Hit", hits[i]);
 				if (hits[i].obj.visible) {
-					avatar.on_death();
+					avatar.on_death(hits[i].obj.type);
 					return true;
 				}
 			}
@@ -443,18 +444,18 @@ var avatar = {
 			avatar.moving = false;
 		}
 	},
-	on_death: function() {
+	on_death: function(trapname) {
 		if (!avatar.dead) {
 			debug.game("Player died");
 			avatar.dead = true;
-			dispatch.emit('gameover', { controller_won: false });
+			dispatch.emit('gameover', { controller_won: false, cause: trapname });
 		}
 	},
 	on_win: function() {
 		if (!avatar.dead) {
 			debug.game("Player won");
 			avatar.dead = true;
-			dispatch.emit('gameover', { controller_won: true });
+			dispatch.emit('gameover', { controller_won: true, cause: null});
 		}
 	},
 	update_energy: function(){
