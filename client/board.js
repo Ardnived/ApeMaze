@@ -7,19 +7,26 @@ var direction = {
 };
 
 var board = {
-	width: SOURCE_FROM_TILED_MAP_EDITOR.width,
-	height: SOURCE_FROM_TILED_MAP_EDITOR.height,
-	tilewidth: SOURCE_FROM_TILED_MAP_EDITOR.tilewidth,
-	tileheight: SOURCE_FROM_TILED_MAP_EDITOR.tileheight,
-	pixelwidth: SOURCE_FROM_TILED_MAP_EDITOR.width * SOURCE_FROM_TILED_MAP_EDITOR.tilewidth,
-	pixelheight: SOURCE_FROM_TILED_MAP_EDITOR.height * SOURCE_FROM_TILED_MAP_EDITOR.tileheight,
+	width: null,
+	height: null,
+	tilewidth: null,
+	tileheight: null,
+	pixelwidth: null,
+	pixelheight: null,
 	map: null,
 	ready: false,
 	set_ready: function() {
 		board.ready = true;
 		board.init();
 	},
-	set_map: function(map) {
+	set_map: function(source, map) {
+		board.width = source.width;
+		board.height = source.height;
+		board.tilewidth = source.tilewidth;
+		board.tileheight = source.tileheight;
+		board.pixelwidth = source.width * source.tilewidth;
+		board.pixelheight = source.height * source.tileheight;
+
 		board.map = map;
 		board.init();
 	},
@@ -57,7 +64,7 @@ var board = {
 					break;
 				// Lift
 				case 7:
-					// traps[trapId] = new 
+					traps[trapId] = new ElevatorTrap(trapId, trap);
 					break;
 				// Fire
 				case 8:
@@ -87,20 +94,20 @@ var board = {
 		}
 
 		document.getElementById("loading").style.display = "none";
-		
-		/*
-		Crafty.e("2D, Canvas, Color, Movable, Gravity, Floor")
-			.attr({x: 100, y: 100, w: 32, h: 32})
-			.color('lightblue')
-			.gravity('Floor');
-		*/
-	}
+	},
+	load: function(source) {
+		if (source == null) {
+			return;
+		}
 
+		Crafty.e("2D, Canvas, TiledMapBuilder")
+			.setMapDataSource(source)
+			.createWorld(function(map) {
+				board.set_map(source, map);
+			});
+	}
 };
 
-debug.game("Building Tile Map...");
-Crafty.e("2D, Canvas, TiledMapBuilder")
-	.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
-	.createWorld(function(map) {
-		board.set_map(map);
-	});
+debug.game("Building Tile Maps...");
+board.load(LEVEL_01);
+board.load(LEVEL_02);

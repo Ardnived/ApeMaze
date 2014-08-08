@@ -2,7 +2,7 @@
 var AVATAR = {
 	gravity: 0.4,
 	speed: 4,
-	jump: 9,
+	jump: 12,
 	color: "#FFFFFF",
 	intensity: 0.0
 };
@@ -78,7 +78,7 @@ var avatar = {
 		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
-		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Persist, Player')
 			.twoway(AVATAR.speed, AVATAR.jump)
 			.gravity('Floor')
 			.gravityConst(AVATAR.gravity)
@@ -97,7 +97,7 @@ var avatar = {
 		Crafty.viewport.mouselook(false);
 	}, 
 	init_observer: function() {
-		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Persist, Player')
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
 					Crafty.viewport.follow(avatar.entity, 0, 0);
