@@ -5,11 +5,48 @@ body {
 	overflow: hidden;
 }
 
+body.observer #observer,
+body.controller #controller {
+	display: block;
+}
+
+.info {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 1000px;
+
+	/*
+	-webkit-text-stroke: 1px white;
+   	color: black;
+   	text-shadow:
+       3px 3px 0 #FFF,
+     -1px -1px 0 #FFF,  
+      1px -1px 0 #FFF,
+      -1px 1px 0 #FFF,
+       1px 1px 0 #FFF;
+    */
+}
+
+.info strong {
+	font-size: 30px;
+}
+
+.info small {
+	display: block;
+	padding-left: 10px;
+}
+
 #canvas {
 	margin: auto;
 }
 
 #chat {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
 	border: 1px solid gray;
 	padding: 5px;
 
