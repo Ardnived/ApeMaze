@@ -66,10 +66,7 @@ Trap.prototype.activate = function() {
 
 Trap.prototype.click = function() {
 	console.log("Trap Clicked: " + this.string);
-	if (!player.is_controller && !this.clicked) {
-		console.log()
-		this.clicked = true;
-	
+	if (!player.is_controller) {
 		var id = this.trap_id;
 		var threshold = this.threshold;
 
@@ -87,8 +84,6 @@ Trap.prototype.click = function() {
 */
 Trap.prototype.reset = function() {
 	var that = this;
-
-	this.clicked = false;
 
 	if (this.trigger != null){
 		if (!player.is_controller) {

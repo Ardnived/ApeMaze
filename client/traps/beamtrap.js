@@ -13,11 +13,15 @@ function BeamTrap(id, trigger, threshold, direction) {
 			this.beam.attr({x: trigger.x + 40, y: trigger.y + 40 });
 			break;
 		case 'right':
-			this.beam.rotation = 90;
+			this.beam.rotation = 270;
 			this.beam.attr({x: trigger.x + 24, y: trigger.y + 40 });
 			break;
 		case 'left':
-			this.beam.rotation = 270
+			this.beam.rotation = 90;
+			this.beam.attr({x: trigger.x - 24, y: trigger.y + 40 });
+			break;
+		case 'down':
+			this.beam.rotation = 0;
 			this.beam.attr({x: trigger.x - 24, y: trigger.y + 40 });
 			break;
 	}
