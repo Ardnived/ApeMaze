@@ -38,8 +38,8 @@ function Trap(id, trigger, threshold) {
 }
 
 Trap.prototype.activate = function() {
-	this.flame.visible = true;
-	this.clicked = false; // Reset clickable
+	this.trigger.visible = false;	// Hide the trigger
+	this.clicked = false; 			// Reset clickable
 };
 
 Trap.prototype.click = function() {

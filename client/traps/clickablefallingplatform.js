@@ -1,26 +1,24 @@
-function ClickableFallingPlatform(id, threshold, x, y) {
-	this.trap_id = 0;
-	this.clicked = false;
-	this.threshold = threshold;
+function ClickableFallingPlatform(id, trigger, threshold, tile) {
+	Trap.call(this, id, trigger, threshold);
 
-	this.flame = Crafty.e("2D, Canvas, SpriteAnimation, FireSprite, Deathzone")
-					.attr({x: x - 5, y: y - 30, w: 35, h: 35})
-					.reel('Burning', 600, 0, 0, 6)
-					.animate('Burning', -1);
-	this.flame.visible = false;
+	this.entity = tile;
+	this.entity.addComponent("ClickableFallingPlatform");
+	this.entity.visible = false;
 }
 
 ClickableFallingPlatform.prototype.activate = function(){
-	this.flame.visible = true;
-	this.clicked = false;			// Reset clickable
+	Trap.prototype.activate.call(this);
 
-	var flame = this.flame;
-	this.flame.timeout(function() {
-		flame.visible = false;
-	}, 3000);
+	this.entity.visible = true;
+	this.entity.addComponent("Platform");
+	this.entity.addComponent("Floor");
+	this.entity.addComponent("Gravity");
+	this.gravity("Floor");
 }
 
 ClickableFallingPlatform.prototype.click = function() {
+	Trap.prototype.click.call(this);
+
 	if(!this.clicked) {
 		this.clicked = true;
 	
@@ -33,3 +31,5 @@ ClickableFallingPlatform.prototype.click = function() {
 		});
 	}
 }
+
+extend(Trap, ClickableFallingPlatform);

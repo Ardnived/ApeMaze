@@ -33,18 +33,11 @@ var board = {
 				}
 
 				// Clickable Falling platforms
-				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platforms").length; ++falling) {
-					var platform = map.getEntitiesInLayer("clickable_falling_platforms")[falling];
-					platform.addComponent("ClickableFallingPlatform");
-					platform.addComponent("Mouse");
-					platform.addComponent("Platform");
-					platform.addComponent("Floor");
-					//platform.north.addComponent("Floor");
-
-					platform.bind("Click", function() {
-						this.addComponent("Gravity");
-						this.gravity("Floor")
-					});
+				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platform_switch").length; ++falling) {
+					var platformSwitch = map.getEntitiesInLayer("clickable_falling_platform_switch")[falling];
+					var platform = map.getEntitiesInLayer("clickable_falling_platform")[falling];
+					traps[trapId] = new ClickableFallingPlatform(trapId, platformSwitch, 1, platform);
+					trapId++;
 				}
 
 				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)

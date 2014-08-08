@@ -80,7 +80,7 @@ var avatar = {
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite')
-			.attr({x: 0, y: 0, w: 50, h: 50})
+			.attr({x: 0, y: 0, w: 25, h: 25})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
 			.reel('East', 700, 0, 2, 3)

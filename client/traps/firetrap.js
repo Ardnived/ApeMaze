@@ -12,6 +12,7 @@ FireTrap.prototype.activate = function() {
 	Trap.prototype.activate.call(this);
 
 	var flame = this.flame;
+	this.flame.visible = true;
 	this.flame.timeout(function() {
 		flame.visible = false;
 	}, 3000);
