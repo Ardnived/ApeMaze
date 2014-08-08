@@ -31,6 +31,10 @@ body {
     margin: 2px;
 }
 
+#canvas {
+	outline: 1px solid lightgray;
+}
+
 body.observer #observer,
 body.controller #controller {
 	display: block;

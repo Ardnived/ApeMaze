@@ -26,7 +26,7 @@ Crafty.sprite(49, 86, "../resources/img/fire.png", {
 	FlameSprite: [0, 0]
 })
 
-Crafty.sprite(25, 198, "../resources/img/beam.png", {
+Crafty.sprite(64, 320, "../resources/img/beam.png", {
 	BeamSprite: [0, 0]
 })
 
