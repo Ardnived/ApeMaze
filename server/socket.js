@@ -102,6 +102,8 @@ dispatch.io.on('connection', function(socket) {
 				data.activate = true;
 			}
 			
+			data.clicks = Math.max(data.clicks, 0);
+			data.clicks = Math.min(data.clicks, trap.traps[data.trap_id].threshold);
 			dispatch.io.emit('trap', data);
 		}
 	});
