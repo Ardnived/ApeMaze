@@ -59,6 +59,10 @@ dispatch.io.on('connection', function(socket) {
 		socket.broadcast.to(client.room).emit('stop', data);
 	});
 
+	socket.on('animation', function(data){
+		socket.broadcast.to(client.room).emit('animation', data);
+	})
+
 	socket.on('shield', function(data) {
 		socket.broadcast.to(client.room).emit('shield', data);
 	})
