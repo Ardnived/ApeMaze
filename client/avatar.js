@@ -10,11 +10,13 @@ var AVATAR = {
 var DASH = {
 	cooldown: 2000,
 	distance: 50,
+	key: Crafty.keys.C
 };
 
 var SHIELD = {
 	cooldown: 2000,
-	duration: 2000
+	duration: 2000,
+	key: Crafty.keys.X
 }
 
 var FROZEN = {
@@ -120,7 +122,7 @@ var avatar = {
 		Crafty.viewport.mouselook(true);
 	},
 	/*
-	update: function() {
+	update_movables: function() {
 		//move colliding movable objects
 		var hitDetection = this.hit('Movable');
 		if (hitDetection){
@@ -368,10 +370,10 @@ var avatar = {
 			avatar.moving = true;
 		}
 
-		if (e.key == Crafty.keys.C && !avatar.dashCountdown) {
+		if (e.key == DASH.key && !avatar.dashCountdown) {
 			//dash
 			avatar.use_dash();
-		} else if (e.key == Crafty.keys.X && !avatar.shieldCountdown){
+		} else if (e.key == SHIELD.key && !avatar.shieldCountdown){
 			//shield
 			avatar.use_shield();
 		} else if(this.isDown(Crafty.keys.UP_ARROW)) {

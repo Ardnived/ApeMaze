@@ -6,23 +6,26 @@ dispatch.on('gameover', function(data) {
 
 	// Indicate what happened.
 	if (data.controller_won) {
-		document.getElementById("gameover").getElementsByClassName("result")[0].innerHTML = "The Ape Escaped";
+		document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = "The Ape Escaped";
 	} else {
-		document.getElementById("gameover").getElementsByClassName("result")[0].innerHTML = "The Ape Did Not Escape";
+		document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = "The Ape Did Not Escape";
 	}
 
 	// Show the appropriate messages to the appropriate people.
 	if (!data.latecomer) {
 		if ((data.controller_won && player.is_controller) || (!data.controller_won && !player.is_controller)) {
-			document.getElementById("gameover").getElementsByClassName("title")[0].innerHTML = "VICTORY";
-			document.getElementById("gameover").className = "victory";
+			document.getElementById("lobby").getElementsByClassName("title")[0].innerHTML = "VICTORY";
+			document.getElementById("lobby").className = "victory";
 		} else {
-			document.getElementById("gameover").getElementsByClassName("title")[0].innerHTML = "DEFEAT";
-			document.getElementById("gameover").className = "defeat";
+			document.getElementById("lobby").getElementsByClassName("title")[0].innerHTML = "DEFEAT";
+			document.getElementById("lobby").className = "defeat";
 		}
+	} else {
+		document.getElementById("lobby").getElementsByClassName("title")[0].innerHTML = "GAME OVER";
+		document.getElementById("lobby").className = "";
 	}
 
-	document.getElementById("gameover").style.display = "block";
+	document.getElementById("lobby").style.display = "block";
 
 	// Make sure everyone can see chat now.
 	document.getElementById("chat").style.display = "block";
@@ -30,7 +33,7 @@ dispatch.on('gameover', function(data) {
 
 dispatch.on('reset', function(data){
 	console.log('reset ' + data)
-	document.getElementById("gameover").style.display = "none";
+	document.getElementById("lobby").style.display = "none";
 
 	avatar.entity.destroy();
 	player.is_controller = data
