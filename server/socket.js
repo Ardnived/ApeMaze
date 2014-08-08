@@ -171,6 +171,27 @@ dispatch.io.on('connection', function(socket) {
 	
 function checkReadyAndAssignPlayers() {
 	if(game.active){
+		var has_controller = false;
+		for(var key in clients){
+			if(clients[key].is_controller){
+				has_controller=true;
+				break;
+			}
+		}
+		if(!has_controller){
+			game.active = false;
+			game.controller_won = false;
+			game.cause = 'The ape has lost its connection lol...';
+			dispatch.io.emit('gameover', {
+				controller_won: game.controller_won,
+				cause: game.cause,
+				latecomer: false
+			});
+			dispatch.io.emit('chat', {message: "Game over. The ape " + (data.controller_won ? "escaped." : "died.")})
+			for(var key in clients){
+				clients[key].ready = false;
+			}
+		}
 		return;
 	}
 
