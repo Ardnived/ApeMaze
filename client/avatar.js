@@ -53,7 +53,7 @@ var avatar = {
 		this.burning = false;
 	},
 	init_controller: function() {
-		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
+		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision, Player')
 			.attr({x: 0, y: 0, w: 25, h: 25})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
@@ -79,7 +79,7 @@ var avatar = {
 		Crafty.viewport.follow(this.entity, 0, 0);
 	}, 
 	init_observer: function() {
-		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite, Player')
 			.attr({x: 0, y: 0, w: 25, h: 25})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)

@@ -3,7 +3,7 @@ function PlatformTrap(id, ox, oy, w, h, dx, dy) {
 
 	var trap = this
 
-	this.box = Crafty.e("2D, Canvas, Color, Floor, Draggable")
+	this.box = Crafty.e("2D, Canvas, Color, Floor, Draggable, Collision")
 					.attr({x: ox, y: oy, w: w, h: h})
 					.color('#44FF44')
 					.bind('Dragging', function(e){
