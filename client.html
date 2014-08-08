@@ -30,10 +30,13 @@
 	<div id="chat">
 		<strong>Message</strong>
 		<br />
-		<textarea id="chat_module_content" cols="40" rows="20" resize="false" readonly></textarea>
+		<input id="name_input" onkeypress="return chat.on_rename_keypress(event);"></input>
+		<button onclick="chat.rename();">Rename</button>
 		<br />
-		<input id="chat_module_text" size="50" onkeypress="return char_module_keypress(event)"></input>
-		<button onclick="chat_module_send()" id="chat_module_submit" cols="40">Submit</button>
+		<textarea id="chat_list" cols="40" rows="20" readonly></textarea>
+		<br />
+		<input id="chat_input" onkeypress="return chat.on_send_keypress(event);"></input>
+		<button onclick="chat.send();">Submit</button>
 	</div>
 	
 	<script src="/resources/libs/modules/create_mocks_module.js"></script>
@@ -43,8 +46,8 @@
 	<script src="/client/utility.js"></script>
 	<script src="/resources/maps/test2.js"></script>
 	<script src="/client/dispatch.js"></script>
-	<script src="/client/avatar.js"></script>
 	<script src="/client/player.js"></script>
+	<script src="/client/avatar.js"></script>
 	<script src="/client/canvas.js"></script>
 	<script src="/client/components.js"></script>
 	<script src="/client/trap.js"></script>
