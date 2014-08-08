@@ -3,7 +3,6 @@ var threshold_text = {};
 var threshold_left = {};
 
 dispatch.on('trap', function(data) {
-	console.log("Trap Activate Recieve: " + data.type);
 
 	traps[data.trap_id].set_threshold_text(data.trap_id, traps[data.trap_id].trigger, data.threshold - data.clicks);
 
@@ -43,6 +42,7 @@ dispatch.on('trap', function(data) {
 		trapBox.y = data.y		
 		//elevator trap sends the player and trap positions separately so they're equally laggy
 	} else {
+		console.log("Trap Activate Recieve: " + data.type);
 		if(data.activate) {
 			console.log("Trap Activated");			
 			traps[data.trap_id].activate();
