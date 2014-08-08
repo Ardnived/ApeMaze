@@ -309,7 +309,7 @@ var avatar = {
 		if (avatar.entity.x < 0 || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
 		} else if (avatar.entity.x > board.pixelwidth) {
-			avatar.on_win();
+			board.load(board.current_stage + 1);
 		} else {
 			return false;
 		}
