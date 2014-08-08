@@ -32,8 +32,10 @@ var chat = {
 	display: function(data) {
 		if (typeof data.name != 'undefined') {
 			document.getElementById('chat_list').innerHTML += data.send_date+' - '+ data.name + ' says:<br />' + data.message + '<br />';
+			document.getElementById('latest-chat').innerHTML = data.send_date+' - '+ data.name + ' says:<br />' + data.message + '<br />';
 		} else {
 			document.getElementById('chat_list').innerHTML += "<em>"+data.message+"</em>" + '<br />';
+			document.getElementById('latest-chat').innerHTML = "<em>"+data.message+"</em>" + '<br />';
 		}
 
 		document.getElementById("chat_list").scrollTop = document.getElementById("chat_list").scrollHeight;
