@@ -40,17 +40,17 @@
  </tileset>
  <layer name="background" width="14" height="28">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAVhIxwwjRhw3QQh8zDj0wcXz24dJLjDux6SWkD92fzFBMbrgSowfdnZTGIyn6mJEwIb3UsI8c9aTqJ8YMdPOQw4CBATVccGFKwgRdL7l5mFR9oxiBAdT1BWg=
+   eJxjYIAAVhIxwwjRhw3QQh8zDj0wcXz24dJLjDux6SWkD92fzFBMbrgSowfdnZTGIyn6mJEwIb3UsI8c9dTWj8085DBgYEANF1yYkjBB10tuHiZV3yhGYADKLQVj
   </data>
  </layer>
  <layer name="floor" width="14" height="28">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF+AArFkyuOeQAHgJ6mUgUhwFWHGoIuRMmj66XkDuxmc+Eww3Y9HDjMIMU+0iJQ2xqiPEjNv8R60dkNiF34lODLc1Smo4pSffoYcBEBEbWzwbFpLqB2LAfBbgBALGpATo=
+   eJxjYBgF+AArFkyuOZS4ARdgIlEc2Uxsagi5EyZPjl50NUw4zCFkLilhyYrGJjYOcakhNnxAgImBPD8S4058arClWUrTMCXpHj0MmIjA2Owl1Q3Ehv0owA0A52IA+g==
   </data>
  </layer>
  <layer name="traps" width="14" height="28">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjALCgJuKZnGg0ejsUTA4AABCfAAk
+   eJxjYBgFgxnwDLQDiAS0dic3jc0nBgyVuKAVoGYccKDR6GxkwAbFo4D+AAAB+wBf
   </data>
  </layer>
 </map>
