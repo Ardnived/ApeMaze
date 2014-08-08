@@ -120,6 +120,7 @@ var avatar = {
 	},
 	*/
 	use_dash: function() {
+		Crafty.audio.play('dash')
 		debug.game("Activate Dash");
 		if (avatar.direction == 'East') {
 			avatar.entity.x += 50;
@@ -147,6 +148,7 @@ var avatar = {
 		}
 	},
 	use_shield: function() {
+		Crafty.audio.play('shield')
 		debug.game("Activate Shield");
 		avatar.shieldUp = true;
 		avatar.lastShield = new Date();

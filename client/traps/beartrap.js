@@ -43,4 +43,4 @@ BearTrap.prototype.reset = function(){
 	}
 }
 
-extend(Trap, Beartrap);
+extend(Trap, BearTrap);

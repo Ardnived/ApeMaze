@@ -11,7 +11,6 @@ var clients = {};
 var sockets = {};
 var autoinc = 0;
 var chat_messages = [];
-var gameStarted = true;
 
 dispatch.io.on('connection', function(socket) {
 
@@ -95,7 +94,6 @@ dispatch.io.on('connection', function(socket) {
 		for(var key in clients){
 			clients[key].ready = false;
 		}
-		gameStarted = false;
 	})
 
 	socket.on('enter', function(data) {
@@ -117,7 +115,7 @@ dispatch.io.on('connection', function(socket) {
 	socket.emit('chats', chat_messages);
 	
 	function checkReadyAndAssignPlayers(){
-		if(gameStarted){
+		if(!game.gameover){
 			return;
 		}
 		if(clients.length < 2){
@@ -153,15 +151,16 @@ dispatch.io.on('connection', function(socket) {
 				}
 			}
 
-			for(var socketID in clients){
-				sockets[socketID].emit('reset', clients[socketID].is_controller)
-			}
-
 			for(var trapID in trap.traps){
 				trap.traps[trapID].clicks = 0;
 			}
-			gameStarted = true;
+
+			for(var socketID in clients){
+				sockets[socketID].emit('reset', clients[socketID].is_controller)
+			}
+			
 			console.log('started')
+			game.gameover = false;
 		}
 	}
 
