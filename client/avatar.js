@@ -503,7 +503,7 @@ var avatar = {
 			}
 			else{
 				avatar.entity.rotation = -90;
-				avatar.entity.y += avatar.entity.w;
+				avatar.entity.y += avatar.entity.w*2;
 			}
 			Crafty.audio.play('ape_call');
 
