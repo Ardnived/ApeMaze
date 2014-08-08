@@ -113,6 +113,12 @@ var board = {
 	},
 	load: function(index) {
 		if (index < board.stage_count) {
+			if (player.is_controller) {
+				dispatch.emit('scene', {
+					index: index
+				});
+			}
+
 			board.current_stage = index;
 			Crafty.enterScene("stage"+index);
 
@@ -127,6 +133,10 @@ var board = {
 		}
 	}
 };
+
+dispatch.on('scene', function(data) {
+	board.load(data.index);
+});
 
 debug.game("Building Tile Maps...");
 board.create(STAGE_01);
