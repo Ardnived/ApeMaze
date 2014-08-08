@@ -356,7 +356,10 @@ var avatar = {
 		}
 	},
 	on_death: function() {
-		console.log("Player died");
-		dispatch.emit('gameover', { controller_won: false });
+		if (!avatar.dead) {
+			console.log("Player died");
+			avatar.dead = true;
+			dispatch.emit('gameover', { controller_won: false });
+		}
 	}
 };
