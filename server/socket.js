@@ -140,8 +140,10 @@ dispatch.io.on('connection', function(socket) {
 
 		if(allReady){
 			if(controllers.length == 0){
-				var key = observers[Math.floor(Math.random()*observers.length)]
-				clients[key].is_controller = true
+				for (var key in clients){
+					clients[key].is_controller = true
+					break;
+				}
 			}else if(controllers.length > 1){
 				var cID = Math.floor(Math.random()*controllers.length)
 				for(var i=0; i<controllers.length; i++){
@@ -156,7 +158,7 @@ dispatch.io.on('connection', function(socket) {
 			for(var trapID in trap.traps){
 				trap.traps[trapID].clicks = 0;
 			}
-
+			
 			for(var socketID in clients){
 				sockets[socketID].emit('reset', clients[socketID].is_controller)
 			}

@@ -72,13 +72,14 @@ function Trap(id, trigger, threshold) {
 }
 
 Trap.prototype.activate = function() {
-//	debug.game("Activate", this.constructor.name.toLowerCase());
-	this.clicked = false; 			// Reset clickable
+	// debug.game("Activate", this.constructor.name.toLowerCase());
+	// this.clicked = false; // Reset clickable
 };
 
 Trap.prototype.click = function() {
 	console.log("Trap Clicked: " + this.string);
 	if (!player.is_controller && !this.clicked) {
+		console.log()
 		this.clicked = true;
 	
 		var id = this.trap_id;

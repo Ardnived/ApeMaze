@@ -8,7 +8,8 @@ var AVATAR = {
 };
 
 var DASH = {
-	cooldown: 2000
+	cooldown: 2000,
+	distance: 50,
 };
 
 var SHIELD = {
@@ -37,6 +38,13 @@ var avatar = {
 			this.init_observer();
 		}
 
+		this.entity
+			.attr({x: 0, y: 0, w: 50, h: 50})
+			.reel('Walk', 200, 0, 0, 2)
+			.reel('Stand', 200, 2, 0, 2)
+			.reel('Jump', 160, 3, 0, 2)
+			.bind('EnterFrame', this.update_shield);
+
 		this.shieldUp = false;
 		this.dashCountdown = false;
 		this.lastDash = 0;
@@ -51,22 +59,19 @@ var avatar = {
 
 		this.frozen = false;
 		this.burning = false;
+
+		this.entity.animate('Stand', -1)
 		
 		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
-			.attr({x: 0, y: 0, w: 50, h: 50})
-			.reel('Walk', 200, 0, 0, 2)
-			.reel('Stand', 200, 2, 0, 2)
-			.reel('Jump', 160, 3, 0, 2)
 			.twoway(AVATAR.speed, AVATAR.jump)
 			.gravity('Floor')
 			.gravityConst(AVATAR.gravity)
 			.bind('NewDirection', this.on_change_direction)
 			.bind('Moved', this.on_moved)
 			.bind('EnterFrame', this.update_dash)
-			.bind('EnterFrame', this.update_shield)
 			.bind('EnterFrame', this.update_frozen)
 			.bind('EnterFrame', this.update_burning)
 			.bind('KeyDown', this.on_key_down)
@@ -79,11 +84,6 @@ var avatar = {
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
-			.attr({x: 0, y: 0, w: 50, h: 50})
-			.reel('Walk', 200, 0, 0, 2)
-			.reel('Stand', 200, 2, 0, 2)
-			.reel('Jump', 160, 3, 0, 2)
-			.bind('EnterFrame', this.update_shield)
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
 					Crafty.viewport.follow(avatar.entity, 0, 0);
@@ -93,13 +93,13 @@ var avatar = {
 		dispatch.on('move', function(data) {
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
-			avatar.on_receive_direction(data.direction)
+			avatar.on_receive_direction(data.direction);
+			avatar.entity.animate(data.animation, -1);
 		});
 
 		dispatch.on('shield', avatar.use_shield);
 
-		dispatch.on('stop', function(data){
-			avatar.entity.pauseAnimation();
+		dispatch.on('stop', function(data) {
 			console.log('stop')
 		})
 
@@ -123,11 +123,11 @@ var avatar = {
 		Crafty.audio.play('dash')
 		debug.game("Activate Dash");
 		if (avatar.direction == 'East') {
-			avatar.entity.x += 50;
+			avatar.entity.x += DASH.distance;
 		} else if (avatar.direction == 'West') {
-			avatar.entity.x -= 50;
+			avatar.entity.x -= DASH.distance;
 		} else {
-			avatar.entity.y -= 100;
+			avatar.entity.y -= DASH.distance * 2;
 			debug.warn("Default to dash up.");
 		}
 
@@ -266,15 +266,15 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y < 0
-			 || avatar.entity.x > SOURCE_FROM_TILED_MAP_EDITOR.width * SOURCE_FROM_TILED_MAP_EDITOR.tilewidth
-			 || avatar.entity.y > SOURCE_FROM_TILED_MAP_EDITOR.height * SOURCE_FROM_TILED_MAP_EDITOR.tileheight) {
-			
+		if (avatar.entity.x < 0 || avatar.entity.y < 0 || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
-			return true;
+		} else if (avatar.entity.x > board.pixelwidth) {
+			avatar.on_win();
+		} else {
+			return false;
 		}
 
-		return false;
+		return true;
 	},
 	on_change_direction: function(event) {
 		if (this.isDown('LEFT_ARROW')) {
@@ -286,20 +286,17 @@ var avatar = {
 		}
 	},
 	on_receive_direction: function(direction){
-		if (direction != avatar.direction){
-			avatar.direction = direction;
+		avatar.direction = direction;
 
-			switch (avatar.direction) {
-				case 'West':
-					avatar.entity.flip("X");
-					avatar.entity.animate("Walk", -1);
-					break;
-				case 'East':
-					avatar.entity.unflip("X");
-					avatar.entity.animate("Walk", -1);
-					break;
-			}
-			
+		switch (avatar.direction) {
+			case 'West':
+				avatar.entity.flip("X");
+				avatar.entity.animate("Walk", -1);
+				break;
+			case 'East':
+				avatar.entity.unflip("X");
+				avatar.entity.animate("Walk", -1);
+				break;
 		}
 	},
 	on_moved: function(old) {
@@ -338,31 +335,47 @@ var avatar = {
 				x: avatar.entity.x,
 				y: avatar.entity.y,
 				direction: avatar.direction,
+				animation: avatar.entity.getReel().id
 			});
 		}
 
-		if (old.y == avatar.entity.y && avatar.falling) {
+		// Land
+		if (hitInfo && avatar.falling && !top_collision) {
 			avatar.falling = false;
-			avatar.entity.animate('Stand', -1);
+			if(avatar.moving) {
+				avatar.entity.animate('Walk', -1);
+			} else {
+				avatar.entity.animate('Stand', -1);
+			}
 		}
 	},
 	on_key_down: function(e) {
+		if(this.isDown(Crafty.keys.LEFT_ARROW) || this.isDown(Crafty.keys.RIGHT_ARROW)) {
+			avatar.moving = true;
+		}
+
 		if (e.key == Crafty.keys.C && !avatar.dashCountdown) {
 			//dash
 			avatar.use_dash();
 		} else if (e.key == Crafty.keys.X && !avatar.shieldCountdown){
 			//shield
 			avatar.use_shield();
-		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)) {
+		} else if(this.isDown(Crafty.keys.UP_ARROW)) {
+			avatar.falling = true;
 			avatar.entity.animate('Jump', -1);
+		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling) {
+			//avatar.entity.animate('Jump', -1);
+			avatar.entity.animate('Stand', -1);
+			avatar.moving = false;
 			//avatar.entity.pauseAnimation(); // What does this even do?
 		}
 	},
 	on_key_up: function(e){
-		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
+		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling){
 			dispatch.emit('stop', {});
 			//avatar.entity.pauseAnimation();
 			avatar.entity.animate('Stand', -1);
+			avatar.moving = false;
 		}
 	},
 	on_death: function() {
@@ -370,6 +383,13 @@ var avatar = {
 			console.log("Player died");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
+		}
+	}
+	on_win: function() {
+		if (!avatar.dead) {
+			console.log("Player won");
+			avatar.dead = true;
+			dispatch.emit('gameover', { controller_won: true });
 		}
 	}
 };
