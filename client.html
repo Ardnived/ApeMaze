@@ -11,18 +11,43 @@
 <body>
 	<div id="game_container">
 		<div id="canvas"></div>
-		<div id="dashContainer" class="ability">
-	    	<img class="abilityelem" id="dashIcon" src="resources/img/blinkicon.png" width="100px" height="100px"/> 	
-			<div class="abilityelem" id="dashText">C</div>
+
+		<div id="observer" class="info">
+			<strong>JAILER</strong>
+			<br />
+			Don't let the Ape escape!
+			<br />
+			<small>
+				Press SPACEBAR to follow runner.<br />
+				Drag screen to free move.<br />
+				Or use arrows.
+			</small>
 		</div>
-		<br/>
-		<div id="shieldContainer" class="ability">
-			<img class="abilityelem" id="shieldIcon" src="resources/img/shieldicon.png" width="100px" height="100px"/>
-			<div class="abilityelem" id="shieldText">X</div>
+
+		<div id="controller" class="info">
+			<strong>RUNNER</strong>
+			<br />
+			You must escape!
+			<br />
+			<small>
+				Arrow keys to move.<br />
+				C/X to use abilities.<br />
+				Abilities cost 1 energy.<br />
+				You get more energy as you progress.
+			</small>
+
+			<div id="energyText">ENERGY: <span id="energy"></span></div>
+
+			<div id="dashContainer" class="ability">
+		    	<img class="abilityelem" id="dashIcon" src="resources/img/blinkicon.png" width="100px" height="100px"/> 	
+				<div class="abilityelem" id="dashText">C</div>
+			</div>
+			<br/>
+			<div id="shieldContainer" class="ability">
+				<img class="abilityelem" id="shieldIcon" src="resources/img/shieldicon.png" width="100px" height="100px"/>
+				<div class="abilityelem" id="shieldText">X</div>
+			</div>
 		</div>
-		
-		<div id="energyText">ENERGY: <span id="energy"></span></div>
-		<div id="observerHint" style="display:none">Press SPACEBAR to follow runner. Drag screen to free move</div>
 	</div>
 
 	<div id="loading" style="display: none;">

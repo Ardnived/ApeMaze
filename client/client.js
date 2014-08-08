@@ -3,7 +3,8 @@ var DEATH_MSG = {
 	beamtrap: 'The ape was killed by a laser beam!',
 	fallingtrap: 'The ape was killed by falling rocks!',
 	firetrap: 'The ape was burned to death!',
-	spiketrap: 'The ape fell into a spike trap!'
+	spiketrap: 'The ape fell into a spike trap!',
+	suicide: 'The ape has committed suicide!', //disconnect
 }
 
 // Testing Code

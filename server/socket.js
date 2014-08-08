@@ -152,7 +152,6 @@ dispatch.io.on('connection', function(socket) {
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
 			cause: game.cause,
-			latecomer: true
 		});
 	}
 
@@ -192,7 +191,7 @@ function checkReadyAndAssignPlayers() {
 		if(!has_controller){
 			game.active = false;
 			game.controller_won = false;
-			game.cause = 'The ape has lost its connection lol...';
+			game.cause = 'suicide';
 			dispatch.io.emit('gameover', {
 				controller_won: game.controller_won,
 				cause: game.cause,

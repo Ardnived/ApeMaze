@@ -93,7 +93,7 @@ var board = {
 					break;
 				// Laser Bottom
 				case 13:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 14, 'bottom');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 14, 'down');
 					break;
 			}
 

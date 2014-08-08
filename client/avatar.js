@@ -104,7 +104,6 @@ var avatar = {
 		this.direction = 'East';
 		document.getElementById('dashContainer').style.visible = 'visible'
 		document.getElementById('shieldContainer').style.visible = 'visible'
-		document.getElementById('observerHint').style.visible = 'hidden'
 		Crafty.viewport.mouselook(false);
 	}, 
 	init_observer: function() {
@@ -112,6 +111,18 @@ var avatar = {
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
 					Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
+				}
+			})
+			.bind('EnterFrame', function(){
+				if(Crafty.keydown[Crafty.keys.RIGHT_ARROW] || Crafty.keydown[Crafty.keys.D]){
+					Crafty.viewport.x -= 20
+				}else if(Crafty.keydown[Crafty.keys.LEFT_ARROW] || Crafty.keydown[Crafty.keys.A]){
+					Crafty.viewport.x += 20
+				}
+				if(Crafty.keydown[Crafty.keys.UP_ARROW] || Crafty.keydown[Crafty.keys.W]){
+					Crafty.viewport.y += 20
+				}else if(Crafty.keydown[Crafty.keys.DOWN_ARROW] || Crafty.keydown[Crafty.keys.S]){
+					Crafty.viewport.y -= 20
 				}
 			});
 
@@ -141,7 +152,6 @@ var avatar = {
 
 		document.getElementById('dashContainer').style.visible = 'hidden';
 		document.getElementById('shieldContainer').style.visible = 'hidden';
-		document.getElementById('observerHint').style.visible = 'visible'
 		Crafty.viewport.mouselook(true);
 	},
 	/*
