@@ -1,9 +1,9 @@
 
 Crafty.init(500, 350, document.getElementById('canvas'));
 
-Crafty.sprite(233, "../resources/img/ape.png", {
+Crafty.sprite(233, "../resources/img/ape6.png", {
 	StandSprite: [2, 0], 
-	JumpSprite:  [3, 0]
+	JumpSprite:  [4, 0]
 });
 
 Crafty.sprite(32, "../resources/img/spritesheet.png", {

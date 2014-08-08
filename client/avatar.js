@@ -51,13 +51,15 @@ var avatar = {
 
 		this.frozen = false;
 		this.burning = false;
+		
+		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('Walk', 200, 0, 0, 2)
-			.reel('Stand', 700, 0, 2, 1)
-			.reel('Jump', 700, 0, 3, 1)
+			.reel('Stand', 200, 2, 0, 2)
+			.reel('Jump', 160, 3, 0, 2)
 			.twoway(AVATAR.speed, AVATAR.jump)
 			.gravity('Floor')
 			.gravityConst(AVATAR.gravity)
@@ -74,15 +76,13 @@ var avatar = {
 		document.getElementById('dashText').style.display = ''
 		document.getElementById('shieldText').style.display = ''
 		document.getElementById('observerHint').style.display = 'none'
-
-		Crafty.viewport.follow(this.entity, 0, 0);
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
 			.attr({x: 0, y: 0, w: 50, h: 50})
 			.reel('Walk', 200, 0, 0, 2)
-			.reel('Stand', 700, 0, 2, 1)
-			.reel('Jump', 700, 0, 3, 1)
+			.reel('Stand', 200, 2, 0, 2)
+			.reel('Jump', 160, 3, 0, 2)
 			.bind('EnterFrame', this.update_shield)
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
@@ -308,7 +308,7 @@ var avatar = {
 		killed != avatar.check_deathzones();
 		killed != avatar.check_mapborders();
 
-		var hitInfo = this.hit("Platform");
+		var hitInfo = avatar.entity.hit("Platform");
         if(hitInfo) {
         	
         	top_collision = false;
@@ -340,23 +340,29 @@ var avatar = {
 				direction: avatar.direction,
 			});
 		}
+
+		if (old.y == avatar.entity.y && avatar.falling) {
+			avatar.falling = false;
+			avatar.entity.animate('Stand', -1);
+		}
 	},
 	on_key_down: function(e) {
-		//dash
 		if (e.key == Crafty.keys.C && !avatar.dashCountdown) {
+			//dash
 			avatar.use_dash();
-		//shield
 		} else if (e.key == Crafty.keys.X && !avatar.shieldCountdown){
+			//shield
 			avatar.use_shield();
-		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
-			avatar.entity.pauseAnimation();
+		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)) {
+			avatar.entity.animate('Jump', -1);
+			//avatar.entity.pauseAnimation(); // What does this even do?
 		}
 	},
 	on_key_up: function(e){
 		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
 			dispatch.emit('stop', {});
-			avatar.entity.pauseAnimation();
-			//avatar.entity.animate('Stand', -1);
+			//avatar.entity.pauseAnimation();
+			avatar.entity.animate('Stand', -1);
 		}
 	},
 	on_death: function() {
