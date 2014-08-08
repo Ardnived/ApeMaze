@@ -2,7 +2,7 @@ function BeamTrap(id, trigger, threshold) {
 	Trap.call(this, id, trigger, threshold);
 
 	this.beam = Crafty.e("2D, Canvas, SpriteAnimation, BeamSprite, Deathzone")
-					.attr({x: trigger.x + 28.5, y: trigger.y + 16, w: 25, h: 198})
+					.attr({x: trigger.x + 28.5, y: trigger.y + 16, w: 25*1.6, h: 198*1.6})
 					.reel('Firing', 300, 0, 0, 3)
 					.animate('Firing', -1);
 
