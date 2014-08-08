@@ -210,6 +210,7 @@ function checkReadyAndAssignPlayers() {
 	}
 
 	if(num_clients < 2){
+		dispatch.io.emit('chat', {message: "Need more players to start game."});
 		return;
 	}
 
