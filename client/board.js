@@ -77,6 +77,7 @@ var board = {
 					trap.addComponent("Deathzone");
 					trap.y += board.tileheight / 2;
 					trap.h = board.tileheight / 2;
+					trap.type = 'spiketrap'
 					break;
 				// Laser Up
 				case 10:

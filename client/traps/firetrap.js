@@ -6,6 +6,7 @@ function FireTrap(id, trigger, threshold) {
 					.attr({x: trigger.x, y: trigger.y - 35, w: 35, h: 35})
 					.reel('Burning', 600, 0, 0, 6)
 					.animate('Burning', -1);
+	this.flame.type = 'firetrap'
 
 	this.reset();
 }

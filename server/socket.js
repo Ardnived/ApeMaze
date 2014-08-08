@@ -106,6 +106,7 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('gameover', function(data) {
 		game.active = false;
 		game.controller_won = data.controller_won;
+		game.cause = data.cause
 		dispatch.io.emit('gameover', data);
 		for(var key in clients){
 			clients[key].ready = false;
@@ -159,6 +160,7 @@ dispatch.io.on('connection', function(socket) {
 	} else if (game.controller_won != null) {
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
+			cause: game.cause,
 			latecomer: true
 		});
 	}

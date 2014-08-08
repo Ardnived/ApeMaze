@@ -1,3 +1,10 @@
+var DEATH_MSG = {
+	beartrap: 'The ape was caught by a bear trap!',
+	beamtrap: 'The ape was killed by a laser beam!',
+	fallingtrap: 'The ape was killed by falling rocks!',
+	firetrap: 'The ape was burned to death!',
+	spiketrap: 'The ape fell into a spike trap!'
+}
 
 // Testing Code
 dispatch.on('gameover', function(data) {
@@ -8,7 +15,11 @@ dispatch.on('gameover', function(data) {
 	if (data.controller_won) {
 		document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = "The Ape Escaped";
 	} else {
-		document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = "The Ape Did Not Escape";
+		if(DEATH_MSG[data.cause] != undefined){
+			document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = DEATH_MSG[data.cause]
+		}else{
+			document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = "The Ape Did Not Escape";
+		}
 	}
 
 	// Show the appropriate messages to the appropriate people.
