@@ -6,11 +6,12 @@ Crafty.sprite(50, "../resources/img/ape50.png", {
 	JumpSprite:  [4, 0]
 });
 
-Crafty.sprite(32, "../resources/img/spritesheet.png", {
-	SouthSprite: [0, 0], 
-	WestSprite:  [0, 1],
-	EastSprite:  [0, 2],
-	NorthSprite: [0, 3]
+Crafty.sprite(150, 50, "../resources/img/dash.png", {
+	DashSprite: [0, 0]
+});
+
+Crafty.sprite(64, "../resources/img/fall.png", {
+	GroundSprite: [0, 0]
 });
 
 Crafty.sprite(32, "../resources/img/doodad.png", {
@@ -30,5 +31,4 @@ Crafty.sprite(25, 198, "../resources/img/beam.png", {
 })
 
 Crafty.audio.create('dash', "../resources/sounds/dash.wav")
-
 Crafty.audio.create('shield', "../resources/sounds/shield.wav")

@@ -3,8 +3,8 @@ var threshold_text = {};
 var threshold_left = {};
 
 dispatch.on('trap', function(data) {
-	console.log("Trap Activate Recieve: " + data.type);
 
+	if(data.clicks!=null)
 	traps[data.trap_id].set_threshold_text(data.trap_id, traps[data.trap_id].trigger, data.threshold - data.clicks);
 
 	if(data.type == 'platformtrap'){
@@ -43,6 +43,7 @@ dispatch.on('trap', function(data) {
 		trapBox.y = data.y		
 		//elevator trap sends the player and trap positions separately so they're equally laggy
 	} else {
+		console.log("Trap Activate Recieve: " + data.type);
 		if(data.activate) {
 			console.log("Trap Activated");			
 			traps[data.trap_id].activate();
@@ -80,8 +81,12 @@ Trap.prototype.set_threshold_text = function(id, trigger, num) {
 			if(player.is_controller) threshold_text[id].visible = false;
 			trigger.attach(threshold_text[id]);
 		}
-		else
-			threshold_text[id].text(num);
+		else{
+			if(num!=0)
+				threshold_text[id].text(num);
+			else
+				threshold_text[id].text("");
+		}
 	}
 }
 

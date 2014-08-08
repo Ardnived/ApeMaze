@@ -6,12 +6,13 @@ var AVATAR = {
 	color: "#FFFFFF",
 	intensity: 0.0,
 	offset: -150,
+	startX: 70,
 	startY: 64 * 10
 };
 
 var DASH = {
 	cooldown: 2000,
-	distance: 50,
+	distance: 100,
 	energy: 1,
 	key: Crafty.keys.C
 };
@@ -50,7 +51,7 @@ var avatar = {
 		}
 
 		this.entity
-			.attr({x: 0, y: AVATAR.startY, w: 50, h: 50, z:1000})
+			.attr({x: AVATAR.startX, y: AVATAR.startY, w: 50, h: 50, z:1000})
 			.reel('Walk', 200, 0, 0, 2)
 			.reel('Stand', 200, 2, 0, 2)
 			.reel('Jump', 160, 3, 0, 2)
@@ -65,11 +66,17 @@ var avatar = {
 		avatar.update_energy();
 		this.furthest = { x:0, y:0 };
 
-		this.shield = Crafty.e("2D, Canvas, CircleSprite")
+		this.shield = Crafty.e("2D, Canvas, CircleSprite, Persist")
 			.attr({x: this.entity.x - 15, y: this.entity.y - 15, w: 80, h: 80});
 
 		this.shield.visible = false;
 		this.entity.attach(this.shield);
+
+		this.dash = Crafty.e("2D, Canvas, DashSprite, SpriteAnimation, Persist")
+			.attr({w: 150, h: 50})
+			.reel("Animate", 100, 0, 0, 3);
+
+		this.dash.visible = false;
 
 		this.frozen = false;
 		this.burning = false;
@@ -151,24 +158,44 @@ var avatar = {
 			return;
 		}
 
+		var animate = false;
 		avatar.energy -= DASH.energy;
 		avatar.update_energy();
 
 		Crafty.audio.play('dash')
 		debug.game("Activate Dash");
+
 		if (avatar.direction == 'East') {
+			animate = true;
+			avatar.dash.attr({ x: avatar.entity.x, y: avatar.entity.y });
+			avatar.dash.unflip("X");
+
 			avatar.entity.x += DASH.distance;
 		} else if (avatar.direction == 'West') {
+			animate = true;
+			avatar.dash.attr({ x: avatar.entity.x - DASH.distance, y: avatar.entity.y });
+			avatar.dash.flip("X");
+
 			avatar.entity.x -= DASH.distance;
 		} else {
 			avatar.entity.y -= DASH.distance * 2;
 			debug.warn("Default to dash up.");
 		}
 
+
 		avatar.lastDash = new Date();
 		avatar.dashCountdown = true;
 
 		avatar.on_moved();
+
+		if (animate) {
+			avatar.dash.animate("Animate", -1);
+			avatar.dash.visible = true;
+
+			avatar.entity.timeout(function() {
+				avatar.dash.visible = false;
+			}, 100);
+		}
 	},
 	update_dash: function() {
 		if (avatar.dashCountdown) {
