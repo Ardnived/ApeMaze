@@ -53,7 +53,7 @@ var avatar = {
 		this.burning = false;
 	},
 	init_controller: function() {
-		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision')
+		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, SouthSprite, Twoway, Gravity, Collision, Player')
 			.attr({x: 0, y: 0, w: 25, h: 25})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
@@ -79,7 +79,7 @@ var avatar = {
 		Crafty.viewport.follow(this.entity, 0, 0);
 	}, 
 	init_observer: function() {
-		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, SouthSprite, Player')
 			.attr({x: 0, y: 0, w: 25, h: 25})
 			.reel('South', 700, 0, 0, 3)
 			.reel('West', 700, 0, 1, 3)
@@ -302,12 +302,13 @@ var avatar = {
         if(hitInfo) {
         	for(var i = 0; i < hitInfo.length; ++i) {
         		var hitObj = hitInfo[i].obj;
-        		if(hitObj.x < avatar.entity.x + avatar.entity.w) {
-        			// Left side
-        			avatar.entity.x = old.x;
-        		} else if(hitObj.x + hitObj.w > avatar.entity.x) {
+        		if(hitObj.x > avatar.entity.x + avatar.entity.w) {
         			// Right side
+        			avatar.entity.x = old.x;
+        		} else if(hitObj.x + hitObj.w < avatar.entity.x) {
+        			// Left side
 					avatar.entity.x = old.x;
+					alert('lol');
         		} else if(hitObj.y + hitObj.h < avatar.entity.y) {
         			// Bottom
         			console.log("collide");
