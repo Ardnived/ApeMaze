@@ -255,7 +255,7 @@ var avatar = {
 		if (hits) {
 			// If we had any hits, loop through them, and make sure they are visible.
 			for (var i = 0; i < hits.length; i++) {
-				console.log("Hit", hits[i]);
+				//console.log("Hit", hits[i]);
 				if (hits[i].obj.visible) {
 					avatar.on_death();
 					return true;

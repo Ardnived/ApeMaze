@@ -1,17 +1,9 @@
 var traps = {};
 
 dispatch.on('trap', function(data) {
-	if (data.type == 'firetrap' || data.type == 'beamtrap') {
-		if(data.activate) {
-			traps[data.trap_id].activate();
-		
-			if(player.is_controller) {
-				avatar.check_deathzones();
-			}
-		} else {
-			// Show counter?
-		}
-	}else if(data.type == 'platformtrap'){
+	console.log("Trap Activate Recieve: " + data.type);
+
+	if(data.type == 'platformtrap'){
 		trapBox = traps[data.trap_id].box
 
 		trapBox.x = data.x;
@@ -31,7 +23,7 @@ dispatch.on('trap', function(data) {
 				});
 			}
 		}
-	}else if(data.type == 'beartrap'){
+	} else if(data.type == 'beartrap'){
 		trapBox = traps[data.trap_id].box
 
 		trapBox.x = data.x
@@ -41,6 +33,20 @@ dispatch.on('trap', function(data) {
 			if(hitDetection){
 				avatar.on_death();
 			}
+		}
+	} else {
+		if(data.activate) {
+			console.log("Trap Activated");
+			console.log(traps);
+			console.log(data.trap_id);
+			console.log(traps[data.trap_id]);
+			//traps[data.trap_id].activate();
+		
+			if(player.is_controller) {
+				avatar.check_deathzones();
+			}
+		} else {
+			// Show counter?
 		}
 	}
 });
@@ -52,11 +58,10 @@ function Trap(id, trigger, threshold) {
 	this.trap_id = id;
 	this.clicked = false;
 	this.threshold = threshold;
+	this.string = this.constructor.name.toLowerCase();
 
 	if (trigger != null){
-		if (player.is_controller) {
-			this.trigger.visible = false;
-		} else {
+		if (!player.is_controller) {
 			trigger.addComponent("Mouse");
 			trigger.bind("Click", function() {
 				trap.click();
@@ -66,21 +71,22 @@ function Trap(id, trigger, threshold) {
 }
 
 Trap.prototype.activate = function() {
-	debug.game("Activate", this.constructor.name.toLowerCase());
-	this.trigger.visible = false;	// Hide the trigger
+//	debug.game("Activate", this.constructor.name.toLowerCase());
 	this.clicked = false; 			// Reset clickable
 };
 
 Trap.prototype.click = function() {
-	if (!this.clicked) {
+	console.log("Trap Clicked: " + this.string);
+	if (!player.is_controller && !this.clicked) {
 		this.clicked = true;
 	
 		var id = this.trap_id;
 		var threshold = this.threshold;
 
+		console.log("Trap Activate Send: " + this.string);
 		dispatch.emit('trap', {
 			trap_id: id,
-			type: this.constructor.name.toLowerCase(),
+			type: this.string,
 			threshold: threshold,
 		});
 	}

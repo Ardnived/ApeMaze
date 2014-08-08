@@ -64,8 +64,11 @@ dispatch.io.on('connection', function(socket) {
 		socket.broadcast.to(client.room).emit('shield', data);
 	})
 	
-	socket.on('trap', function(data) {
-		if(data.type == 'firetrap' || data.type == 'beamtrap'){
+	socket.on('trap', function(data) {	
+		if(data.type == 'beartrap' || data.type == 'platformtrap') {
+			// Special
+			socket.broadcast.to(client.room).emit('trap', data);
+		} else {
 			data.activate = false;
 
 			if(data.trap_id in trap.traps) {
@@ -82,9 +85,8 @@ dispatch.io.on('connection', function(socket) {
 				data.activate = true;
 				trap.traps[data.trap_id].clicks = 0;
 			}
+			debug.dispatch(data);
 			dispatch.io.to(client.room).emit('trap', data);
-		} else {
-			socket.broadcast.to(client.room).emit('trap', data);
 		}
 	});
 

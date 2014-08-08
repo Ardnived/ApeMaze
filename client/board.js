@@ -29,7 +29,7 @@ var board = {
 				for(var trapIndex = 0; trapIndex < map.getEntitiesInLayer("traps").length; ++trapIndex) {
 					var trap = map.getEntitiesInLayer("traps")[trapIndex];
 					var trapType = trap.tileProperty;
-					console.log(trapType);
+					
 					/*
 						34 - falling
 						15 - lift
@@ -38,18 +38,23 @@ var board = {
 						48 - laser
 					*/
 					switch(trapType) {
+						// Falling
 						case 34:
-							// traps[trapId] = new 
+							traps[trapId] = new FallingTrap(trapId, trap, 1);
 							break;
+						// Lift
 						case 15:
 							// traps[trapId] = new 
 							break;
+						// Fire
 						case 31:
 							traps[trapId] = new FireTrap(trapId, trap, 1);
 							break;
+						// Spikes
 						case 39:
 							// traps[trapId] = new 
 							break;
+						// Laser
 						case 48:
 							break;
 					}
