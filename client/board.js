@@ -61,7 +61,7 @@ var board = {
 				trapId++
 				*/
 
-				document.getElementById("loading").display.style = "none";
+				document.getElementById("loading").style.display = "none";
 			});
 
 		/*
