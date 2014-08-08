@@ -279,7 +279,7 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y < 0 || avatar.entity.y > board.pixelheight) {
+		if (avatar.entity.x < 0 || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
 		} else if (avatar.entity.x > board.pixelwidth) {
 			avatar.on_win();
