@@ -266,10 +266,7 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y < 0
-			 || avatar.entity.x > SOURCE_FROM_TILED_MAP_EDITOR.width * SOURCE_FROM_TILED_MAP_EDITOR.tilewidth
-			 || avatar.entity.y > SOURCE_FROM_TILED_MAP_EDITOR.height * SOURCE_FROM_TILED_MAP_EDITOR.tileheight) {
-			
+		if (avatar.entity.x < 0 || avatar.entity.y < 0  || avatar.entity.x > board.pixelwidth  || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
 			return true;
 		}
