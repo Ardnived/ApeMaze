@@ -300,25 +300,27 @@ var avatar = {
 
 		var hitInfo = this.hit("Platform");
         if(hitInfo) {
+        	
+        	top_collision = false;
+
         	for(var i = 0; i < hitInfo.length; ++i) {
         		var hitObj = hitInfo[i].obj;
-        		if(hitObj.x > avatar.entity.x + avatar.entity.w) {
-        			// Right side
-        			avatar.entity.x = old.x;
-        		} else if(hitObj.x + hitObj.w < avatar.entity.x) {
-        			// Left side
-					avatar.entity.x = old.x;
-					alert('lol');
-        		} else if(hitObj.y + hitObj.h < avatar.entity.y) {
-        			// Bottom
-        			console.log("collide");
-        			avatar.entity.y = old.y;
+        		
+        		if(hitObj.y + hitObj.h > avatar.entity.y
+        			&& hitObj.x < avatar.entity.x + 0.8*avatar.entity.w
+        			&& hitObj.x + hitObj.w > avatar.entity.x + 0.2*avatar.entity.w
+        			&& avatar.entity.y > hitObj.y + 0.8*hitObj.h) {
+        			top_collision = true;
         		}
         	}
-
             // when hit from left, bottom or right side
             avatar.entity.x -= avatar.entity._movement.x;
-            //avatar.entity._up = false;
+            //avatar.entity.y += avatar.entity._movement.y;
+            
+            if(top_collision){
+            	avatar.entity._up = false;
+            	avatar.entity.y += 2;
+            }
         }
 
 		if (!killed) {
