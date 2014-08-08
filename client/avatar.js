@@ -104,7 +104,6 @@ var avatar = {
 		this.direction = 'East';
 		document.getElementById('dashContainer').style.visible = 'visible'
 		document.getElementById('shieldContainer').style.visible = 'visible'
-		document.getElementById('observerHint').style.visible = 'hidden'
 		Crafty.viewport.mouselook(false);
 	}, 
 	init_observer: function() {
@@ -153,7 +152,6 @@ var avatar = {
 
 		document.getElementById('dashContainer').style.visible = 'hidden';
 		document.getElementById('shieldContainer').style.visible = 'hidden';
-		document.getElementById('observerHint').style.visible = 'visible'
 		Crafty.viewport.mouselook(true);
 	},
 	/*
