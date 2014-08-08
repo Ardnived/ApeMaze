@@ -45,8 +45,8 @@ var board = {
 				// traps[trapId] = new BearTrap(trapId, 150,250,100,20, 100)
 				// trapId++
 
-				// Clickable Falling platforms
 				/*
+				// Clickable Falling platforms
 				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platform_switch").length; ++falling) {
 					var platformSwitch = map.getEntitiesInLayer("clickable_falling_platform_switch")[falling];
 					var platform = map.getEntitiesInLayer("clickable_falling_platform")[falling];
@@ -56,13 +56,12 @@ var board = {
 				*/
 
 				// Beam traps
-				/*
 				for(var i = 0; i < map.getEntitiesInLayer("clickable_laser_beam").length; ++i) {
 					var trap = map.getEntitiesInLayer("clickable_laser_beam")[i];
-					traps[trapId] = new FireTrap(trapId, trap, 1);
+					traps[trapId] = new BeamTrap(trapId, trap, 1);
 					trapId++;
 				}
-				
+				/*
 				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)
 				trapId++
 				*/
