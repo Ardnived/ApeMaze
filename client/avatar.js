@@ -8,7 +8,8 @@ var AVATAR = {
 };
 
 var DASH = {
-	cooldown: 2000
+	cooldown: 2000,
+	distance: 50,
 };
 
 var SHIELD = {
@@ -90,7 +91,6 @@ var avatar = {
 			});
 
 		dispatch.on('move', function(data) {
-			debug.dispatch('move', data);
 			avatar.entity.x = data.x;
 			avatar.entity.y = data.y;
 
@@ -134,11 +134,11 @@ var avatar = {
 		Crafty.audio.play('dash')
 		debug.game("Activate Dash");
 		if (avatar.direction == 'East') {
-			avatar.entity.x += 50;
+			avatar.entity.x += DASH.distance;
 		} else if (avatar.direction == 'West') {
-			avatar.entity.x -= 50;
+			avatar.entity.x -= DASH.distance;
 		} else {
-			avatar.entity.y -= 100;
+			avatar.entity.y -= DASH.distance * 2;
 			debug.warn("Default to dash up.");
 		}
 
@@ -277,12 +277,15 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y < 0  || avatar.entity.x > board.pixelwidth  || avatar.entity.y > board.pixelheight) {
+		if (avatar.entity.x < 0 || avatar.entity.y < 0 || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
-			return true;
+		} else if (avatar.entity.x > board.pixelwidth) {
+			avatar.on_win();
+		} else {
+			return false;
 		}
 
-		return false;
+		return true;
 	},
 	on_change_direction: function(event) {
 		if (this.isDown('LEFT_ARROW')) {
@@ -349,29 +352,44 @@ var avatar = {
 			});
 		}
 
-		if (old.y == avatar.entity.y && avatar.falling) {
+		// Land
+		if (hitInfo && avatar.falling && !top_collision) {
 			avatar.falling = false;
-			avatar.entity.animate('Stand', -1);
+			if(avatar.moving) {
+				avatar.entity.animate('Walk', -1);
+			} else {
+				avatar.entity.animate('Stand', -1);
+			}
 		}
 	},
 	on_key_down: function(e) {
+		if(this.isDown(Crafty.keys.LEFT_ARROW) || this.isDown(Crafty.keys.RIGHT_ARROW)) {
+			avatar.moving = true;
+		}
+
 		if (e.key == Crafty.keys.C && !avatar.dashCountdown) {
 			//dash
 			avatar.use_dash();
 		} else if (e.key == Crafty.keys.X && !avatar.shieldCountdown){
 			//shield
 			avatar.use_shield();
-		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)) {
+		} else if(this.isDown(Crafty.keys.UP_ARROW)) {
+			avatar.falling = true;
 			avatar.entity.animate('Jump', -1);
 			dispatch.emit('animation', 'Jump');
+		} else if (!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling) {
+			//avatar.entity.animate('Jump', -1);
+			avatar.entity.animate('Stand', -1);
+			avatar.moving = false;
 			//avatar.entity.pauseAnimation(); // What does this even do?
 		}
 	},
 	on_key_up: function(e){
-		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
+		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW) && !avatar.falling){
 			dispatch.emit('stop', {});
 			//avatar.entity.pauseAnimation();
 			avatar.entity.animate('Stand', -1);
+			avatar.moving = false;
 		}
 	},
 	on_death: function() {
@@ -379,6 +397,13 @@ var avatar = {
 			console.log("Player died");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
+		}
+	}
+	on_win: function() {
+		if (!avatar.dead) {
+			console.log("Player won");
+			avatar.dead = true;
+			dispatch.emit('gameover', { controller_won: true });
 		}
 	}
 };

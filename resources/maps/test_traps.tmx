@@ -40,7 +40,7 @@
  </layer>
  <layer name="traps" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjESghIRxAX46uWUggTwU4wLqSJgcYECmvlEwCgYjAACi9AFZ
+   eJxjYBgFo4D6QAkJj4KhC/gH2gF0APJQjAtwAbE6FJMDDMjUNwpGwWAEAPF8ATw=
   </data>
  </layer>
  <layer name="clickable_laser_beam" width="35" height="15">

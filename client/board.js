@@ -56,6 +56,8 @@ var board = {
 						// Spikes
 						case 39:
 							trap.addComponent("Deathzone");
+							trap.y += board.tileheight / 2;
+							trap.h = board.tileheight / 2;
 							break;
 						// Laser
 						case 48:
