@@ -46,6 +46,15 @@ var board = {
 					trapId++;
 				}
 
+				// Beam traps
+				/*
+				for(var i = 0; i < map.getEntitiesInLayer("clickable_laser_beam").length; ++i) {
+					var trap = map.getEntitiesInLayer("clickable_laser_beam")[i];
+					traps[trapId] = new FireTrap(trapId, trap, 1);
+					trapId++;
+				}
+				*/
+
 				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)
 				trapId++
 			});
