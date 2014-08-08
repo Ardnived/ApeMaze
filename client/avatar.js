@@ -57,6 +57,8 @@ var avatar = {
 			.reel('Jump', 160, 3, 0, 2)
 			.bind('EnterFrame', this.update_shield);
 
+		this.entity.rotation = 0;
+
 		this.shieldUp = false;
 		this.dashCountdown = false;
 		this.lastDash = 0;
@@ -492,10 +494,16 @@ var avatar = {
 			debug.game("Player died");
 			avatar.dead = true;
 
-			avatar.entity.rotation = 90;
-			avatar.entity.x += avatar.entity.h;
-			avatar.entity.y +=avatar.entity.w;
-
+			if(avatar.direction == "East"){
+				avatar.entity.rotation = 90;
+				avatar.entity.x += avatar.entity.h;
+				avatar.entity.y += avatar.entity.w;
+			}
+			else{
+				avatar.entity.rotation = -90;
+				avatar.entity.y += avatar.entity.w;
+			}
+			Crafty.audio.play('ape_call');
 
 			dispatch.emit('gameover', { controller_won: false, cause: trapname });
 		}
