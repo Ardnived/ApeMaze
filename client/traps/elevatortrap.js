@@ -19,7 +19,9 @@ function ElevatorTrap(id, x, oy, w, h, dy, dydt) {
 
 							if(this.dydt > 0){ //handle moving down
 								if(avatar.entity.x + avatar.entity.w/2 > this.x
-									&& avatar.entity.x + avatar.entity.w/2 < this.x + this.w){
+									&& avatar.entity.x + avatar.entity.w/2 < this.x + this.w
+									&& avatar.entity.y + avatar.entity.h < this.x
+									&& avatar.entity.y + avatar.entity.h > this.x-10){
 
 									avatar.entity.y += dydt
 								}

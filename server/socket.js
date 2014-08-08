@@ -64,7 +64,7 @@ dispatch.io.on('connection', function(socket) {
 	})
 	
 	socket.on('trap', function(data) {	
-		if(data.type == 'beartrap' || data.type == 'platformtrap') {
+		if(data.type == 'beartrap' || data.type == 'platformtrap' || data.type == 'elevatortrap') {
 			// Special
 			socket.broadcast.to(client.room).emit('trap', data);
 		} else {

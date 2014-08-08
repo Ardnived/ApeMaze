@@ -34,6 +34,10 @@ dispatch.on('trap', function(data) {
 				avatar.on_death();
 			}
 		}
+	}else if(data.type == 'elevatortrap'){
+		trapBox = traps[data.trap_id].box
+		trapBox.y = data.y		
+		//elevator trap sends the player and trap positions separately so they're equally laggy
 	} else {
 		if(data.activate) {
 			console.log("Trap Activated");			
