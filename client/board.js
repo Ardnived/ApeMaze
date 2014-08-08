@@ -13,6 +13,8 @@ var board = {
 	tileheight: null,
 	pixelwidth: null,
 	pixelheight: null,
+	current_stage: null,
+	stage_count: 0,
 	map: null,
 	ready: false,
 	set_ready: function() {
@@ -31,7 +33,6 @@ var board = {
 		board.init();
 	},
 	init: function() {
-		debug.game("init", board.map == null, !board.ready);
 		if (board.map == null || !board.ready) {
 			return; // Load later when both things are ready.
 		}
@@ -95,19 +96,41 @@ var board = {
 
 		document.getElementById("loading").style.display = "none";
 	},
-	load: function(source) {
+	create: function(source) {
 		if (source == null) {
 			return;
 		}
 
-		Crafty.e("2D, Canvas, TiledMapBuilder")
-			.setMapDataSource(source)
-			.createWorld(function(map) {
-				board.set_map(source, map);
-			});
+		Crafty.defineScene("stage"+board.stage_count, function() {
+			Crafty.e("2D, Canvas, TiledMapBuilder")
+				.setMapDataSource(source)
+				.createWorld(function(map) {
+					board.set_map(source, map);
+				});
+		})
+
+		board.stage_count++;
+	},
+	load: function(index) {
+		if (index < board.stage_count) {
+			board.current_stage = index;
+			Crafty.enterScene("stage"+index);
+
+			if (avatar.entity != null) {
+				avatar.entity.x = 5;
+				avatar.entity.y = AVATAR.startY;
+			}
+
+			Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
+		} else {
+			avatar.on_win();
+		}
 	}
 };
 
 debug.game("Building Tile Maps...");
-board.load(LEVEL_01);
-board.load(LEVEL_02);
+board.create(STAGE_01);
+board.create(STAGE_02);
+board.create(STAGE_03);
+
+board.load(0);

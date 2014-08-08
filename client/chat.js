@@ -5,6 +5,7 @@ var chat = {
 		dispatch.emit('meta', {
 			name: player.name
 		});
+		document.cookie = "username=" + player.name
 	},
 	on_rename_keypress: function(event) {
 		if (event.keyCode == 13) { // Return key

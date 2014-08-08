@@ -214,7 +214,7 @@ function checkReadyAndAssignPlayers() {
 			}
 		}
 		
-		console.log('started')
+		debug.game("Starting game...")
 		game.active = true;
 	} else {
 		var message = {

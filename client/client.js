@@ -39,12 +39,14 @@ dispatch.on('reset', function(data){
 	player.is_controller = data
 	avatar.init();
 
-	if(Crafty.isPaused()){
+	board.load(0);
+
+	if (Crafty.isPaused()){
 		Crafty.pause();
 	}
-
+	/*
 	for(var trapID in traps){
 		traps[trapID].reset();
 	}
-	
+	*/
 });

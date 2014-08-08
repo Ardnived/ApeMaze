@@ -4,7 +4,9 @@ var AVATAR = {
 	speed: 4,
 	jump: 12,
 	color: "#FFFFFF",
-	intensity: 0.0
+	intensity: 0.0,
+	offset: -150,
+	startY: 64 * 10
 };
 
 var DASH = {
@@ -48,7 +50,7 @@ var avatar = {
 		}
 
 		this.entity
-			.attr({x: 0, y: 0, w: 50, h: 50})
+			.attr({x: 0, y: AVATAR.startY, w: 50, h: 50, z:1000})
 			.reel('Walk', 200, 0, 0, 2)
 			.reel('Stand', 200, 2, 0, 2)
 			.reel('Jump', 160, 3, 0, 2)
@@ -75,7 +77,7 @@ var avatar = {
 
 		this.entity.animate('Stand', -1)
 		
-		Crafty.viewport.follow(this.entity, 0, 0);
+		Crafty.viewport.follow(this.entity, AVATAR.offset, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Persist, Player')
@@ -100,7 +102,7 @@ var avatar = {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Persist, Player')
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
-					Crafty.viewport.follow(avatar.entity, 0, 0);
+					Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
 				}
 			});
 
@@ -306,10 +308,12 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y > board.pixelheight) {
+		if (avatar.entity.x < 0) {
+			avatar.entity.x = 0;
+		} else if (avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
-		} else if (avatar.entity.x > board.pixelwidth) {
-			avatar.on_win();
+		} else if (avatar.entity.x > board.pixelwidth - avatar.entity.w) {
+			board.load(board.current_stage + 1);
 		} else {
 			return false;
 		}
@@ -441,14 +445,14 @@ var avatar = {
 	},
 	on_death: function() {
 		if (!avatar.dead) {
-			console.log("Player died");
+			debug.game("Player died");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
 		}
 	},
 	on_win: function() {
 		if (!avatar.dead) {
-			console.log("Player won");
+			debug.game("Player won");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: true });
 		}
