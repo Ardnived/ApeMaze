@@ -12,6 +12,8 @@ function PlatformTrap(id, ox, oy, w, h, dx, dy) {
 
 						trap.action()
 					})
+	this.box.type = 'platformtrap'
+	
 	if(player.is_controller){
 		this.box.disableDrag()
 	}else{

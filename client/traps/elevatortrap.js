@@ -37,6 +37,7 @@ function ElevatorTrap(id, tile) {
 				avatar.on_moved(old)
 			}
 		})
+	this.box.type = 'elevatortrap'
 
 	this.box.dy = 5*this.box.h
 	this.box.oy = this.box.y

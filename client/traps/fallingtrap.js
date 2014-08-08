@@ -1,6 +1,6 @@
 function FallingTrap(id, trigger, threshold) {
 	Trap.call(this, id, trigger, threshold);
-	
+
 	this.trigger.addComponent("FallingTrap");
 	this.trigger.addComponent("Platform");
 	this.trigger.addComponent("Floor");
@@ -22,6 +22,8 @@ function FallingTrap(id, trigger, threshold) {
 
 	this.crush = Crafty.e("2D, Canvas, Deathzone, Collision")
 		.attr({x: this.trigger.x, y: this.trigger.y + board.tileheight - h + 2, h: h, w: this.trigger.w});
+	this.crush.type = 'fallingtrap'
+	
 	this.trigger.attach(this.crush);
 
 	if (player.is_controller) {

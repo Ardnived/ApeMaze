@@ -299,7 +299,7 @@ var avatar = {
 			for (var i = 0; i < hits.length; i++) {
 				//console.log("Hit", hits[i]);
 				if (hits[i].obj.visible) {
-					avatar.on_death();
+					avatar.on_death(hits[i].obj.type);
 					return true;
 				}
 			}
@@ -444,18 +444,18 @@ var avatar = {
 			avatar.moving = false;
 		}
 	},
-	on_death: function() {
+	on_death: function(trapname) {
 		if (!avatar.dead) {
 			debug.game("Player died");
 			avatar.dead = true;
-			dispatch.emit('gameover', { controller_won: false });
+			dispatch.emit('gameover', { controller_won: false, cause: trapname });
 		}
 	},
 	on_win: function() {
 		if (!avatar.dead) {
 			debug.game("Player won");
 			avatar.dead = true;
-			dispatch.emit('gameover', { controller_won: true });
+			dispatch.emit('gameover', { controller_won: true, cause: null});
 		}
 	},
 	update_energy: function(){
