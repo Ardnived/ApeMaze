@@ -14,14 +14,15 @@
 	<div id="observerHint" style="display:none">Press SPACEBAR to follow runner. Drag screen to free move</div>
 
 	<div id="loading">
-		<br /><br />
+		<br /><br /><br />
 		<strong>Loading...</strong>
 	</div>
 
 	<div id="lobby">
 		<strong class="title">Ape Escape</strong>
 		<br />
-		<small class="result"></small><br>
+		<small class="result"></small>
+		<br />
 		<button onclick="dispatch.emit('ready', true);">READY (play as runner)</button>
 		<button onclick="dispatch.emit('ready', false);">READY (play as observer)</button>
 	</div>
