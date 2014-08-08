@@ -40,17 +40,17 @@
  </tileset>
  <layer name="background" width="14" height="28">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAVhIxwwjRhw3QQh8zDj0wcXz24dJLjDux6SWkD92fzFBMbrgSowfdnZTGIyn6mJEwIb3UsI8c9dTWj8085DBgYEANF1yYkjBB10tuHiZV3yhGYADKLQVj
+   eJxjYEAAVhIwwwjShw7oqY+ZgN7B4E5mKKZnuBCKP2YkTI5+bP4jFBeUuJdS9dTWj8089PBkJgJTEiaU5F9WCvSNYgQGAL2CBSk=
   </data>
  </layer>
  <layer name="floor" width="14" height="28">
   <data encoding="base64" compression="zlib">
-   eJztUssKACAIC8FT/f/3dgpCpk67NhCknM7HGB8RFFg3Twcr4Urx/UCdmEzn+bfcTCfKL44GxJlOjkq9yg5RDNMj6o/t8fYznVEMutnXG7Y7qPDsDISwm498BuzsP3xsqqUBNA==
+   eJxjYBgFhAArGibXDErspqd95OojVS8TmfbRMj6YkDA64CPCPmR5mDnEuBFdDSG/4fM/evhgw6QCkB4+MvWBMHJ4MhHAfGj6sbGJAbjicRQQDwAIVQEV
   </data>
  </layer>
  <layer name="traps" width="14" height="28">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFgxnwDLQDiAS0dic3jc0nBgyVuKAVoGYccKDR6GxkwAbFo4D+AAAB+wBf
+   eJxjYBgFo2AUEAN4SFDLQTNXDJx93FQ0iwONRmZzoallg+JRQH8AALAcAFY=
   </data>
  </layer>
 </map>
