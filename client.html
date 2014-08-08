@@ -73,14 +73,17 @@
 	</div>
 
 	<div id="chat">
-		<strong>Message</strong>
-		<br />
-		<input id="name_input" onkeypress="return chat.on_rename_keypress(event);"></input>
-		<button class="btn" onclick="chat.rename();">Rename</button>
-		<br />
-		<div id="chat_list"></div>
-		<input id="chat_input" onkeypress="return chat.on_send_keypress(event);"></input>
-		<button class="btn" onclick="chat.send();">Submit</button>
+		<input id="chat-toggle" name="chat-toggle" type="checkbox" checked="checked" />
+		<strong><label for="chat-toggle">CHAT</label></strong>
+		<span id="latest-chat"></span>
+		<form>
+			<input id="name_input" type="text" onkeypress="return chat.on_rename_keypress(event);"></input>
+			<button class="btn" onclick="chat.rename();">Rename</button>
+			<br />
+			<div id="chat_list"></div>
+			<input id="chat_input" type="text" onkeypress="return chat.on_send_keypress(event);"></input>
+			<button class="btn" onclick="chat.send();">Submit</button>
+		</form>
 	</div>
 	
 	<script src="/resources/libs/modules/create_mocks_module.js"></script>

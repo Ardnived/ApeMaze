@@ -46,6 +46,14 @@ dispatch.on('meta', function(data) {
 		player.is_controller = data.is_controller;
 
 		document.getElementById("lobby").style.display = "none";
+		document.getElementById("chat-toggle").checked = false;
+
+		if (player.is_controller) {
+			document.body.className = "controller";
+		} else {
+			document.body.className = "observer";
+		}
+
 		board.set_ready();
 		avatar.init();
 	}
