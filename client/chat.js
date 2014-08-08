@@ -20,7 +20,7 @@ var chat = {
 		});
 
 		document.getElementById('chat_input').value = '';
-		document.getElementById('chat_list').value += date.getHours()+":"+date.getMinutes()+" - "+player.name+" (You) say:\n"+chat_message+"\n";
+		document.getElementById('chat_list').value += date.getHours()+":"+date.getMinutes()+" - "+player.name+":"+player.id+" (You) say:\n"+chat_message+"\n";
 		document.getElementById("chat_list").scrollTop = document.getElementById("chat_list").scrollHeight;
 	},
 	on_send_keypress: function(event) {
@@ -30,7 +30,12 @@ var chat = {
 	},
 	display: function(data) {
 		debug.dispatch('Received Chat Message', data);
-		document.getElementById('chat_list').value += data.send_date+' - '+ data.name + ' says:\n' + data.message + '\n';
+		if (typeof data.name != 'undefined') {
+			document.getElementById('chat_list').value += data.send_date+' - '+ data.name + ' says:\n' + data.message + '\n';
+		} else {
+			document.getElementById('chat_list').value += data.message + '\n';
+		}
+
 		document.getElementById("chat_list").scrollTop = document.getElementById("chat_list").scrollHeight;
 	}
 }
