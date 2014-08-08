@@ -18,7 +18,7 @@ Crafty.sprite(32, "../resources/img/doodad.png", {
 	FireSprite: [0, 0]
 });
 
-Crafty.sprite(254, "../resources/img/circle.png", {
+Crafty.sprite(64, "../resources/img/circle.png", {
 	CircleSprite: [0, 0]
 })
 
