@@ -155,7 +155,7 @@ var avatar = {
 			var cooldown = (DASH.cooldown - (new Date() - avatar.lastDash));
 			if (cooldown <= 0){
 				avatar.dashCountdown = false;
-				document.getElementById('dashText').innerHTML = ("DASH READY");
+				document.getElementById('dashText').innerHTML = ("DASH (C) READY");
 			} else {
 				document.getElementById('dashText').innerHTML = ("NEXT DASH: " + cooldown/1000);
 			}
@@ -187,7 +187,7 @@ var avatar = {
 				var countdown = SHIELD.cooldown - (new Date() - avatar.lastShield);
 				if (countdown <= 0) {
 					avatar.shieldCountdown = false;
-					document.getElementById('shieldText').innerHTML = ("SHIELD READY");
+					document.getElementById('shieldText').innerHTML = ("SHIELD (X) READY");
 				} else {
 					document.getElementById('shieldText').innerHTML = ("NEXT SHIELD: " + countdown/1000);
 				}
