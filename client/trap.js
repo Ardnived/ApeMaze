@@ -73,6 +73,7 @@ Trap.prototype.set_threshold_text_first = function(id, trigger, num) {
 								.attr({ x: trigger.x, y: trigger.y })
 								.textFont({ size: '20px', weight: 'bold' })
 								.text(num.toString());
+	if(player.is_controller) threshold_text[id].visible = false;
 	trigger.attach(threshold_text[id]);
 	this.set_threshold_text(id, trigger, num);
 }
