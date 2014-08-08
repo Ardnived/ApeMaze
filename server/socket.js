@@ -21,7 +21,7 @@ dispatch.io.on('connection', function(socket) {
 	}
 
 	var client = {
-		name: "",
+		name: "Player "+autoinc,
 		socket: socket,
 		player_id: autoinc,
 		is_controller: client_is_controller,
@@ -38,12 +38,13 @@ dispatch.io.on('connection', function(socket) {
 	socket.join(client.room);
 
 	socket.on('meta', function(data) {
-		client.name = data.name;
+		if (typeof data.name != 'undefined') {
+			client.name = data.name;
+		}
 	});
 
-
 	socket.emit('meta', { 
-		player_id: socket.player_id,
+		player_id: client.player_id
 	});
 	
 	socket.on('move', function(data) {
@@ -109,11 +110,14 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('chat', function(data) {
 		var date = new Date();
 
-		data.sender_id = client.player_id;
+		data.name = client.name;
 		data.send_date = date.getHours()+":"+date.getMinutes();
+		
 		chat_messages.push(data);
-		while(chat_messages.length>20)
+		while (chat_messages.length > 20) {
 			chat_messages.shift();
+		}
+
 		socket.broadcast.to(client.room).emit('chat', data);
 	})
 
