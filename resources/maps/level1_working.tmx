@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="40" height="20" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="105" height="55" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="tilesheet" tilewidth="64" tileheight="64">
   <image source="../img/tilesheet.png" width="320" height="256"/>
   <tile id="5">
@@ -28,19 +28,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="background" width="40" height="20" visible="0">
+ <layer name="background" width="105" height="55">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4A2gBkHHgXEAUYceKgDVjRMjBpC6mnltsHkPlLso5f78NlDLh4Fo2AUjIJRMPwBAJSoATY=
+   eJzt1UEOgzAMBEAu/f+Xq14rJAw4iZPMSBwqQTG7dTkOYAWfzY4Zjc5MR9dGZ6aja6Mzmz2/HnQyH/3UZ4/ayHzeahmu0G323JWyeLN/Feb/aZHnDB39z9b7vzRyn8jsVXJ+I+N9l51B9Lew03u70rPduc8uHVWYMTNrHbWdQUfnKsw4up+szqLX3f1+HcV6Ovv8tNvouZV2fXQXvfev527zjI7q01F9OgIAAAAAAAAAAAAAAABW8gWCdg3B
   </data>
  </layer>
- <layer name="floor" width="40" height="20">
+ <layer name="floor" width="105" height="55">
   <data encoding="base64" compression="zlib">
-   eJztkkkKACEMBEXo/395mIMQMulxATWHLghCzKGylCKyUG8L/PC64bYEoc0to5/d6Sm/GgT7t4DU9O5y5m6jWj8XNicYH5B8FK12tY9Rv1XgXsvIDnz/u/yykt1PCCHElwf48ACh
+   eJzt2NsOgyAMgGFjwt3e/3kXL0gIaaEopbj9X2ImI0q1HNTjAPB2KToAdJGj/ZGj/e2Wo7Rge5vomFffv+jrPW8eF9XPou5XVLvnpLZXx6/1q9Owaeeo6y3tecvteuQocn34NOp713rVS/mIGENlHF458pJzZB0fI3Hleq88tcZ1Xa+13Tpeak86h1SeyXqfNZZ5ULonT1ny3hr/OY6k/C9tZZ9b+ayqzUdlLDPakPbv0uL17tup+F35bPdkPRppQ9ofYZmP6nHglaPVnqxH/yb6vU6za1wRWn35MJTzf5bjrGPDY774Jb31ry5r72da2ZKnt35bW6keU73yZSS31m8ImGt0/GE9crQ/crQ/6T3O870OAAAAAAAAAAAAAAAAAAAAAAAAAKJ9AfHPA80=
   </data>
  </layer>
- <layer name="traps" width="40" height="20">
+ <layer name="traps" width="105" height="55">
   <data encoding="base64" compression="zlib">
-   eJztziEKAEAIRFGTev8TWww2EZHd8B98po4I8D8r4Y5m/vrIkDe7pSUAALAT/NIAXA==
+   eJzt18EKgCAMANBOJdT/f2+nIIIysMay90DEg04Q3RwGAACA983B8ZbgeH83VcbRpl2Drxgv2pmn3rrSMHfbY8sakaLzUWal0tPuzj3OxvkDPcv2b+nVMf/VxvTnqp5QawDZyVsAAAAAAAAAAAAAAAAAZLIChNEBSg==
   </data>
  </layer>
 </map>
