@@ -99,7 +99,7 @@ Trap.prototype.reset = function(){
 
 	trap.clicked = false;
 
-	if (trigger != null){
+	if (trap.trigger != null){
 		if (player.is_controller) {
 			trap.trigger.visible = false;
 		} else {

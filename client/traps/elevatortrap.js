@@ -54,7 +54,7 @@ ElevatorTrap.prototype.click = function() {
 };
 
 ElevatorTrap.prototype.reset = function(){
-	Trap.prototype.call.reset()
+	//Trap.prototype.call.reset()
 
 	this.box.y = this.box.oy
 }
