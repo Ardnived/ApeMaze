@@ -62,7 +62,7 @@ var board = {
 			switch(trapType) {
 				// Falling
 				case 9:
-					traps[trapId] = new FallingTrap(trapId, trap, players * 5);
+					traps[trapId] = new FallingTrap(trapId, trap, players * 7 + Math.floor(Math.random() * 5));
 					break;
 				// Lift
 				case 7:
@@ -70,7 +70,7 @@ var board = {
 					break;
 				// Fire
 				case 8:
-					traps[trapId] = new FireTrap(trapId, trap, players * 3);
+					traps[trapId] = new FireTrap(trapId, trap, players * 4 + Math.floor(Math.random() * 5));
 					break;
 				// Spikes
 				case 6:
@@ -82,19 +82,19 @@ var board = {
 					break;
 				// Laser Up
 				case 10:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'up');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 10 + Math.floor(Math.random() * 10), 'up');
 					break;
 				// Laser Right
 				case 11:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'right');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 11 + Math.floor(Math.random() * 10), 'right');
 					break;
 				// Laser Left
 				case 12:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'left');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 11 + Math.floor(Math.random() * 10), 'left');
 					break;
 				// Laser Bottom
 				case 13:
-					traps[trapId] = new BeamTrap(trapId, trap, players * 8, 'down');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 9 + Math.floor(Math.random() * 10), 'down');
 					break;
 			}
 
