@@ -65,7 +65,7 @@ dispatch.io.on('connection', function(socket) {
 	})
 	
 	socket.on('trap', function(data) {
-		if(data.type == 'firetrap'){
+		if(data.type == 'firetrap' || data.type == 'beamtrap'){
 			data.activate = false;
 
 			if(data.trap_id in trap.traps) {
@@ -83,7 +83,7 @@ dispatch.io.on('connection', function(socket) {
 				trap.traps[data.trap_id].clicks = 0;
 			}
 			dispatch.io.to(client.room).emit('trap', data);
-		}else if(data.type == 'platformtrap' || data.type == 'beartrap'){
+		} else {
 			socket.broadcast.to(client.room).emit('trap', data);
 		}
 	});
