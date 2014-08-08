@@ -30,7 +30,7 @@
  </tileset>
  <layer name="background" width="105" height="55">
   <data encoding="base64" compression="zlib">
-   eJzt1UEOgzAMBEAu/f+Xq14rJAw4iZPMSBwqQTG7dTkOYAWfzY4Zjc5MR9dGZ6aja6Mzmz2/HnQyH/3UZ4/ayHzeahmu0G323JWyeLN/Feb/aZHnDB39z9b7vzRyn8jsVXJ+I+N9l51B9Lew03u70rPduc8uHVWYMTNrHbWdQUfnKsw4up+szqLX3f1+HcV6Ovv8tNvouZV2fXQXvfev527zjI7q01F9OgIAAAAAAAAAAAAAAABW8gWCdg3B
+   eJzt1bsOgzAQBECaFPn/H45oIyQM+LHGMxJFJAjLbS5sG+m+owMcSMy0S83Vw2exY0ajZ6ajc6NnpqNzo2c2+/x60Ml89JPPHrVR83nTZviGbmvnTprFk/1LyL9rMc8ZOvrP1vu/tOQ+JdlT5vxEjfdd7RmU/hZWem8nPduV+6zSUULGmrPWUdsMOjqWkHF0P7U6K73u6vfrqKyno893uy09N2nXR3fRe/967jb36CifjvLpCAAAAAAAAAAAAAAAAHiTH8tFDdw=
   </data>
  </layer>
  <layer name="floor" width="105" height="55">
