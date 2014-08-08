@@ -125,7 +125,7 @@ var board = {
 };
 
 debug.game("Building Tile Maps...");
-//board.create(STAGE_01);
+board.create(STAGE_01);
 board.create(STAGE_02);
 
 board.load(0);
