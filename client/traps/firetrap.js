@@ -1,5 +1,5 @@
 function FireTrap(id, trigger, threshold) {
-	Trap.call(this, id, trigger, threshold);
+	Trap.call(this, id, trigger, threshold, 'firetrap');
 
 	this.flame = Crafty.e("2D, Canvas, SpriteAnimation, FireSprite, Deathzone")
 					.attr({x: trigger.x - 5, y: trigger.y - 30, w: 35, h: 35})
@@ -16,21 +16,6 @@ FireTrap.prototype.activate = function() {
 	this.flame.timeout(function() {
 		flame.visible = false;
 	}, 3000);
-};
-
-FireTrap.prototype.click = function() {
-	if (!this.clicked) {
-		this.clicked = true;
-	
-		var id = this.trap_id;
-		var threshold = this.threshold;
-
-		dispatch.emit('trap', {
-			trap_id: id,
-			type: 'firetrap',
-			threshold: threshold,
-		});
-	}
 };
 
 

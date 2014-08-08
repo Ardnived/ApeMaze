@@ -29,4 +29,8 @@ PlatformTrap.prototype.action = function(){
 	dispatch.emit('trap', {trap_id:this.trap_id, type:'platformtrap', x:this.box.x, y:this.box.y})
 }
 
+PlatformTrap.prototype.click = function() {
+	// Do Nothing
+};
+
 extend(Trap, FireTrap);
