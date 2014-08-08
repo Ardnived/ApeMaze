@@ -1,5 +1,5 @@
 
-Crafty.init(1000, 500, document.getElementById('canvas'));
+Crafty.init(920, 500, document.getElementById('canvas'));
 
 Crafty.sprite(50, "../resources/img/ape50.png", {
 	StandSprite: [2, 0], 
