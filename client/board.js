@@ -7,24 +7,32 @@ var direction = {
 };
 
 var board = {
-	width: SOURCE_FROM_TILED_MAP_EDITOR.width,
-	height: SOURCE_FROM_TILED_MAP_EDITOR.height,
-	tilewidth: SOURCE_FROM_TILED_MAP_EDITOR.tilewidth,
-	tileheight: SOURCE_FROM_TILED_MAP_EDITOR.tileheight,
-	pixelwidth: SOURCE_FROM_TILED_MAP_EDITOR.width * SOURCE_FROM_TILED_MAP_EDITOR.tilewidth,
-	pixelheight: SOURCE_FROM_TILED_MAP_EDITOR.height * SOURCE_FROM_TILED_MAP_EDITOR.tileheight,
+	width: null,
+	height: null,
+	tilewidth: null,
+	tileheight: null,
+	pixelwidth: null,
+	pixelheight: null,
+	current_stage: null,
+	stage_count: 0,
 	map: null,
 	ready: false,
 	set_ready: function() {
 		board.ready = true;
 		board.init();
 	},
-	set_map: function(map) {
+	set_map: function(source, map) {
+		board.width = source.width;
+		board.height = source.height;
+		board.tilewidth = source.tilewidth;
+		board.tileheight = source.tileheight;
+		board.pixelwidth = source.width * source.tilewidth;
+		board.pixelheight = source.height * source.tileheight;
+
 		board.map = map;
 		board.init();
 	},
 	init: function() {
-		debug.game("init", board.map == null, !board.ready);
 		if (board.map == null || !board.ready) {
 			return; // Load later when both things are ready.
 		}
@@ -57,7 +65,7 @@ var board = {
 					break;
 				// Lift
 				case 7:
-					// traps[trapId] = new 
+					traps[trapId] = new ElevatorTrap(trapId, trap);
 					break;
 				// Fire
 				case 8:
@@ -69,9 +77,17 @@ var board = {
 					trap.y += board.tileheight / 2;
 					trap.h = board.tileheight / 2;
 					break;
-				// Laser
+				// Laser Up
 				case 10:
-					traps[trapId] = new BeamTrap(trapId, trap, 1);
+					traps[trapId] = new BeamTrap(trapId, trap, 1, 'up');
+					break;
+				// Laser Right
+				case 11:
+					traps[trapId] = new BeamTrap(trapId, trap, 1, 'right');
+					break;
+				// Laser Left
+				case 12:
+					traps[trapId] = new BeamTrap(trapId, trap, 1, 'left');
 					break;
 			}
 
@@ -79,20 +95,36 @@ var board = {
 		}
 
 		document.getElementById("loading").style.display = "none";
-		
-		/*
-		Crafty.e("2D, Canvas, Color, Movable, Gravity, Floor")
-			.attr({x: 100, y: 100, w: 32, h: 32})
-			.color('lightblue')
-			.gravity('Floor');
-		*/
-	}
+	},
+	create: function(source) {
+		if (source == null) {
+			return;
+		}
 
+		Crafty.defineScene("stage"+board.stage_count, function() {
+			Crafty.e("2D, Canvas, TiledMapBuilder")
+				.setMapDataSource(source)
+				.createWorld(function(map) {
+					board.set_map(source, map);
+				});
+		})
+
+		board.stage_count++;
+	},
+	load: function(index) {
+		if (index < board.stage_count) {
+			board.current_stage = index;
+			Crafty.enterScene("stage"+index);
+			avatar.x = 0;
+			avatar.y = 0;
+		} else {
+			avatar.on_win();
+		}
+	}
 };
 
-debug.game("Building Tile Map...");
-Crafty.e("2D, Canvas, TiledMapBuilder")
-	.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
-	.createWorld(function(map) {
-		board.set_map(map);
-	});
+debug.game("Building Tile Maps...");
+board.create(STAGE_01);
+board.create(STAGE_02);
+
+board.load(0);

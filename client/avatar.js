@@ -2,7 +2,7 @@
 var AVATAR = {
 	gravity: 0.4,
 	speed: 4,
-	jump: 9,
+	jump: 12,
 	color: "#FFFFFF",
 	intensity: 0.0
 };
@@ -78,7 +78,7 @@ var avatar = {
 		Crafty.viewport.follow(this.entity, 0, 0);
 	},
 	init_controller: function() {
-		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Persist, Player')
 			.twoway(AVATAR.speed, AVATAR.jump)
 			.gravity('Floor')
 			.gravityConst(AVATAR.gravity)
@@ -97,7 +97,7 @@ var avatar = {
 		Crafty.viewport.mouselook(false);
 	}, 
 	init_observer: function() {
-		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Persist, Player')
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
 					Crafty.viewport.follow(avatar.entity, 0, 0);
@@ -309,7 +309,7 @@ var avatar = {
 		if (avatar.entity.x < 0 || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
 		} else if (avatar.entity.x > board.pixelwidth) {
-			avatar.on_win();
+			board.load(board.current_stage + 1);
 		} else {
 			return false;
 		}
@@ -441,14 +441,14 @@ var avatar = {
 	},
 	on_death: function() {
 		if (!avatar.dead) {
-			console.log("Player died");
+			debug.game("Player died");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
 		}
 	},
 	on_win: function() {
 		if (!avatar.dead) {
-			console.log("Player won");
+			debug.game("Player won");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: true });
 		}
