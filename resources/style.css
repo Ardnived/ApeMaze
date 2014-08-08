@@ -1,6 +1,8 @@
 
 body {
 	font-family: 'Roboto Slab', serif;
+	max-height: 100%;
+	overflow: hidden;
 }
 
 #canvas {
