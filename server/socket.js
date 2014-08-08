@@ -110,8 +110,8 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('chat', function(data) {
 		var date = new Date();
 
-		data.name = client.name+":"+client.player_id;
-		data.send_date = date.getHours()+":"+date.getMinutes();
+		data.name = client.name+"."+client.player_id;
+		data.send_date = date.getHours()+":"+(date.getMinutes()<10?'0':'') + date.getMinutes();
 		
 		chat_messages.push(data);
 		while (chat_messages.length > 20) {

@@ -18,9 +18,11 @@ body {
 	opacity: 0.8;
 }
 
-#chat textarea {
-	resize: none;
+#chat #chat_list {
 	width: 98%;
+	font-size: 12px;
+	height: 150px;
+	overflow-y: scroll;
 }
 
 #chat input {
