@@ -4,7 +4,9 @@ var AVATAR = {
 	speed: 4,
 	jump: 12,
 	color: "#FFFFFF",
-	intensity: 0.0
+	intensity: 0.0,
+	offset: -150,
+	startY: 64 * 10
 };
 
 var DASH = {
@@ -48,7 +50,7 @@ var avatar = {
 		}
 
 		this.entity
-			.attr({x: 0, y: 0, w: 50, h: 50})
+			.attr({x: 0, y: AVATAR.startY, w: 50, h: 50, z:1000})
 			.reel('Walk', 200, 0, 0, 2)
 			.reel('Stand', 200, 2, 0, 2)
 			.reel('Jump', 160, 3, 0, 2)
@@ -75,7 +77,7 @@ var avatar = {
 
 		this.entity.animate('Stand', -1)
 		
-		Crafty.viewport.follow(this.entity, 0, 0);
+		Crafty.viewport.follow(this.entity, AVATAR.offset, 0);
 	},
 	init_controller: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Persist, Player')
@@ -100,7 +102,7 @@ var avatar = {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Persist, Player')
 			.bind('KeyDown', function(e) {
 				if (e.key == Crafty.keys.SPACE) {
-					Crafty.viewport.follow(avatar.entity, 0, 0);
+					Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
 				}
 			});
 
