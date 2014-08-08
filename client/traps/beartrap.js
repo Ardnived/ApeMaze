@@ -12,6 +12,8 @@ function BearTrap(id, ox, oy, w, h, dx) {
 
 						trap.action()
 					})
+	this.box.type = 'beartrap'
+	
 	if(player.is_controller){
 		this.box.disableDrag()
 	}else{
