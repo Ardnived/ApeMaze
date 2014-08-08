@@ -120,6 +120,9 @@ dispatch.io.on('connection', function(socket) {
 		if(gameStarted){
 			return;
 		}
+		if(clients.length < 2){
+			return;
+		}
 		var allReady = true;
 		var controllers = []
 		var observers = []
@@ -148,8 +151,6 @@ dispatch.io.on('connection', function(socket) {
 						clients[controllers[i]].is_controller = false
 					}
 				}
-			}else{
-				return
 			}
 
 			for(var socketID in clients){
@@ -160,6 +161,7 @@ dispatch.io.on('connection', function(socket) {
 				trap.traps[trapID].clicks = 0;
 			}
 			gameStarted = true;
+			console.log('started')
 		}
 	}
 

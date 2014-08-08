@@ -32,4 +32,15 @@ BearTrap.prototype.click = function() {
 	// Do Nothing
 };
 
-extend(Trap, FireTrap);
+BearTrap.prototype.reset = function(){
+	Trap.prototype.call.reset()
+
+	this.box.x = this.box.ox
+	if(player.is_controller){
+		this.box.disableDrag()
+	}else{
+		this.box.enableDrag()
+	}
+}
+
+extend(Trap, Beartrap);
