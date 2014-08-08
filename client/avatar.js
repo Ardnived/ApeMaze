@@ -59,6 +59,7 @@ var avatar = {
 		this.shieldCountdown = false;
 		this.lastShield = 0;
 		this.energy = 0
+		avatar.update_energy();
 		this.furthest = 0
 
 		this.shield = Crafty.e("2D, Canvas, CircleSprite")
@@ -92,6 +93,7 @@ var avatar = {
 		document.getElementById('dashText').style.display = ''
 		document.getElementById('shieldText').style.display = ''
 		document.getElementById('observerHint').style.display = 'none'
+		Crafty.viewport.mouselook(false);
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
