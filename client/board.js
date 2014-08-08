@@ -7,22 +7,25 @@ var direction = {
 };
 
 var board = {
-	display: null,
+	width: SOURCE_FROM_TILED_MAP_EDITOR.width,
+	height: SOURCE_FROM_TILED_MAP_EDITOR.height,
+	tilewidth: SOURCE_FROM_TILED_MAP_EDITOR.tilewidth,
+	tileheight: SOURCE_FROM_TILED_MAP_EDITOR.tileheight,
+	pixelwidth: SOURCE_FROM_TILED_MAP_EDITOR.width * SOURCE_FROM_TILED_MAP_EDITOR.tilewidth,
+	pixelheight: SOURCE_FROM_TILED_MAP_EDITOR.height * SOURCE_FROM_TILED_MAP_EDITOR.tileheight,
 	init: function() {
 		var trapId = 0;
 
 		Crafty.e("2D, Canvas, TiledMapBuilder")
 			.setMapDataSource( SOURCE_FROM_TILED_MAP_EDITOR )
 			.createWorld(function(map) {
-				console.log("Building tile map");
+				debug.game("Building Tile Map...");
 
-				console.log(map.getLayers());
 				// Floor
 				for(var floor = 0; floor < map.getEntitiesInLayer("floor").length; ++floor) {
 					var floorEntity = map.getEntitiesInLayer("floor")[floor];
 					floorEntity.addComponent("Platform");
 					floorEntity.addComponent("Floor");
-					//floorEntity.north.addComponent("Floor");
 				}
 
 				// Traps
@@ -62,46 +65,11 @@ var board = {
 					trapId++;
 				}
 
-/*				// Fire traps
-				for(var fire = 0; fire < map.getEntitiesInLayer("fire_switch").length; ++fire) {
-					var fireSwitch = map.getEntitiesInLayer("fire_switch")[fire];
-					traps[trapId] = new FireTrap(trapId, fireSwitch, 1);
-					trapId++;
-				}*/
-
-						
-				// traps[trapId] = new PlatformTrap(trapId, 100,300,100,20, 100, 100)
-				// trapId++
-
-				// traps[trapId] = new BearTrap(trapId, 150,250,100,20, 100)
-				// trapId++
-
-				/*
-				// Clickable Falling platforms
-				for(var falling = 0; falling < map.getEntitiesInLayer("clickable_falling_platform_switch").length; ++falling) {
-					var platformSwitch = map.getEntitiesInLayer("clickable_falling_platform_switch")[falling];
-					var platform = map.getEntitiesInLayer("clickable_falling_platform")[falling];
-					traps[trapId] = new ClickableFallingPlatform(trapId, platformSwitch, 1, platform);
-					trapId++;
-				}
-				*/
-/*
-				// Beam traps
-				for(var i = 0; i < map.getEntitiesInLayer("clickable_laser_beam").length; ++i) {
-					var trap = map.getEntitiesInLayer("clickable_laser_beam")[i];
-					traps[trapId] = new BeamTrap(trapId, trap, 1);
-					trapId++;
-				}*/
-				/*
-				traps[trapId] = new PlatformTrap(trapId, 300,0,100,20, 100, 100)
-				trapId++
-				*/
-
 				document.getElementById("loading").style.display = "none";
 			});
 
 		/*
-		Crafty.e("2D, Canvas, Color, Movable, Gravity")
+		Crafty.e("2D, Canvas, Color, Movable, Gravity, Floor")
 			.attr({x: 100, y: 100, w: 32, h: 32})
 			.color('lightblue')
 			.gravity('Floor');

@@ -266,10 +266,7 @@ var avatar = {
 		}
 	},
 	check_mapborders: function() {
-		if (avatar.entity.x < 0 || avatar.entity.y < 0
-			 || avatar.entity.x > SOURCE_FROM_TILED_MAP_EDITOR.width * SOURCE_FROM_TILED_MAP_EDITOR.tilewidth
-			 || avatar.entity.y > SOURCE_FROM_TILED_MAP_EDITOR.height * SOURCE_FROM_TILED_MAP_EDITOR.tileheight) {
-			
+		if (avatar.entity.x < 0 || avatar.entity.y < 0  || avatar.entity.x > board.pixelwidth  || avatar.entity.y > board.pixelheight) {
 			avatar.on_death();
 			return true;
 		}
@@ -286,20 +283,17 @@ var avatar = {
 		}
 	},
 	on_receive_direction: function(direction){
-		if (direction != avatar.direction){
-			avatar.direction = direction;
+		avatar.direction = direction;
 
-			switch (avatar.direction) {
-				case 'West':
-					avatar.entity.flip("X");
-					avatar.entity.animate("Walk", -1);
-					break;
-				case 'East':
-					avatar.entity.unflip("X");
-					avatar.entity.animate("Walk", -1);
-					break;
-			}
-			
+		switch (avatar.direction) {
+			case 'West':
+				avatar.entity.flip("X");
+				avatar.entity.animate("Walk", -1);
+				break;
+			case 'East':
+				avatar.entity.unflip("X");
+				avatar.entity.animate("Walk", -1);
+				break;
 		}
 	},
 	on_moved: function(old) {

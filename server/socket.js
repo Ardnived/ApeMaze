@@ -158,7 +158,7 @@ dispatch.io.on('connection', function(socket) {
 			for(var trapID in trap.traps){
 				trap.traps[trapID].clicks = 0;
 			}
-
+			
 			for(var socketID in clients){
 				sockets[socketID].emit('reset', clients[socketID].is_controller)
 			}
