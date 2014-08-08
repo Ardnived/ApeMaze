@@ -61,6 +61,7 @@ var board = {
 							break;
 						// Laser
 						case 10:
+							traps[trapId] = new BeamTrap(trapId, trap, 1);
 							break;
 					}
 
