@@ -7,6 +7,10 @@ dispatch.on('trap', function(data) {
 		traps[data.trap_id].set_threshold_text(data.trap_id, traps[data.trap_id].trigger, data.threshold - data.clicks);
 	}
 
+	if(data.type == 'beamtrap' && data.activate){
+		Crafty.audio.play('laser');
+	}
+
 	if(data.type == 'platformtrap'){
 		trapBox = traps[data.trap_id].box
 

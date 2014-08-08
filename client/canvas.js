@@ -1,5 +1,5 @@
 
-Crafty.init(1000, 500, document.getElementById('canvas'));
+Crafty.init(920, 500, document.getElementById('canvas'));
 
 Crafty.sprite(50, "../resources/img/ape50.png", {
 	StandSprite: [2, 0], 
@@ -34,3 +34,4 @@ Crafty.audio.create('dash', "../resources/sounds/dash.wav")
 Crafty.audio.create('shield', "../resources/sounds/shield.wav")
 Crafty.audio.create('ape_call', "../resources/sounds/ape_call.wav")
 Crafty.audio.create('bump', "../resources/sounds/bump.wav")
+Crafty.audio.create('laser', "../resources/sounds/laser.wav")

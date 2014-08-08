@@ -98,7 +98,7 @@ dispatch.io.on('connection', function(socket) {
 			data.clicks = trap.traps[data.trap_id].clicks;
 
 			// Activate the trap
-			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold && !trap.traps[data.trap_id].used) {
+			if(trap.traps[data.trap_id].clicks >= trap.traps[data.trap_id].threshold && !trap.traps[data.trap_id].used) {
 				data.activate = true;
 			}
 			
@@ -117,6 +117,7 @@ dispatch.io.on('connection', function(socket) {
 		for(var key in clients){
 			clients[key].ready = false;
 		}
+		dispatch.io.emit('ready', {num_players: num_clients, players_ready: players_ready});
 	})
 
 	socket.on('enter', function(data) {
