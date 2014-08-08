@@ -88,3 +88,18 @@ Trap.prototype.click = function() {
 		});
 	}
 };
+
+Trap.prototype.reset = function(){
+	this.clicked = false;
+
+	if (trigger != null){
+		if (player.is_controller) {
+			this.trigger.visible = false;
+		} else {
+			trigger.addComponent("Mouse");
+			trigger.bind("Click", function() {
+				trap.click();
+			});
+		}
+	}
+}

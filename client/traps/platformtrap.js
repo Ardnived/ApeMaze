@@ -33,4 +33,16 @@ PlatformTrap.prototype.click = function() {
 	// Do Nothing
 };
 
-extend(Trap, FireTrap);
+PlatformTrap.prototype.reset = function(){
+	Trap.prototype.call.reset()
+
+	this.box.x = this.box.ox
+	this.box.y = this.box.oy
+	if(player.is_controller){
+		this.box.disableDrag()
+	}else{
+		this.box.enableDrag()
+	}
+}
+
+extend(Trap, PlatformTrap);
