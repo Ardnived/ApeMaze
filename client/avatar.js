@@ -10,12 +10,14 @@ var AVATAR = {
 var DASH = {
 	cooldown: 2000,
 	distance: 50,
+	energy: 1,
 	key: Crafty.keys.C
 };
 
 var SHIELD = {
 	cooldown: 2000,
 	duration: 2000,
+	energy: 1,
 	key: Crafty.keys.X
 }
 
@@ -31,6 +33,10 @@ var BURNING = {
 	color: "#CF5300",
 	intensity: 0.5
 };
+
+var ENERGY = {
+	distance: 100,
+}
 
 var avatar = {
 	init: function() {
@@ -52,6 +58,8 @@ var avatar = {
 		this.lastDash = 0;
 		this.shieldCountdown = false;
 		this.lastShield = 0;
+		this.energy = 0
+		this.furthest = 0
 
 		this.shield = Crafty.e("2D, Canvas, CircleSprite")
 			.attr({x: this.entity.x - 15, y: this.entity.y - 15, w: 80, h: 80});
@@ -134,6 +142,13 @@ var avatar = {
 	},
 	*/
 	use_dash: function() {
+		if(avatar.energy < DASH.energy){
+			return;
+		}
+
+		avatar.energy -= DASH.energy;
+		avatar.update_energy();
+
 		Crafty.audio.play('dash')
 		debug.game("Activate Dash");
 		if (avatar.direction == 'East') {
@@ -162,6 +177,13 @@ var avatar = {
 		}
 	},
 	use_shield: function() {
+		if(avatar.energy < SHIELD.energy){
+			return;
+		}
+
+		avatar.energy -= SHIELD.energy
+		avatar.update_energy();
+
 		Crafty.audio.play('shield')
 		debug.game("Activate Shield");
 		avatar.shieldUp = true;
@@ -366,6 +388,13 @@ var avatar = {
 				dispatch.emit('animation', 'Stand');
 			}
 		}
+
+		//energy
+		if(avatar.entity.x > avatar.furthest){
+			avatar.energy += Math.floor(avatar.entity.x/ENERGY.distance) - Math.floor(avatar.furthest/ENERGY.distance);
+			avatar.furthest = avatar.entity.x;
+			avatar.update_energy();
+		}
 	},
 	on_key_down: function(e) {
 		if(this.isDown(Crafty.keys.LEFT_ARROW) || this.isDown(Crafty.keys.RIGHT_ARROW)) {
@@ -412,5 +441,8 @@ var avatar = {
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: true });
 		}
+	},
+	update_energy: function(){
+		document.getElementById('energy').innerHTML = avatar.energy;
 	}
 };
