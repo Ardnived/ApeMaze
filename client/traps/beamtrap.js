@@ -1,19 +1,19 @@
 function BeamTrap(id, trigger, threshold) {
 	Trap.call(this, id, trigger, threshold);
 
-	this.flame = Crafty.e("2D, Canvas, SpriteAnimation, FireSprite, Deathzone")
-					.attr({x: trigger.x - 5, y: trigger.y - 30, w: 35, h: 35})
-					.reel('Burning', 600, 0, 0, 6)
-					.animate('Burning', -1);
-	this.flame.visible = false;
+	this.beam = Crafty.e("2D, Canvas, SpriteAnimation, BeamSprite, Deathzone")
+					.attr({x: trigger.x + 3.5, y: trigger.y + 16, w: 25, h: 198})
+					.reel('Firing', 300, 0, 0, 3)
+					.animate('Firing', -1);
+	this.beam.visible = false;
 }
 
 BeamTrap.prototype.activate = function() {
 	Trap.prototype.activate.call(this);
 
-	var flame = this.flame;
-	this.flame.timeout(function() {
-		flame.visible = false;
+	var beam = this.beam;
+	this.beam.timeout(function() {
+		beam.visible = false;
 	}, 3000);
 };
 
