@@ -14,7 +14,7 @@ Crafty.sprite(64, "../resources/img/fall.png", {
 	GroundSprite: [0, 0]
 });
 
-Crafty.sprite(32, "../resources/img/doodad.png", {
+Crafty.sprite(64, "../resources/img/fire.png", {
 	FireSprite: [0, 0]
 });
 

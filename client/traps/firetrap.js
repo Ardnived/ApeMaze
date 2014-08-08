@@ -3,8 +3,8 @@ function FireTrap(id, trigger, threshold) {
 
 	var centerX = (trigger.x + trigger.w) / 2;
 	this.flame = Crafty.e("2D, Canvas, SpriteAnimation, FireSprite, Deathzone")
-					.attr({x: trigger.x, y: trigger.y - 35, w: 35, h: 35})
-					.reel('Burning', 600, 0, 0, 6)
+					.attr({x: trigger.x + 2, y: trigger.y - 64, w: 60, h: 60})
+					.reel('Burning', 600, 0, 0, 4)
 					.animate('Burning', -1);
 	this.flame.type = 'firetrap'
 
