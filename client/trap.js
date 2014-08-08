@@ -86,15 +86,15 @@ Trap.prototype.click = function() {
 	Set the trap to it's initial conditions
 */
 Trap.prototype.reset = function() {
-	var trap = this
+	var that = this;
 
-	trap.clicked = false;
+	this.clicked = false;
 
 	if (this.trigger != null){
 		if (!player.is_controller) {
 			this.trigger.addComponent("Mouse");
 			this.trigger.bind("Click", function() {
-				trap.click();
+				that.click();
 			});
 		}
 	}
