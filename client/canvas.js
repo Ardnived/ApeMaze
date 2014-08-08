@@ -1,9 +1,13 @@
 
-Crafty.init(1200, 500, document.getElementById('canvas'));
+Crafty.init(1000, 500, document.getElementById('canvas'));
 
 Crafty.sprite(50, "../resources/img/ape50.png", {
 	StandSprite: [2, 0], 
 	JumpSprite:  [4, 0]
+});
+
+Crafty.sprite(150, 50, "../resources/img/dash.png", {
+	DashSprite: [0, 0]
 });
 
 Crafty.sprite(64, "../resources/img/fall.png", {
@@ -27,5 +31,4 @@ Crafty.sprite(25, 198, "../resources/img/beam.png", {
 })
 
 Crafty.audio.create('dash', "../resources/sounds/dash.wav")
-
 Crafty.audio.create('shield', "../resources/sounds/shield.wav")

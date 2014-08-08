@@ -45,7 +45,7 @@
  </layer>
  <layer name="floor" width="14" height="28">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF+AArFkyuOZS4ARdgIlEc2Uxsagi5EyZPjl50NUw4zCFkLilhyYrGJjYOcakhNnxAgImBPD8S4058arClWUrTMCXpHj0MmIjA2Owl1Q3Ehv0owA0A52IA+g==
+   eJztUssKACAIC8FT/f/3dgpCpk67NhCknM7HGB8RFFg3Twcr4Urx/UCdmEzn+bfcTCfKL44GxJlOjkq9yg5RDNMj6o/t8fYznVEMutnXG7Y7qPDsDISwm498BuzsP3xsqqUBNA==
   </data>
  </layer>
  <layer name="traps" width="14" height="28">

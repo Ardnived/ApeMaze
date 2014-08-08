@@ -9,11 +9,21 @@
 	<link rel="stylesheet" type="text/css" href="/resources/style.css">
 </head>
 <body>
-	<div id="canvas"></div>
-	<div id="dashText" style="display:none">DASH (C) READY</div>
-	<div id="shieldText" style="display:none">SHIELD (X) READY</div>
-	<div id="energyText">ENERGY: <span id="energy"></span></div>
-	<div id="observerHint" style="display:none">Press SPACEBAR to follow runner. Drag screen to free move</div>
+	<div id="game_container">
+		<div id="canvas"></div>
+		<div id="dashContainer" class="ability">
+	    	<img id="dashIcon" src="resources/img/blinkicon.png" width="100px" height="100px"/> 	
+			<div id="dashText">C</div>
+		</div>
+		<br/>
+		<div id="shieldContainer" class="ability">
+			<img id="shieldIcon" src="resources/img/shieldicon.png" width="100px" height="100px"/>
+			<div id="shieldText">X</div>
+		</div>
+		
+		<div id="energyText">ENERGY: <span id="energy"></span></div>
+		<div id="observerHint" style="display:none">Press SPACEBAR to follow runner. Drag screen to free move</div>
+	</div>
 
 	<div id="loading" style="display: none;">
 		<br /><br /><br />
@@ -28,6 +38,8 @@
 		<button id="wantape" class="btn" onclick="dispatch.emit('ready', true);">I WANT TO BE THE RUNNER</button>
 		<br />
 		<button id="wantobs" class="btn" onclick="dispatch.emit('ready', false);">I WANT TO BE THE OBSERVER</button>
+		<br />
+		<img src="/resources/img/ape.png" style="position: absolute; top: 100; left: 0; width: 500px;" />
 	</div>
 
 	<div id="chat">
@@ -49,6 +61,9 @@
 	<script src="/resources/maps/level1_stage1.js"></script>
 	<script src="/resources/maps/level1_stage2.js"></script>
 	<script src="/resources/maps/level1_stage3.js"></script>
+	<script src="/resources/maps/level1_stage4.js"></script>
+	<script src="/resources/maps/level1_stage5.js"></script>
+	<script src="/resources/maps/level1_stage_final.js"></script>
 	<script src="/client/dispatch.js"></script>
 	<script src="/client/player.js"></script>
 	<script src="/client/avatar.js"></script>

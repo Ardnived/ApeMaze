@@ -1,12 +1,15 @@
 
 body {
 	font-family: 'Roboto Slab', serif;
+	max-height: 100%;
+	overflow: hidden;
+}
+
+#canvas {
+	margin: auto;
 }
 
 #chat {
-	position: absolute;
-	bottom: 0;
-	right: 0;
 	border: 1px solid gray;
 	padding: 5px;
 
@@ -26,7 +29,7 @@ body {
 }
 
 #chat input {
-	width: 220px;
+	width: 90%;
 }
 
 #loading,
@@ -47,6 +50,41 @@ body {
 
 #lobby .title {
 	font-size: 80px;
+}
+
+#dashContainer {
+	width: 170px;
+	height: 100px;
+	position: absolute;
+	right:150px;
+	top: 100px;
+	
+}
+
+#shieldContainer {
+	width: 170px;
+	height: 100px;
+	position: absolute;
+	right:150px;
+	top: 220px;
+	
+}
+
+#dashText {
+	float: right;
+	height: 100px;
+  	line-height: 100px;
+	font-size: 60px;
+	color: #383c57;
+	clear: both;
+}
+
+#shieldText{ 
+	float: right;
+	height: 100px;
+  	line-height: 100px;
+	font-size: 60px;
+	color: #383c57;
 }
 
 .victory strong {

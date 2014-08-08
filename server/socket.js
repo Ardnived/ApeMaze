@@ -8,6 +8,7 @@ var trap = require("../server/trap");
  * When a new user connects, handle it.
  */
 var clients = {};
+var num_clients = 0;
 var autoinc = 0;
 var chat_messages = [];
 var current_scene = 0;
@@ -32,6 +33,7 @@ dispatch.io.on('connection', function(socket) {
 	autoinc++;
 	
 	clients[socket.id] = client;
+	num_clients++;
 
 	debug.dispatch("Received Game Connection. Player ID:", clients[socket.id].player_id);
 	
@@ -137,7 +139,7 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('disconnect', function () {
 		delete clients[socket.id];
-
+		num_clients--;
 		checkReadyAndAssignPlayers();
 	});
 
@@ -172,7 +174,7 @@ function checkReadyAndAssignPlayers() {
 		return;
 	}
 
-	if(clients.length < 2){
+	if(num_clients < 2){
 		return;
 	}
 
@@ -214,7 +216,7 @@ function checkReadyAndAssignPlayers() {
 			for (var socketID in clients) {
 				clients[socketID].socket.emit('meta', { 
 					is_controller: clients[socketID].is_controller,
-					num_players: clients.length
+					num_players: num_clients
 				});
 			}
 		} else {
@@ -222,7 +224,7 @@ function checkReadyAndAssignPlayers() {
 				clients[socketID].socket.emit('reset', clients[socketID].is_controller)
 				clients[socketID].socket.emit('meta', { 
 					is_controller: clients[socketID].is_controller,
-					num_players: clients.length
+					num_players: num_clients
 				});
 			}
 		}
