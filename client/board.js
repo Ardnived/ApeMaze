@@ -115,8 +115,12 @@ var board = {
 		if (index < board.stage_count) {
 			board.current_stage = index;
 			Crafty.enterScene("stage"+index);
-			avatar.entity.x = 5;
-			avatar.entity.y = AVATAR.startY;
+
+			if (avatar.entity != null) {
+				avatar.entity.x = 5;
+				avatar.entity.y = AVATAR.startY;
+			}
+
 			Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
 		} else {
 			avatar.on_win();
@@ -127,5 +131,6 @@ var board = {
 debug.game("Building Tile Maps...");
 board.create(STAGE_01);
 board.create(STAGE_02);
+board.create(STAGE_03);
 
 board.load(0);

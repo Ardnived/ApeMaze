@@ -82,6 +82,7 @@ dispatch.io.on('connection', function(socket) {
 					used: false
 				};
 			}
+			data.clicks = trap.traps[data.trap_id].clicks;
 
 			// Activate the trap
 			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold && !trap.traps[data.trap_id].used) {
