@@ -121,8 +121,8 @@ Trap.prototype.click = function() {
 			threshold: threshold,
 		});
 
-		if(threshold_left > 0) {
-			threshold_left -= 1;
+		if(threshold_left[id] > 0) {
+			threshold_left[id] -= 1;
 			traps[this.trap_id].set_threshold_text(id, traps[this.trap_id].trigger, threshold_left[id]);
 		}
 	}

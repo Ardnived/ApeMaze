@@ -1,9 +1,9 @@
 var DEATH_MSG = {
 	beartrap: 'The ape was caught by a bear trap!',
-	beamtrap: 'The ape was killed by a laser beam!',
-	fallingtrap: 'The ape was killed by falling rocks!',
-	firetrap: 'The ape was burned to death!',
-	spiketrap: 'The ape fell into a spike trap!',
+	beamtrap: 'The ape has been vaporized!',
+	fallingtrap: 'The ape has been flattened!',
+	firetrap: 'The ape has been ignited!',
+	spiketrap: 'The ape has been impaled!',
 	suicide: 'The ape has committed suicide!', //disconnect
 }
 
