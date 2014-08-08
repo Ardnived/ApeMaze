@@ -21,7 +21,7 @@ dispatch.on('gameover', function(data) {
 			document.getElementById("lobby").className = "defeat";
 		}
 	} else {
-		document.getElementById("lobby").getElementsByClassName("title")[0].innerHTML = "GAME OVER";
+		document.getElementById("lobby").getElementsByClassName("title")[0].innerHTML = "GAME IN PROGRESS";
 		document.getElementById("lobby").className = "";
 	}
 

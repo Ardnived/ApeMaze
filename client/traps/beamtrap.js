@@ -6,8 +6,7 @@ function BeamTrap(id, trigger, threshold) {
 					.reel('Firing', 300, 0, 0, 3)
 					.animate('Firing', -1);
 
-	this.beam.rotation = 180;
-	this.beam.visible = false;
+	this.reset();
 }
 
 BeamTrap.prototype.activate = function() {
@@ -20,5 +19,15 @@ BeamTrap.prototype.activate = function() {
 	}, 3000);
 };
 
+BeamTrap.prototype.reset = function() {
+	Trap.prototype.reset.call(this);
+
+	this.beam.rotation = 180;
+	this.beam.visible = false;
+
+	if(player.is_controller) {
+		this.trigger.visible = false;
+	}
+}
 
 extend(Trap, BeamTrap);

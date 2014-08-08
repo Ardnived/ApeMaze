@@ -1,29 +1,28 @@
 function FallingTrap(id, trigger, threshold) {
 	Trap.call(this, id, trigger, threshold);
 	
-	this.entity = trigger;
-	this.entity.addComponent("FallingTrap");
-	this.entity.addComponent("Platform");
-	this.entity.addComponent("Floor");
+	this.trigger.addComponent("FallingTrap");
+	this.trigger.addComponent("Platform");
+	this.trigger.addComponent("Floor");
+
+	this.initialX = this.trigger.x;
+	this.initialY = this.trigger.y;
 
 	var h = board.tileheight/3;
-	this.crush = Crafty.e("2D, Canvas, Deathzone, Collision").attr({x: this.entity.x, y: this.entity.y + board.tileheight - h, h: h, w: this.entity.w});
-	this.entity.attach(this.crush);
-	this.crush.visible = false;
+	this.crush = Crafty.e("2D, Canvas, Deathzone, Collision").attr({x: this.trigger.x, y: this.trigger.y + board.tileheight - h, h: h, w: this.trigger.w});
+	this.trigger.attach(this.crush);
 
-	if(player.is_controller) {
-		// TODO Swap the image for regular terrain
-	}
+	this.reset();
 }
 
 FallingTrap.prototype.activate = function(){
 	Trap.prototype.activate.call(this);
 	
-	this.entity.removeComponent("Platform");
+	this.trigger.removeComponent("Platform");
 	this.crush.visible = true;
 
 	var that = this;
-	this.entity.bind("Move", function() {
+	this.trigger.bind("Move", function() {
 		if(player.is_controller) {
 			avatar.check_deathzones();
 		}
@@ -31,20 +30,34 @@ FallingTrap.prototype.activate = function(){
 
 	// Start falling collision detection
 	this.crush.onHit("Platform", function() {
-		console.log("HIT");
-		that.entity.unbind("Move");
+		console.log("Boink!");
+
+		that.trigger.unbind("Move");
 		that.crush.visible = false;
-		that.entity.addComponent("Platform");
+		that.trigger.addComponent("Platform");
+		that.trigger.removeComponent("Gravity");
 		that.crush.unbind("EnterFrame");
 	});
 
-	this.entity.addComponent("Gravity");
-	this.entity.gravityConst(0.981);
-	this.entity.gravity("Floor");
+	this.trigger.addComponent("Gravity");
+	this.trigger.gravityConst(0.981);
+	this.trigger.gravity("Floor");
 }
 
 FallingTrap.prototype.click = function() {
 	Trap.prototype.click.call(this);
+}
+
+FallingTrap.prototype.reset = function() {
+	Trap.prototype.reset.call(this);
+
+	this.crush.visible = false;
+	this.trigger.x = this.initialX;
+	this.trigger.y = this.initialY;
+
+	if(player.is_controller) {
+		// TODO Swap the image for regular terrain
+	}
 }
 
 extend(Trap, FallingTrap);

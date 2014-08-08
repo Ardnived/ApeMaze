@@ -53,22 +53,10 @@ dispatch.on('trap', function(data) {
 });
 
 function Trap(id, trigger, threshold) {
-	var trap = this;
-
 	this.trigger = trigger;
 	this.trap_id = id;
-	this.clicked = false;
 	this.threshold = threshold;
 	this.string = this.constructor.name.toLowerCase();
-
-	if (trigger != null){
-		if (!player.is_controller) {
-			trigger.addComponent("Mouse");
-			trigger.bind("Click", function() {
-				trap.click();
-			});
-		}
-	}
 }
 
 Trap.prototype.activate = function() {
@@ -94,18 +82,18 @@ Trap.prototype.click = function() {
 	}
 };
 
-Trap.prototype.reset = function(){
+/*
+	Set the trap to it's initial conditions
+*/
+Trap.prototype.reset = function() {
 	var trap = this
 
 	trap.clicked = false;
 
-	if (trap.trigger != null){
-		if (player.is_controller) {
-			trap.trigger.visible = false;
-		} else {
-			trap.trigger.visible = true;
-			trap.trigger.addComponent("Mouse");
-			trap.trigger.bind("Click", function() {
+	if (this.trigger != null){
+		if (!player.is_controller) {
+			this.trigger.addComponent("Mouse");
+			this.trigger.bind("Click", function() {
 				trap.click();
 			});
 		}
