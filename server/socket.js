@@ -117,6 +117,7 @@ dispatch.io.on('connection', function(socket) {
 		for(var key in clients){
 			clients[key].ready = false;
 		}
+		players_ready = 0;
 		dispatch.io.emit('ready', {num_players: num_clients, players_ready: players_ready});
 	})
 
