@@ -33,7 +33,6 @@ var board = {
 		board.init();
 	},
 	init: function() {
-		debug.game("init", board.map == null, !board.ready);
 		if (board.map == null || !board.ready) {
 			return; // Load later when both things are ready.
 		}
@@ -116,6 +115,8 @@ var board = {
 		if (index < board.stage_count) {
 			board.current_stage = index;
 			Crafty.enterScene("stage"+index);
+			avatar.x = 0;
+			avatar.y = 0;
 		} else {
 			avatar.on_win();
 		}

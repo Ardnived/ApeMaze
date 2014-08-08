@@ -441,14 +441,14 @@ var avatar = {
 	},
 	on_death: function() {
 		if (!avatar.dead) {
-			console.log("Player died");
+			debug.game("Player died");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: false });
 		}
 	},
 	on_win: function() {
 		if (!avatar.dead) {
-			console.log("Player won");
+			debug.game("Player won");
 			avatar.dead = true;
 			dispatch.emit('gameover', { controller_won: true });
 		}
