@@ -61,6 +61,7 @@ var avatar = {
 
 		this.frozen = false;
 		this.burning = false;
+		this.dead = false;
 
 		this.entity.animate('Stand', -1)
 		
@@ -274,6 +275,7 @@ var avatar = {
 					return true;
 				}
 			}
+			return false
 		} else {
 			return false;
 		}
