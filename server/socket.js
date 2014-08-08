@@ -8,14 +8,12 @@ var trap = require("../server/trap");
  * When a new user connects, handle it.
  */
 var clients = {};
-var sockets = {};
 var autoinc = 0;
 var chat_messages = [];
 
 dispatch.io.on('connection', function(socket) {
-
 	client_is_controller = true;
-	for(var key in clients){
+	for (var key in clients) {
 		if (clients[key].is_controller){
 			client_is_controller = false;
 			break;
@@ -24,28 +22,28 @@ dispatch.io.on('connection', function(socket) {
 
 	var client = {
 		name: "",
+		socket: socket,
 		player_id: autoinc,
 		is_controller: client_is_controller,
 		room: "room00",
-		ready: true,
+		ready: false
 	};
 	autoinc++;
 	
 	clients[socket.id] = client;
-	sockets[socket.id] = socket;
 
 	debug.dispatch("Received Game Connection. Player ID:", clients[socket.id].player_id);
 	
 	// ------------------
 	socket.join(client.room);
 
-	socket.emit('meta', { 
-		player_id: client.player_id,
-		is_controller: client.is_controller
-	});
-
 	socket.on('meta', function(data) {
 		client.name = data.name;
+	});
+
+
+	socket.emit('meta', { 
+		player_id: socket.player_id,
 	});
 	
 	socket.on('move', function(data) {
@@ -94,7 +92,7 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	socket.on('gameover', function(data) {
-		game.gameover = true;
+		game.active = false;
 		game.controller_won = data.controller_won;
 		dispatch.io.to(client.room).emit('gameover', data);
 		for(var key in clients){
@@ -109,8 +107,10 @@ dispatch.io.on('connection', function(socket) {
 	})
 
 	socket.on('chat', function(data) {
+		var date = new Date();
+
 		data.sender_id = client.player_id;
-		data.send_date = (new Date()).toString();
+		data.send_date = date.getHours()+":"+date.getMinutes();
 		chat_messages.push(data);
 		while(chat_messages.length>20)
 			chat_messages.shift();
@@ -119,56 +119,6 @@ dispatch.io.on('connection', function(socket) {
 
 	// Send the most recent messages to the player on login
 	socket.emit('chats', chat_messages);
-	
-	function checkReadyAndAssignPlayers(){
-		if(!game.gameover){
-			return;
-		}
-		if(clients.length < 2){
-			return;
-		}
-		var allReady = true;
-		var controllers = []
-		var observers = []
-		for(var key in clients){
-			if(!clients[key].ready){
-				allReady = false;
-			}else{
-				if(clients[key].is_controller){
-					controllers.push(key);
-				}else{
-					observers.push(key);
-				}
-			}
-		}
-
-		if(allReady){
-			if(controllers.length == 0){
-				for (var key in clients){
-					clients[key].is_controller = true
-					break;
-				}
-			}else if(controllers.length > 1){
-				var cID = Math.floor(Math.random()*controllers.length)
-				for(var i=0; i<controllers.length; i++){
-					if(i == cID){
-						clients[controllers[i]].is_controller = true
-					}else{
-						clients[controllers[i]].is_controller = false
-					}
-				}
-			}
-
-			trap.traps = {}
-			
-			for(var socketID in clients){
-				sockets[socketID].emit('reset', clients[socketID].is_controller)
-			}
-			
-			console.log('started')
-			game.gameover = false;
-		}
-	}
 
 	socket.on('disconnect', function () {
 		delete clients[socket.id];
@@ -176,8 +126,11 @@ dispatch.io.on('connection', function(socket) {
 		checkReadyAndAssignPlayers();
 	});
 
-	if (game.gameover) {
-		debug.game("Game is already over");
+	if (game.active) {
+		socket.emit('meta', { 
+			is_controller: socket.is_controller
+		});
+	} else if (game.controller_won != null) {
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
 			latecomer: true
@@ -191,3 +144,63 @@ dispatch.io.on('connection', function(socket) {
 		checkReadyAndAssignPlayers();
 	})
 });
+
+	
+function checkReadyAndAssignPlayers(){
+	if(game.active){
+		return;
+	}
+
+	if(clients.length < 2){
+		return;
+	}
+	var allReady = true;
+	var controllers = []
+	var observers = []
+	for(var key in clients){
+		if(!clients[key].ready){
+			allReady = false;
+		}else{
+			if(clients[key].is_controller){
+				controllers.push(key);
+			}else{
+				observers.push(key);
+			}
+		}
+	}
+
+	if(allReady){
+		if(controllers.length == 0){
+			for (var key in clients){
+				clients[key].is_controller = true
+				break;
+			}
+		}else if(controllers.length > 1){
+			var cID = Math.floor(Math.random()*controllers.length)
+			for(var i=0; i<controllers.length; i++){
+				if(i == cID){
+					clients[controllers[i]].is_controller = true
+				}else{
+					clients[controllers[i]].is_controller = false
+				}
+			}
+		}
+
+		trap.traps = {}
+		
+		if (game.controller_won == null) {
+			for (var socketID in clients) {
+				clients[socketID].socket.emit('meta', { 
+					is_controller: clients[socketID].is_controller
+				});
+			}
+		} else {
+			for (var socketID in clients) {
+				clients[socketID].socket.emit('reset', clients[socketID].is_controller)
+			}
+		}
+		
+		console.log('started')
+		game.active = true;
+	}
+}

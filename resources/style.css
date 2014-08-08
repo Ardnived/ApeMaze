@@ -38,10 +38,6 @@ body {
 	font-size: 24px;
 }
 
-#lobby {
-	display: none;
-}
-
 #lobby .title {
 	font-size: 80px;
 }
