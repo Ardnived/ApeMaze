@@ -1,7 +1,7 @@
 var traps = {};
 
 dispatch.on('trap', function(data) {
-	if (data.type == 'firetrap') {
+	if (data.type == 'firetrap' || data.type == 'beamtrap') {
 		if(data.activate) {
 			traps[data.trap_id].activate();
 		
@@ -66,6 +66,7 @@ function Trap(id, trigger, threshold) {
 }
 
 Trap.prototype.activate = function() {
+	debug.game("Activate", this.constructor.name.toLowerCase());
 	this.trigger.visible = false;	// Hide the trigger
 	this.clicked = false; 			// Reset clickable
 };

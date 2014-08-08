@@ -1,6 +1,11 @@
 
 Crafty.init(500, 350, document.getElementById('canvas'));
 
+Crafty.sprite(233, "../resources/img/ape.png", {
+	StandSprite: [2, 0], 
+	JumpSprite:  [3, 0]
+});
+
 Crafty.sprite(32, "../resources/img/spritesheet.png", {
 	SouthSprite: [0, 0], 
 	WestSprite:  [0, 1],

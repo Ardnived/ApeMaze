@@ -75,8 +75,8 @@ MockModule = {
 			
 			if( layer.data[indexes[i]] == 0 ){
 				entities.push(0);
-			}else{											
-				entities.push( this.createMockEntity( layer, indexes[i] ) );
+			}else{				
+				entities.push( this.createMockEntity( layer, indexes[i], layer.data[indexes[i]]));
 			}						
 		}				
 		return entities;
@@ -105,10 +105,11 @@ MockModule = {
 	 * @param {Integer} dataIndex	
 	 * @return {Object} mock, {head:String, x:number, y:number} 
 	 */
-	createMockEntity:function( layer, dataIndex){			
+	createMockEntity:function( layer, dataIndex, tileProperty){			
 		var column = dataIndex % layer.width;
 		var row = Math.floor((dataIndex / layer.width));								
 		var mock = {head:"2D," + this._renderMethod + ",Tile" + layer.data[dataIndex] + "," + layer.name};	
+		mock.tileProperty = tileProperty;
 		this.setPosition( column, row, mock );				
 		return mock;
 	},

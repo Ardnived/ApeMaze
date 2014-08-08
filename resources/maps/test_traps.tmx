@@ -27,6 +27,11 @@
     <property name="trap" value="spike"/>
    </properties>
   </tile>
+  <tile id="47">
+   <properties>
+    <property name="trap" value="laser"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="floor" width="35" height="15">
   <data encoding="base64" compression="zlib">
@@ -35,7 +40,12 @@
  </layer>
  <layer name="traps" width="35" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjESghIRxAX46uWUggTwU4wLqSHgUjIKRDgAb9AEp
+   eJxjYBgFo2AUjESghIRxAX46uWUggTwU4wLqSJgcYECmvlEwCgYjAACi9AFZ
+  </data>
+ </layer>
+ <layer name="clickable_laser_beam" width="35" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggDAAINAAB
   </data>
  </layer>
 </map>
