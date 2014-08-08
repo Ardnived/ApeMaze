@@ -302,12 +302,13 @@ var avatar = {
         if(hitInfo) {
         	for(var i = 0; i < hitInfo.length; ++i) {
         		var hitObj = hitInfo[i].obj;
-        		if(hitObj.x < avatar.entity.x + avatar.entity.w) {
-        			// Left side
-        			avatar.entity.x = old.x;
-        		} else if(hitObj.x + hitObj.w > avatar.entity.x) {
+        		if(hitObj.x > avatar.entity.x + avatar.entity.w) {
         			// Right side
+        			avatar.entity.x = old.x;
+        		} else if(hitObj.x + hitObj.w < avatar.entity.x) {
+        			// Left side
 					avatar.entity.x = old.x;
+					alert('lol');
         		} else if(hitObj.y + hitObj.h < avatar.entity.y) {
         			// Bottom
         			console.log("collide");
