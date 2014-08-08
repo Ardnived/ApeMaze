@@ -286,20 +286,17 @@ var avatar = {
 		}
 	},
 	on_receive_direction: function(direction){
-		if (direction != avatar.direction){
-			avatar.direction = direction;
+		avatar.direction = direction;
 
-			switch (avatar.direction) {
-				case 'West':
-					avatar.entity.flip("X");
-					avatar.entity.animate("Walk", -1);
-					break;
-				case 'East':
-					avatar.entity.unflip("X");
-					avatar.entity.animate("Walk", -1);
-					break;
-			}
-			
+		switch (avatar.direction) {
+			case 'West':
+				avatar.entity.flip("X");
+				avatar.entity.animate("Walk", -1);
+				break;
+			case 'East':
+				avatar.entity.unflip("X");
+				avatar.entity.animate("Walk", -1);
+				break;
 		}
 	},
 	on_moved: function(old) {
