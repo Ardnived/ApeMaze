@@ -93,9 +93,9 @@ var avatar = {
 			.bind('KeyUp', this.on_key_up);
 
 		this.direction = 'East';
-		document.getElementById('dashText').style.display = ''
-		document.getElementById('shieldText').style.display = ''
-		document.getElementById('observerHint').style.display = 'none'
+		document.getElementById('dashContainer').style.visible = 'visible'
+		document.getElementById('shieldContainer').style.visible = 'visible'
+		document.getElementById('observerHint').style.visible = 'hidden'
 		Crafty.viewport.mouselook(false);
 	}, 
 	init_observer: function() {
@@ -130,9 +130,9 @@ var avatar = {
 			console.log('animation')
 		})
 
-		document.getElementById('dashText').style.display = 'none'
-		document.getElementById('shieldText').style.display = 'none'
-		document.getElementById('observerHint').style.display = ''
+		document.getElementById('dashContainer').style.visible = 'hidden';
+		document.getElementById('shieldContainer').style.visible = 'hidden';
+		document.getElementById('observerHint').style.visible = 'visible'
 		Crafty.viewport.mouselook(true);
 	},
 	/*
@@ -177,7 +177,8 @@ var avatar = {
 				avatar.dashCountdown = false;
 				document.getElementById('dashText').innerHTML = ("DASH (C) READY");
 			} else {
-				document.getElementById('dashText').innerHTML = ("NEXT DASH: " + cooldown/1000);
+				document.getElementById('dashIcon').style.opacity = "0.5";
+				//document.getElementById('dashText').innerHTML = ("NEXT DASH: " + cooldown/1000);
 			}
 		}
 	},

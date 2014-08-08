@@ -9,11 +9,21 @@
 	<link rel="stylesheet" type="text/css" href="/resources/style.css">
 </head>
 <body>
-	<div id="canvas"></div>
-	<div id="dashText" style="display:none">DASH (C) READY</div>
-	<div id="shieldText" style="display:none">SHIELD (X) READY</div>
-	<div id="energyText">ENERGY: <span id="energy"></span></div>
-	<div id="observerHint" style="display:none">Press SPACEBAR to follow runner. Drag screen to free move</div>
+	<div id="game_container">
+		<div id="canvas"></div>
+		<div id="dashContainer" class="ability">
+	    	<img id="dashIcon" src="resources/img/blinkicon.png" width="100px" height="100px"/> 	
+			<div id="dashText">C</div>
+		</div>
+		<br/>
+		<div id="shieldContainer" class="ability">
+			<img id="shieldIcon" src="resources/img/shieldicon.png" width="100px" height="100px"/>
+			<div id="shieldText">X</div>
+		</div>
+		
+		<div id="energyText">ENERGY: <span id="energy"></span></div>
+		<div id="observerHint" style="display:none">Press SPACEBAR to follow runner. Drag screen to free move</div>
+	</div>
 
 	<div id="loading">
 		<br /><br /><br />
