@@ -134,6 +134,11 @@ dispatch.io.on('connection', function(socket) {
 		socket.emit('meta', { 
 			is_controller: clients[socket.id].is_controller
 		});
+		socket.emit('move', {
+			x: avatar.x,
+			y: avatar.y,
+			direction: avatar.direction
+		});
 	} else if (game.controller_won != null) {
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
