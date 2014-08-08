@@ -1,7 +1,11 @@
 var traps = {};
+var threshold_text = {};
+var threshold_left = {};
 
 dispatch.on('trap', function(data) {
 	console.log("Trap Activate Recieve: " + data.type);
+
+	traps[data.trap_id].set_threshold_text(data.trap_id, traps[data.trap_id].trigger, data.threshold - data.clicks);
 
 	if(data.type == 'platformtrap'){
 		trapBox = traps[data.trap_id].box
@@ -57,6 +61,28 @@ function Trap(id, trigger, threshold) {
 	this.trap_id = id;
 	this.threshold = threshold;
 	this.string = this.constructor.name.toLowerCase();
+
+	threshold_left[id] = this.threshold;
+	this.set_threshold_text(id, this.trigger, this.threshold);
+}
+
+Trap.prototype.set_threshold_text = function(id, trigger, num) {
+	if(trigger){
+		//if(threshold_text[id]!=null)
+		//	trigger.detach(threshold_text[id]);
+		threshold_left[id] = num;
+		if(threshold_text[id]==null){
+			threshold_text[id] = Crafty
+								.e("2D, DOM, Text")
+								.attr({ x: trigger.x, y: trigger.y })
+								.textFont({ size: '20px', weight: 'bold' })
+								.text(num.toString());
+			//if(player.is_controller) threshold_text.visible = false;
+			trigger.attach(threshold_text[id]);
+		}
+		else
+			threshold_text[id].text(num.toString());
+	}
 }
 
 Trap.prototype.activate = function() {
@@ -79,6 +105,9 @@ Trap.prototype.click = function() {
 			type: this.string,
 			threshold: threshold,
 		});
+
+		threshold_left -= 1;
+		traps[this.trap_id].set_threshold_text(id, traps[this.trap_id].trigger, threshold_left[id]);
 	}
 };
 
