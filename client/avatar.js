@@ -318,7 +318,7 @@ var avatar = {
 
             // when hit from left, bottom or right side
             avatar.entity.x -= avatar.entity._movement.x;
-            avatar.entity._up = false;
+            //avatar.entity._up = false;
         }
 
 		if (!killed) {

@@ -33,11 +33,11 @@ var board = {
 				}
 
 						
-				traps[trapId] = new PlatformTrap(trapId, 100,300,100,20, 100, 100)
-				trapId++
+				// traps[trapId] = new PlatformTrap(trapId, 100,300,100,20, 100, 100)
+				// trapId++
 
-				traps[trapId] = new BearTrap(trapId, 150,250,100,20, 100)
-				trapId++
+				// traps[trapId] = new BearTrap(trapId, 150,250,100,20, 100)
+				// trapId++
 
 				// Clickable Falling platforms
 				/*
