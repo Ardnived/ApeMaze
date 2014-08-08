@@ -64,7 +64,17 @@ function Trap(id, trigger, threshold) {
 	this.string = this.constructor.name.toLowerCase();
 
 	threshold_left[id] = this.threshold;
-	this.set_threshold_text(id, this.trigger, this.threshold);
+	this.set_threshold_text_first(id, this.trigger, this.threshold);
+}
+
+Trap.prototype.set_threshold_text_first = function(id, trigger, num) {
+	threshold_text[id] = Crafty
+								.e("2D, DOM, Text")
+								.attr({ x: trigger.x, y: trigger.y })
+								.textFont({ size: '20px', weight: 'bold' })
+								.text(num.toString());
+	trigger.attach(threshold_text[id]);
+	this.set_threshold_text(id, trigger, num);
 }
 
 Trap.prototype.set_threshold_text = function(id, trigger, num) {
