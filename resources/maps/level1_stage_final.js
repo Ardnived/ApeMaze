@@ -42,7 +42,7 @@ var STAGE_FINAL = { "height":22,
  "tilesets":[
         {
          "firstgid":1,
-         "image":"../resources/img/tilesheet.png",
+         "image":"../resources\/img\/tilesheet.png",
          "imageheight":256,
          "imagewidth":320,
          "margin":0,
