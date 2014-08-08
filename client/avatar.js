@@ -2,7 +2,7 @@
 var AVATAR = {
 	gravity: 0.4,
 	speed: 4,
-	jump: 8.5,
+	jump: 9,
 	color: "#FFFFFF",
 	intensity: 0.0
 };
@@ -53,9 +53,9 @@ var avatar = {
 		this.burning = false;
 	},
 	init_controller: function() {
-		this.entity = Crafty.e('2D, Canvas, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
-			.attr({x: 0, y: 0, w: 25, h: 25})
-			.reel('Walk', 700, 0, 0, 2)
+		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Twoway, Gravity, Collision, Player')
+			.attr({x: 0, y: 0, w: 50, h: 50})
+			.reel('Walk', 200, 0, 0, 2)
 			.reel('Stand', 700, 0, 2, 1)
 			.reel('Jump', 700, 0, 3, 1)
 			.twoway(AVATAR.speed, AVATAR.jump)
@@ -79,8 +79,8 @@ var avatar = {
 	}, 
 	init_observer: function() {
 		this.entity = Crafty.e('2D, Canvas, Tint, SpriteAnimation, StandSprite, Player')
-			.attr({x: 0, y: 0, w: 25, h: 25})
-			.reel('Walk', 700, 0, 0, 2)
+			.attr({x: 0, y: 0, w: 50, h: 50})
+			.reel('Walk', 200, 0, 0, 2)
 			.reel('Stand', 700, 0, 2, 1)
 			.reel('Jump', 700, 0, 3, 1)
 			.bind('EnterFrame', this.update_shield)
@@ -276,11 +276,11 @@ var avatar = {
 	},
 	on_change_direction: function(event) {
 		if (this.isDown('LEFT_ARROW')) {
-			this.on_receive_direction('West');
+			avatar.on_receive_direction('West');
 	    } else if (this.isDown('RIGHT_ARROW')) {
-			this.on_receive_direction('East');
+			avatar.on_receive_direction('East');
 	    } else if (this.isDown('UP_ARROW')) {	
-			this.on_receive_direction('South');
+			avatar.on_receive_direction('Up');
 		}
 	},
 	on_receive_direction: function(direction){
@@ -290,13 +290,14 @@ var avatar = {
 			switch (avatar.direction) {
 				case 'West':
 					avatar.entity.flip("X");
+					avatar.entity.animate("Walk", -1);
 					break;
 				case 'East':
 					avatar.entity.unflip("X");
+					avatar.entity.animate("Walk", -1);
 					break;
 			}
 			
-			avatar.entity.animate("Walk", -1);
 		}
 	},
 	on_moved: function(old) {
@@ -351,6 +352,7 @@ var avatar = {
 		if(!this.isDown(Crafty.keys.LEFT_ARROW) && !this.isDown(Crafty.keys.RIGHT_ARROW)){
 			dispatch.emit('stop', {});
 			avatar.entity.pauseAnimation();
+			//avatar.entity.animate('Stand', -1);
 		}
 	},
 	on_death: function() {
