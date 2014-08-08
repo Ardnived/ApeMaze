@@ -115,7 +115,7 @@ var board = {
 	load: function(index) {
 		if (index < board.stage_count) {
 			board.current_stage = index;
-			Crafty.enterScene("level"+index);
+			Crafty.enterScene("stage"+index);
 		} else {
 			avatar.on_win();
 		}
