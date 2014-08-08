@@ -52,7 +52,7 @@ var board = {
 							break;
 						// Spikes
 						case 39:
-							// traps[trapId] = new 
+							trap.addComponent("Deathzone");
 							break;
 						// Laser
 						case 48:
