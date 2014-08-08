@@ -32,7 +32,7 @@ body {
 #loading,
 #lobby {
 	position: absolute;
-	top: 0;
+	top: 40px;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -40,6 +40,7 @@ body {
 	background: white;
 	opacity: 0.7;
 
+	display:inline-block;
 	text-align: center;
 	font-size: 24px;
 }
@@ -54,4 +55,31 @@ body {
 
 .defeat strong {
 	color: darkred;
+}
+
+#wantape {
+	width:250px;
+	margin-top: 50px;
+	padding: 20px;
+	color: white;
+	background-color: #43505d;
+}
+
+#wantape:hover {
+	background-color: #436e9d;
+	color: white;
+}
+
+#wantobs {
+	width:250px;
+	padding: 20px;
+	margin-top: 15px;
+	margin-left: -6px;
+	color: white;
+	background-color: #53912F;
+}
+
+#wantobs:hover {
+	color: white;
+	background-color: #7CCF30;
 }

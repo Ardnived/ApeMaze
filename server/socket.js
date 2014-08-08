@@ -10,6 +10,7 @@ var trap = require("../server/trap");
 var clients = {};
 var autoinc = 0;
 var chat_messages = [];
+var current_scene = 0;
 
 dispatch.io.on('connection', function(socket) {
 	client_is_controller = true;
@@ -44,7 +45,8 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	socket.emit('meta', { 
-		player_id: client.player_id
+		player_id: client.player_id,
+		num_players: client.length
 	});
 	
 	socket.on('move', function(data) {
@@ -60,11 +62,16 @@ dispatch.io.on('connection', function(socket) {
 
 	socket.on('animation', function(data){
 		socket.broadcast.emit('animation', data);
-	})
+	});
 
 	socket.on('shield', function(data) {
 		socket.broadcast.emit('shield', data);
-	})
+	});
+
+	socket.on('scene', function(data) {
+		current_scene = data.index;
+		socket.broadcast.emit('scene', data);
+	});
 	
 	socket.on('trap', function(data) {	
 		if(data.type == 'beartrap' || data.type == 'platformtrap' || data.type == 'elevatortrap') {
@@ -78,17 +85,18 @@ dispatch.io.on('connection', function(socket) {
 			} else {
 				trap.traps[data.trap_id] = {
 					clicks: 1,
-					threshold: data.threshold
+					threshold: data.threshold,
+					used: false
 				};
 			}
 			data.clicks = trap.traps[data.trap_id].clicks;
 
 			// Activate the trap
-			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold) {
+			if(trap.traps[data.trap_id].clicks == trap.traps[data.trap_id].threshold && !trap.traps[data.trap_id].used) {
 				data.activate = true;
 				trap.traps[data.trap_id].clicks = 0;
 			}
-			debug.dispatch(data);
+			
 			dispatch.io.emit('trap', data);
 		}
 	});
@@ -134,8 +142,14 @@ dispatch.io.on('connection', function(socket) {
 
 	if (game.active) {
 		socket.emit('meta', { 
-			is_controller: clients[socket.id].is_controller
+			is_controller: clients[socket.id].is_controller,
+			num_players: clients.length
 		});
+
+		socket.emit('scene', {
+			index: current_scene
+		});
+
 		socket.emit('move', {
 			x: avatar.x,
 			y: avatar.y,
@@ -207,12 +221,17 @@ function checkReadyAndAssignPlayers() {
 		if (game.controller_won == null) {
 			for (var socketID in clients) {
 				clients[socketID].socket.emit('meta', { 
-					is_controller: clients[socketID].is_controller
+					is_controller: clients[socketID].is_controller,
+					num_players: clients.length
 				});
 			}
 		} else {
 			for (var socketID in clients) {
 				clients[socketID].socket.emit('reset', clients[socketID].is_controller)
+				clients[socketID].socket.emit('meta', { 
+					is_controller: clients[socketID].is_controller,
+					num_players: clients.length
+				});
 			}
 		}
 		

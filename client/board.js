@@ -38,6 +38,7 @@ var board = {
 		}
 
 		var trapId = 0;
+		var players = meta.num_players;
 
 		// Floor
 		for(var floor = 0; floor < board.map.getEntitiesInLayer("floor").length; ++floor) {
@@ -61,7 +62,7 @@ var board = {
 			switch(trapType) {
 				// Falling
 				case 9:
-					traps[trapId] = new FallingTrap(trapId, trap, 1);
+					traps[trapId] = new FallingTrap(trapId, trap, players * 10);
 					break;
 				// Lift
 				case 7:
@@ -69,7 +70,7 @@ var board = {
 					break;
 				// Fire
 				case 8:
-					traps[trapId] = new FireTrap(trapId, trap, 1);
+					traps[trapId] = new FireTrap(trapId, trap, players * 5);
 					break;
 				// Spikes
 				case 6:
@@ -80,15 +81,15 @@ var board = {
 					break;
 				// Laser Up
 				case 10:
-					traps[trapId] = new BeamTrap(trapId, trap, 1, 'up');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 10, 'up');
 					break;
 				// Laser Right
 				case 11:
-					traps[trapId] = new BeamTrap(trapId, trap, 1, 'right');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 10, 'right');
 					break;
 				// Laser Left
 				case 12:
-					traps[trapId] = new BeamTrap(trapId, trap, 1, 'left');
+					traps[trapId] = new BeamTrap(trapId, trap, players * 10, 'left');
 					break;
 			}
 
@@ -114,6 +115,12 @@ var board = {
 	},
 	load: function(index) {
 		if (index < board.stage_count) {
+			if (player.is_controller) {
+				dispatch.emit('scene', {
+					index: index
+				});
+			}
+
 			board.current_stage = index;
 			Crafty.enterScene("stage"+index);
 
@@ -128,6 +135,10 @@ var board = {
 		}
 	}
 };
+
+dispatch.on('scene', function(data) {
+	board.load(data.index);
+});
 
 debug.game("Building Tile Maps...");
 board.create(STAGE_01);

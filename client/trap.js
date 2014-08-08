@@ -77,11 +77,11 @@ Trap.prototype.set_threshold_text = function(id, trigger, num) {
 								.attr({ x: trigger.x, y: trigger.y })
 								.textFont({ size: '20px', weight: 'bold' })
 								.text(num.toString());
-			//if(player.is_controller) threshold_text.visible = false;
+			if(player.is_controller) threshold_text[id].visible = false;
 			trigger.attach(threshold_text[id]);
 		}
 		else
-			threshold_text[id].text(num.toString());
+			threshold_text[id].text(num);
 	}
 }
 
@@ -92,10 +92,7 @@ Trap.prototype.activate = function() {
 
 Trap.prototype.click = function() {
 	console.log("Trap Clicked: " + this.string);
-	if (!player.is_controller && !this.clicked) {
-		console.log()
-		this.clicked = true;
-	
+	if (!player.is_controller) {
 		var id = this.trap_id;
 		var threshold = this.threshold;
 
@@ -106,8 +103,10 @@ Trap.prototype.click = function() {
 			threshold: threshold,
 		});
 
-		threshold_left -= 1;
-		traps[this.trap_id].set_threshold_text(id, traps[this.trap_id].trigger, threshold_left[id]);
+		if(threshold_left > 0) {
+			threshold_left -= 1;
+			traps[this.trap_id].set_threshold_text(id, traps[this.trap_id].trigger, threshold_left[id]);
+		}
 	}
 };
 
@@ -116,8 +115,6 @@ Trap.prototype.click = function() {
 */
 Trap.prototype.reset = function() {
 	var that = this;
-
-	this.clicked = false;
 
 	if (this.trigger != null){
 		if (!player.is_controller) {

@@ -1,7 +1,7 @@
 
 var AVATAR = {
 	gravity: 0.4,
-	speed: 4,
+	speed: 5,
 	jump: 12,
 	color: "#FFFFFF",
 	intensity: 0.0,
