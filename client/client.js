@@ -48,8 +48,7 @@ dispatch.on('reset', function(data){
 
 	avatar.entity.destroy();
 	player.is_controller = data
-	avatar.init();
-
+	//avatar.init();
 	board.load(0);
 
 	if (Crafty.isPaused()){
