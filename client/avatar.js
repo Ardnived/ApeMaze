@@ -113,6 +113,18 @@ var avatar = {
 				if (e.key == Crafty.keys.SPACE) {
 					Crafty.viewport.follow(avatar.entity, AVATAR.offset, 0);
 				}
+			})
+			.bind('EnterFrame', function(){
+				if(Crafty.keydown[Crafty.keys.RIGHT_ARROW] || Crafty.keydown[Crafty.keys.D]){
+					Crafty.viewport.x -= 20
+				}else if(Crafty.keydown[Crafty.keys.LEFT_ARROW] || Crafty.keydown[Crafty.keys.A]){
+					Crafty.viewport.x += 20
+				}
+				if(Crafty.keydown[Crafty.keys.UP_ARROW] || Crafty.keydown[Crafty.keys.W]){
+					Crafty.viewport.y += 20
+				}else if(Crafty.keydown[Crafty.keys.DOWN_ARROW] || Crafty.keydown[Crafty.keys.S]){
+					Crafty.viewport.y -= 20
+				}
 			});
 
 		dispatch.on('move', function(data) {
