@@ -9,9 +9,25 @@ dispatch.on('meta', function(data) {
 
 	if (typeof data.player_id != 'undefined') {
 		player.id = data.player_id;
-		player.name = "Player "+player.id;
 
-		document.getElementById('name_input').value = player.name;
+		var storedName = null;
+		var cookies = document.cookie.split('; ')
+		for(var i=0; i<cookies.length; i++){
+			if(cookies[i].indexOf('username=') == 0){
+				storedName = cookies[i].substr(9, cookies[i].length)
+			}
+		}
+
+		if(storedName != undefined){
+			player.name = storedName
+			document.getElementById('name_input').value = player.name;
+			dispatch.emit('meta', {
+				name: player.name
+			});
+		}else{
+			player.name = "Player "+player.id;
+			document.getElementById('name_input').value = player.name;
+		}
 	}
 
 	if (typeof data.is_controller != 'undefined') {
