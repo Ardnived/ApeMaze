@@ -135,10 +135,11 @@ setInterval(function(){
 					delete player_last_connection[key]
 
 					num_clients--;
-					checkReadyAndAssignPlayers();
 
 					clients[key].socket.emit('knockout', true);
 					delete clients[key];
+
+					checkReadyAndAssignPlayers();
 				}
 			}
 		}
@@ -148,7 +149,7 @@ setInterval(function(){
 
 	debug.game('players active:')
 	for(var key in clients){
-		debug.game(clients[key]);
+		debug.game(clients[key].player_id);
 	}
 }, 5000);
 
@@ -222,6 +223,9 @@ dispatch.io.on('connection', function(socket) {
 	});
 	
 	socket.on('trap', function(data) {	
+
+		debug.game('trap trap trap');
+
 		if(data.type == 'beartrap' || data.type == 'platformtrap' || data.type == 'elevatortrap') {
 			// Special
 			socket.broadcast.emit('trap', data);
