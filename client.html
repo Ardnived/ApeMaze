@@ -20,7 +20,7 @@
 			<small>
 				Press SPACEBAR to follow runner.<br />
 				Drag screen to free move.<br />
-				Or use arrows.
+				Use arrows or WASD to free move.
 			</small>
 		</div>
 
@@ -58,14 +58,15 @@
 		<strong class="title">Ape Escape</strong>
 		<br />
 		<br />
-		<div id="players_waiting">
-		</div>
+		<div id="players_waiting"></div>
 		<br />
 		<small class="result"></small>
 		<br />
-		<button id="wantape" class="btn" onclick="dispatch.emit('ready', true);">I WANT TO BE THE RUNNER</button>
-		<br />
-		<button id="wantobs" class="btn" onclick="dispatch.emit('ready', false);">I WANT TO BE A JAILER</button>
+		<div id="choice">
+			<button id="wantape" class="btn" onclick="dispatch.emit('ready', true);">I WANT TO BE THE RUNNER</button>
+			<br />
+			<button id="wantobs" class="btn" onclick="dispatch.emit('ready', false);">I WANT TO BE A JAILER</button>
+		</div>
 		<br />
 
 		<img src="/resources/img/ape.png" style="position: absolute; top: 100; left: 0; width: 500px;" />

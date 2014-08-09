@@ -106,6 +106,7 @@ dispatch.on('knockout', function(data) {
 	document.getElementById("lobby").getElementsByClassName("title")[0].innerHTML = "FINISH YOUR BANANAS";
 	document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = "We disconnected you, refresh to reconnect";
 	updateWaiting(0, 0);
-	document.getElementById("wantape").visibility = 'hidden';
-	document.getElementById("wantobs").visibility = 'hidden';
+	document.getElementById("choice").style.visibility = 'hidden';
+	document.getElementById("players_waiting").style.visibility = 'hidden';
+	document.getElementById("canvas").style.display = 'none';
 });
