@@ -111,4 +111,5 @@ dispatch.on('knockout', function(data) {
 	document.getElementById("players_waiting").style.visibility = 'hidden';
 	document.getElementById("canvas").style.display = 'none';
 	document.body.className = "";
+	dispatch.disconnect();
 });

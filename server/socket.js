@@ -127,19 +127,16 @@ setInterval(function(){
 		if (time_now - player_last_connection_time > 15000){
 			if(clients[key]){
 				if(!clients[key].ready){
-
-					socket = clients[key].socket.emit('knockout', true);
-
 					debug.game('player ' + clients[key].player_id + ' is kicked')
 
 					delete player_last_connection[key]
 
-					num_clients--;
-
 					clients[key].socket.emit('knockout', true);
-					delete clients[key];
-
-					checkReadyAndAssignPlayers();
+					clients[key].socket.disconnect();
+					
+					//delete clients[key];
+					//num_clients--;
+					//checkReadyAndAssignPlayers();
 				}
 			}
 		}
