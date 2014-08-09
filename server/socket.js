@@ -17,22 +17,142 @@ var current_scene = 0;
 
 var player_last_connection = {};
 
+function reset_player_last_connection(){
+	var date_now = new Date();
+	for (var key in player_last_connection){
+		player_last_connection[key] = date_now;
+	}
+}
+
+function checkReadyAndAssignPlayers() {
+	if(game.active){
+		var has_controller = false;
+		for(var key in clients){
+			if(clients[key].is_controller){
+				has_controller=true;
+				break;
+			}
+		}
+		if(!has_controller){
+			game.active = false;
+			game.controller_won = false;
+			game.cause = 'suicide';
+			reset_player_last_connection();
+			dispatch.io.emit('gameover', {
+				controller_won: game.controller_won,
+				cause: game.cause,
+				latecomer: false
+			});
+			dispatch.io.emit('chat', {
+				message: 'The ape has lost its connection lol...'
+			});
+			for(var key in clients){
+				clients[key].ready = false;
+			}
+		}
+		return;
+	}
+
+	if(num_clients < 2){
+		dispatch.io.emit('chat', {message: "Need more players to start game."});
+		return;
+	}
+
+	var unreadyCount = 0;
+	var controllers = []
+	var observers = []
+	for(var key in clients){
+		if(!clients[key].ready){
+			unreadyCount++;
+		}else{
+			if(clients[key].is_controller){
+				controllers.push(key);
+			}else{
+				observers.push(key);
+			}
+		}
+	}
+
+	if(unreadyCount == 0){
+		if(controllers.length == 0){
+			for (var key in clients){
+				clients[key].is_controller = true
+				break;
+			}
+		}else if(controllers.length > 1){
+			var cID = Math.floor(Math.random()*controllers.length)
+			for(var i=0; i<controllers.length; i++){
+				if(i == cID){
+					clients[controllers[i]].is_controller = true
+					}else{
+					clients[controllers[i]].is_controller = false
+				}
+			}
+		}
+
+		trap.traps = {}
+		
+		if (game.controller_won == null) {
+			for (var socketID in clients) {
+				clients[socketID].socket.emit('meta', { 
+					is_controller: clients[socketID].is_controller,
+					num_players: num_clients
+				});
+			}
+		} else {
+			for (var socketID in clients) {
+				clients[socketID].socket.emit('reset', clients[socketID].is_controller)
+				clients[socketID].socket.emit('meta', { 
+					is_controller: clients[socketID].is_controller,
+					num_players: num_clients
+				});
+			}
+		}
+		
+		debug.game("Starting game...")
+		game.active = true;
+	} else {
+		var message = {
+			message: "Waiting for "+unreadyCount+" users to be ready"
+		}
+		chat_messages.push(message);
+		dispatch.io.emit('chat', message);
+	}
+}
+
 setInterval(function(){
 	debug.game('check idle players')
 	var time_now = (new Date).getTime(); 
 	for (var key in player_last_connection){
 		var player_last_connection_time = player_last_connection[key].getTime();
 		if (time_now - player_last_connection_time > 15000){
-			if(!clients[key].ready){
+			if(clients[key]){
+				if(!clients[key].ready){
 
-				sockets[key].emit('knockout', true);
+					socket = sockets[key].emit('knockout', true);
 
-				delete clients[key];
-				delete sockets[key];
+					debug.game('player ' + clients[socket.id].player_id + ' is kicked')
+
+					delete player_last_connection[socket.id]
+
+					delete clients[socket.id];
+					num_clients--;
+					checkReadyAndAssignPlayers();
+
+					socket.broadcast.emit('player_left', {num_players: num_clients, players_ready: players_ready});
+					delete sockets[socket.id];
+				}
 			}
 		}
 	}
-}, 15000);
+
+	debug.game('finish checking')
+
+	debug.game('players active:')
+	for(var key in clients){
+		debug.game(clients[key].player_id);
+	}
+}, 5000);
 
 dispatch.io.on('connection', function(socket) {
 	client_is_controller = true;
@@ -135,6 +255,7 @@ dispatch.io.on('connection', function(socket) {
 		game.active = false;
 		game.controller_won = data.controller_won;
 		game.cause = data.cause
+		reset_player_last_connection();
 		dispatch.io.emit('gameover', data);
 		dispatch.io.emit('chat', {message: "Game over. The ape " + (data.controller_won ? "escaped." : "died.")})
 		for(var key in clients){
@@ -179,8 +300,10 @@ dispatch.io.on('connection', function(socket) {
 	});
 
 	if (game.active) {
+		reset_player_last_connection();
 		socket.emit('gameover', {latecomer: true, controller_won:null})
 	} else if (game.controller_won != null) {
+		reset_player_last_connection();
 		socket.emit('gameover', {
 			controller_won: game.controller_won,
 			cause: game.cause,
@@ -210,98 +333,4 @@ dispatch.io.on('connection', function(socket) {
 	})
 });
 
-	
-function checkReadyAndAssignPlayers() {
-	if(game.active){
-		var has_controller = false;
-		for(var key in clients){
-			if(clients[key].is_controller){
-				has_controller=true;
-				break;
-			}
-		}
-		if(!has_controller){
-			game.active = false;
-			game.controller_won = false;
-			game.cause = 'suicide';
-			dispatch.io.emit('gameover', {
-				controller_won: game.controller_won,
-				cause: game.cause,
-				latecomer: false
-			});
-			dispatch.io.emit('chat', {
-				message: 'The ape has lost its connection lol...'
-			});
-			for(var key in clients){
-				clients[key].ready = false;
-			}
-		}
-		return;
-	}
 
-	if(num_clients < 2){
-		dispatch.io.emit('chat', {message: "Need more players to start game."});
-		return;
-	}
-
-	var unreadyCount = 0;
-	var controllers = []
-	var observers = []
-	for(var key in clients){
-		if(!clients[key].ready){
-			unreadyCount++;
-		}else{
-			if(clients[key].is_controller){
-				controllers.push(key);
-			}else{
-				observers.push(key);
-			}
-		}
-	}
-
-	if(unreadyCount == 0){
-		if(controllers.length == 0){
-			for (var key in clients){
-				clients[key].is_controller = true
-				break;
-			}
-		}else if(controllers.length > 1){
-			var cID = Math.floor(Math.random()*controllers.length)
-			for(var i=0; i<controllers.length; i++){
-				if(i == cID){
-					clients[controllers[i]].is_controller = true
-					}else{
-					clients[controllers[i]].is_controller = false
-				}
-			}
-		}
-
-		trap.traps = {}
-		
-		if (game.controller_won == null) {
-			for (var socketID in clients) {
-				clients[socketID].socket.emit('meta', { 
-					is_controller: clients[socketID].is_controller,
-					num_players: num_clients
-				});
-			}
-		} else {
-			for (var socketID in clients) {
-				clients[socketID].socket.emit('reset', clients[socketID].is_controller)
-				clients[socketID].socket.emit('meta', { 
-					is_controller: clients[socketID].is_controller,
-					num_players: num_clients
-				});
-			}
-		}
-		
-		debug.game("Starting game...")
-		game.active = true;
-	} else {
-		var message = {
-			message: "Waiting for "+unreadyCount+" users to be ready"
-		}
-		chat_messages.push(message);
-		dispatch.io.emit('chat', message);
-	}
-}
