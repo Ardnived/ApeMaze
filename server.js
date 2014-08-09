@@ -2,6 +2,6 @@ var dispatch = require("./server/dispatch");
 var debug = require("./shared/debug");
 
 // Initialize the server.
-dispatch.start(8081);
+dispatch.start(3000);
 
 require("./server/socket");
