@@ -230,7 +230,7 @@ function checkReadyAndAssignPlayers() {
 				latecomer: false
 			});
 			dispatch.io.emit('chat', {
-				message: 'The ape has lost its connection lol...'
+				message: 'The ape has lost its connection...'
 			});
 			for(var key in clients){
 				clients[key].ready = false;
@@ -239,8 +239,8 @@ function checkReadyAndAssignPlayers() {
 		return;
 	}
 
-	if(num_clients < 2){
-		dispatch.io.emit('chat', {message: "Need more players to start game."});
+	if (num_clients < 2) {
+		dispatch.io.emit('chat', { message: "You need "+(2 - num_clients)+" more player to start a game." });
 		return;
 	}
 
