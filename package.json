@@ -1,7 +1,7 @@
 {
-  "name": "ape-maze",
+  "name": "ape-escape",
   "version": "0.0.1",
-  "description": "Ape Maze",
+  "description": "Ape Escape",
   "dependencies": {
     "socket.io": "~1.0.6"
   }
