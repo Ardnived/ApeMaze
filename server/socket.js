@@ -8,7 +8,6 @@ var trap = require("../server/trap");
  * When a new user connects, handle it.
  */
 var clients = {};
-var sockets = {};
 var num_clients = 0;
 var players_ready = 0;
 var autoinc = 0;
@@ -25,10 +24,8 @@ setInterval(function(){
 		if (time_now - player_last_connection_time > 15000){
 			if(!clients[key].ready){
 
-				sockets[key].emit('knockout', true);
-
+				clients[key].socket.emit('knockout', true);
 				delete clients[key];
-				delete sockets[key];
 			}
 		}
 	}
@@ -53,9 +50,10 @@ dispatch.io.on('connection', function(socket) {
 	};
 	autoinc++;
 	
-	clients[socket.id] = client;
-	sockets[socket.id] = socket;
-	num_clients++;
+	if (!(socket.id in clients) {
+		clients[socket.id] = client;
+		num_clients++;
+	}
 
 	player_last_connection[socket.id] = new Date()
 
@@ -170,7 +168,6 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('disconnect', function () {
 		delete player_last_connection[socket.id]
 
-		delete sockets[socket.id];
 		delete clients[socket.id];
 		num_clients--;
 		checkReadyAndAssignPlayers();
