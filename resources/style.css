@@ -84,7 +84,7 @@ body.controller #controller {
 	margin: auto;
 }
 
-#chat-toggle:not(:checked) ~ form {
+#chat-toggle:not(:checked) ~ div {
 	display: none;
 }
 
