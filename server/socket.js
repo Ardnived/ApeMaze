@@ -8,7 +8,6 @@ var trap = require("../server/trap");
  * When a new user connects, handle it.
  */
 var clients = {};
-var sockets = {};
 var num_clients = 0;
 var players_ready = 0;
 var autoinc = 0;
@@ -129,18 +128,17 @@ setInterval(function(){
 			if(clients[key]){
 				if(!clients[key].ready){
 
-					socket = sockets[key].emit('knockout', true);
+					socket = clients[key].socket.emit('knockout', true);
 
-					debug.game('player ' + clients[socket.id].player_id + ' is kicked')
+					debug.game('player ' + clients[key].player_id + ' is kicked')
 
-					delete player_last_connection[socket.id]
+					delete player_last_connection[key]
 
-					delete clients[socket.id];
+					delete clients[key];
 					num_clients--;
 					checkReadyAndAssignPlayers();
 
-					socket.broadcast.emit('player_left', {num_players: num_clients, players_ready: players_ready});
-					delete sockets[socket.id];
+					clients[key].socket.emit('knockout', true);
 				}
 			}
 		}
@@ -173,9 +171,10 @@ dispatch.io.on('connection', function(socket) {
 	};
 	autoinc++;
 	
-	clients[socket.id] = client;
-	sockets[socket.id] = socket;
-	num_clients++;
+	if (!(socket.id in clients) {
+		clients[socket.id] = client;
+		num_clients++;
+	}
 
 	player_last_connection[socket.id] = new Date()
 
@@ -291,7 +290,6 @@ dispatch.io.on('connection', function(socket) {
 	socket.on('disconnect', function () {
 		delete player_last_connection[socket.id]
 
-		delete sockets[socket.id];
 		delete clients[socket.id];
 		num_clients--;
 		checkReadyAndAssignPlayers();
