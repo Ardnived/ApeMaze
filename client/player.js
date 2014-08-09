@@ -100,3 +100,12 @@ function updateWaiting(num_players, num_ready) {
 		waiting_container.appendChild(waiting_players[i]);
 	}
 }
+
+// DC Player
+dispatch.on('knockout', function(data) {
+	document.getElementById("lobby").getElementsByClassName("title")[0].innerHTML = "FINISH YOUR BANANAS";
+	document.getElementById("lobby").getElementsByClassName("result")[0].innerHTML = "We disconnected you, refresh to reconnect";
+	updateWaiting(0, 0);
+	document.getElementById("wantape").innerHTML = '';
+	document.getElementById("wantobs").innerHTML = '';
+});
