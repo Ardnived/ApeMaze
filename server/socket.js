@@ -134,11 +134,11 @@ setInterval(function(){
 
 					delete player_last_connection[key]
 
-					delete clients[key];
 					num_clients--;
 					checkReadyAndAssignPlayers();
 
 					clients[key].socket.emit('knockout', true);
+					delete clients[key];
 				}
 			}
 		}
@@ -148,7 +148,7 @@ setInterval(function(){
 
 	debug.game('players active:')
 	for(var key in clients){
-		debug.game(clients[key].player_id);
+		debug.game(clients[key]);
 	}
 }, 5000);
 
@@ -171,7 +171,7 @@ dispatch.io.on('connection', function(socket) {
 	};
 	autoinc++;
 	
-	if (!(socket.id in clients) {
+	if (!(socket.id in clients)) {
 		clients[socket.id] = client;
 		num_clients++;
 	}
