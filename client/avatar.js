@@ -117,17 +117,14 @@ var avatar = {
 			.bind('EnterFrame', function(){
 				if(Crafty.keydown[Crafty.keys.RIGHT_ARROW] || Crafty.keydown[Crafty.keys.D]){
 					Crafty.viewport.x -= 20
-					Crafty.viewport.mouselook(false);
 				}else if(Crafty.keydown[Crafty.keys.LEFT_ARROW] || Crafty.keydown[Crafty.keys.A]){
 					Crafty.viewport.x += 20
-					Crafty.viewport.mouselook(false);
 				}
+				
 				if(Crafty.keydown[Crafty.keys.UP_ARROW] || Crafty.keydown[Crafty.keys.W]){
 					Crafty.viewport.y += 20
-					Crafty.viewport.mouselook(false);
 				}else if(Crafty.keydown[Crafty.keys.DOWN_ARROW] || Crafty.keydown[Crafty.keys.S]){
 					Crafty.viewport.y -= 20
-					Crafty.viewport.mouselook(false);
 				}
 			});
 
