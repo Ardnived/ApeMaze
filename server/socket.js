@@ -8,11 +8,31 @@ var trap = require("../server/trap");
  * When a new user connects, handle it.
  */
 var clients = {};
+var sockets = {};
 var num_clients = 0;
 var players_ready = 0;
 var autoinc = 0;
 var chat_messages = [];
 var current_scene = 0;
+
+var player_last_connection = {};
+
+setInterval(function(){
+	debug.game('check idle players')
+	var time_now = (new Date).getTime(); 
+	for (var key in player_last_connection){
+		var player_last_connection_time = player_last_connection[key].getTime();
+		if (time_now - player_last_connection_time > 15000){
+			if(!clients[key].ready){
+
+				sockets[key].emit('knockout', true);
+
+				delete clients[key];
+				delete sockets[key];
+			}
+		}
+	}
+}, 15000);
 
 dispatch.io.on('connection', function(socket) {
 	client_is_controller = true;
@@ -34,7 +54,10 @@ dispatch.io.on('connection', function(socket) {
 	autoinc++;
 	
 	clients[socket.id] = client;
+	sockets[socket.id] = socket;
 	num_clients++;
+
+	player_last_connection[socket.id] = new Date()
 
 	debug.dispatch("Received Game Connection. Player ID:", clients[socket.id].player_id);
 	
@@ -145,6 +168,9 @@ dispatch.io.on('connection', function(socket) {
 	socket.emit('chats', chat_messages);
 
 	socket.on('disconnect', function () {
+		delete player_last_connection[socket.id]
+
+		delete sockets[socket.id];
 		delete clients[socket.id];
 		num_clients--;
 		checkReadyAndAssignPlayers();
